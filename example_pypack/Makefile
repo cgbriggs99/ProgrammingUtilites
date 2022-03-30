@@ -1,8 +1,14 @@
 
+ifeq ($(OS),Windows_NT)
+DEL=del
+else
+DEL=rm -rf
+endif
+
 # Clean up the environment.
 .PHONY:clean
 clean:
-	python delete_files.py -d *.o *.so *.a *~
+	$(DEL) *.o *.a *.so *~
 
 # Build the docs.
 .PHONY:docs

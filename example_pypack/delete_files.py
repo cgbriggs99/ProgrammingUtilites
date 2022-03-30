@@ -97,21 +97,17 @@ def tree(directory = ".") :
         infix = ""
     elif len(directory) > 0 and directory[-1] != "/" :
         infix = "/"
-    print(os.listdir(directory))
     entries = [directory + infix + f for f in os.listdir(directory)]
-    files = filter(os.path.isfile, entries)
-    dirs = filter(os.path.isdir, os.listdir(directory))]
-    print(directory)
-    print(files)
-    print(dirs)
+    files = list(filter(os.path.isfile, entries))
+    dirs = list(filter(os.path.isdir, entries))
     out = files
     for d in dirs :
-        print(d)
         out += [directory + infix + f for f in tree(d)]
     return out
 
-def print_matches(wildcards, recursive = False) :
-    files = filter(os.path.isfile, os.listdir())
+def get_matches(wildcards, recursive = False) :
+    
+    
 
 if __name__ == "__main__" :
     parser = argparse.ArgumentParser(description = """
@@ -137,7 +133,6 @@ name.
 """)
 
     args = vars(parser.parse_args())
-    print(os.listdir("./devtools"))
     print(tree())
     
 
