@@ -1,0 +1,22 @@
+name: test
+channels:
+
+  - conda-forge
+
+  - defaults
+dependencies:
+  - python
+  - pip
+  - numpy
+  - sphinx
+  - setuptools
+
+  # Testing
+  - pytest
+  - pytest-cov
+  - codecov
+
+
+# Pip stuff
+  #- pip:
+  #  - codecov
