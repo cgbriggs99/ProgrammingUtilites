@@ -1,0 +1,10 @@
+ # Emacs backups
+ *~
+
+# Compilation objects
+*.o
+*.so
+*.a
+a.out
+*.pyc
+*.pyo

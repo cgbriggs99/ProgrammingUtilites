@@ -50,8 +50,8 @@ points: The resolution of the quadrature.
     if not math.isfinite(degs) :    #Limit case. Approaches normality.
         return zstat(acc, cycles, conv)
     if degs >= 1 :
-        return mymath.solve(lambda x : t_cdf(x, degs, points) -
-                 t_cdf(-x, degs, points) - acc, 0,
+        return mymath.solve(lambda x : cdf(x, degs, points) -
+                 cdf(-x, degs, points) - acc, 0,
                  1.1 * math.tan(math.pi * acc - math.pi / 2), cycles, conv)
     elif degs > 0 : # Can't use the above method due to assumptions. Use Newton.
         otacc = 0.5 + acc / 2
