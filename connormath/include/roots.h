@@ -12,6 +12,6 @@ extern double secant(double x0, double x1, double convergence, roots_func_t func
 
 extern double regula_falsi(double x0, double x1, double convergence, roots_func_t func, void *args);
 
-extern int poly_roots(double *coefs, int dim, double *out);
+extern int poly_roots(double *coefs, int len, double *out);
 
 #endif
