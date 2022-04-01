@@ -23,19 +23,24 @@ else :
     libs = []
 
 
-funcs = setuptools.distutils.core.Extension("connormath.funcs",
+cfuncs = setuptools.distutils.core.Extension("connormath.funcs.cfuncs",
                                             sources =
-                                            ["./connormath/funcs/funcsmodule.c",
+                                            ["./connormath/funcs/cfuncsmodule.c",
                                              ],
                                               libraries = libs)
-ints = setuptools.distutils.core.Extension("connormath.ints",
+cints = setuptools.distutils.core.Extension("connormath.ints.cints",
                                             sources =
-                                            ["./connormath/ints/intsmodule.c",
+                                            ["./connormath/ints/cintsmodule.c",
                                              ],
                                               libraries = libs)
-roots = funcs = setuptools.distutils.core.Extension("connormath.roots",
+croots = setuptools.distutils.core.Extension("connormath.roots.croots",
                                             sources =
-                                            ["./connormath/roots/rootsmodule.c",
+                                            ["./connormath/roots/crootsmodule.c",
+                                             ],
+                                              libraries = libs)
+cstats = setuptools.distutils.core.Extension("connormath.roots.cstats",
+                                            sources =
+                                            ["./connormath/stats/cstatsmodule.c",
                                              ],
                                               libraries = libs)
 
@@ -75,7 +80,7 @@ setup(
 
     # Manual control if final package is compressible or not, set False to prevent the .egg from being made
     # zip_safe=False,
-    ext_modules = [funcs, roots, ints]
+    ext_modules = [cfuncs, croots, cints, cstats]
 #    entry_points = """
 #        [console_scripts]
 #        ising=ising.__main__:main

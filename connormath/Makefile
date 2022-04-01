@@ -1,17 +1,10 @@
+include ../platform.mk
 
-ifeq ($(OS),Windows_NT)
-LIBEXT=.dll
-DEL=del
-else
-ifeq ($(uname -s),Darwin)
-LIBEXT=.lib
-else
-LIBEXT=.so
-endif
-DEL=rm -rf
-endif
+.PHONY:all
+all: library docs
 
-all: 
+.PHONY:library
+library: src/all
 
 # Clean up the environment.
 .PHONY:clean
