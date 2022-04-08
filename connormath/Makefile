@@ -27,4 +27,5 @@ src/tests/%:
 	$(MAKE) -C src/tests $(@F)
 
 src/%:
-	$(MAKE) -C src $(@F)
+	echo $(@D)
+	$(MAKE) -C $(@D) all

@@ -53,7 +53,7 @@ double brent_dekker(double x0, double x1, double convergence, double tolerance, 
       s = b - fb * (a - b) / (fa - fb);
     }
     
-    if(!between((3 * a + b) / 4, b, s) ||
+    if(!betweenii((3 * a + b) / 4, b, s) ||
        (flag && (fabs(s - b) / 2 >= fabs(b - c) / 2) ||
 	(fabs(b - c) < fabs(tolerance))) ||
        (!flag && (fabs(s - b) / 2 >= fabs(c - d) / 2) ||

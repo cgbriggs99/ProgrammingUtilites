@@ -12,3 +12,5 @@ LIBEXT=.so
 endif
 DEL=rm -rf
 endif
+
+LAPACK_DIR=

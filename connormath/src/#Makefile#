@@ -1,6 +1,5 @@
 
-roots: roots/roots.o roots/polyroots.o
-	echo $^
+roots:
 
 %.o:
 	echo $@

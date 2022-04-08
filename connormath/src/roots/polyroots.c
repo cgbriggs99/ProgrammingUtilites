@@ -4,7 +4,6 @@
 #include <string.h>
 #include <math.h>
 #include <complex.h>
-#include <lapacke.h>
 
 // Divide polynomials.
 static int divide(const double *num, int ndim, const double *den, int ddim,
