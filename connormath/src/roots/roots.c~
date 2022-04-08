@@ -21,7 +21,7 @@ double brent_dekker(double x0, double x1, double convergence, double tolerance, 
     return (NAN);
   }
 
-  if(abs(fa) < abs(fb)) {
+  if(fabs(fa) < fabs(fb)) {
     double temp = a;
     a = b;
     b = temp;
@@ -34,7 +34,7 @@ double brent_dekker(double x0, double x1, double convergence, double tolerance, 
   fc = fa;
   flag = 1;
 
-  while(fb != 0 || abs(a - b) > abs(convergence)) {
+  while(fb != 0 || fabs(a - b) > fabs(convergence)) {
     if(fa != fc && fb != fc) {
       s = (a * fb * fc) / ((fa - fb) * (fa - fc)) +
 	(fa * b * fc) / ((fb - fa) * (fb - fc)) +
@@ -44,10 +44,10 @@ double brent_dekker(double x0, double x1, double convergence, double tolerance, 
     }
     
     if(!between((3 * a + b) / 4, b, s) ||
-       (flag && (abs(s - b) / 2 >= abs(b - c) / 2) ||
-	(abs(b - c) < abs(tolerance))) ||
-       (!flag && (abs(s - b) / 2 >= abs(c - d) / 2) ||
-	(abs(c - d) < abs(tolerance)))) {
+       (flag && (fabs(s - b) / 2 >= fabs(b - c) / 2) ||
+	(fabs(b - c) < fabs(tolerance))) ||
+       (!flag && (fabs(s - b) / 2 >= fabs(c - d) / 2) ||
+	(fabs(c - d) < fabs(tolerance)))) {
       s = (a + b) / 2;
       flag = 1;
     } else {
@@ -65,7 +65,7 @@ double brent_dekker(double x0, double x1, double convergence, double tolerance, 
       a = s;
       fa = fs;
     }
-    if(abs(fa) < abs(fb)) {
+    if(fabs(fa) < fabs(fb)) {
       double temp = a;
       a = b;
       b = temp;
@@ -82,7 +82,7 @@ double newton(double x0, double convergence, roots_func_t func, void *fargs, roo
 
   b = x0 - func(x0, fargs) / deriv(x0, derargs);
 
-  while(abs(a - b) > convergence) {
+  while(fabs(a - b) > convergence) {
     a = b;
     b = a - func(a, fargs) / deriv(a, derargs);
   }
@@ -95,7 +95,7 @@ double secant(double x0, double x1, double convergence, roots_func_t func, void 
   fa = func(a, fargs);
   fb = func(b, fargs);
 
-  while(abs(x0 - x1) > convergence) {
+  while(fabs(x0 - x1) > convergence) {
     double temp = b;
     b = b - fb * (b - a) / (fb - fa);
     a = temp;
@@ -106,7 +106,7 @@ double secant(double x0, double x1, double convergence, roots_func_t func, void 
 }
 
 double regula_falsi(double x0, double x1, double convergence, roots_func_t func, void *args) {
-  double a = x0, b = x1, c, fa, fb;
+  double a = x0, b = x1, c, fa, fb, fc;
   fa = func(a, args);
   fb = func(b, args);
 
@@ -114,7 +114,7 @@ double regula_falsi(double x0, double x1, double convergence, roots_func_t func,
     return (NAN);
   }
 
-  if(abs(fa) < abs(fb)) {
+  if(fabs(fa) < fabs(fb)) {
     double temp = a;
     a = b;
     b = temp;
@@ -123,7 +123,7 @@ double regula_falsi(double x0, double x1, double convergence, roots_func_t func,
     fb = temp;
   }
 
-  while(abs(a - b) > convergence) {
+  while(fabs(a - b) > convergence) {
     c = b - fb * (b - a) / (fb - fa);
     fc = func(c, args);
 
@@ -135,7 +135,7 @@ double regula_falsi(double x0, double x1, double convergence, roots_func_t func,
       fa = fc;
     }
 
-    if(abs(fa) < abs(fb)) {
+    if(fabs(fa) < fabs(fb)) {
       double temp = a;
       a = b;
       b = temp;

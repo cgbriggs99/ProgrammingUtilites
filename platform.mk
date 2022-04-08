@@ -7,6 +7,7 @@ else
 ifeq ($(uname -s),Darwin)
 LIBEXT=.lib
 else
+LDLIBS+=-lm -lpthread
 LIBEXT=.so
 endif
 DEL=rm -rf

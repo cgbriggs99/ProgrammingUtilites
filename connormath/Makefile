@@ -1,17 +1,30 @@
 include ../platform.mk
 
-.PHONY:all
-all: library docs
+DEPS=src/roots
+OBJECTS=src/roots/roots.o src/roots/polyroots.o
 
-.PHONY:library
-library: src/all
+.PHONY: all
+all: libconnormath$(LIBEXT) docs tests
+
+libconnormath$(LIBEXT): $(OBJECTS)
+	$(LD) -shared -o $@ $^
+
 
 # Clean up the environment.
-.PHONY:clean
+.PHONY: clean
 clean:
 	$(DEL) *.o *.a *.so *~
 
 # Build the docs.
-.PHONY:docs
+.PHONY: docs
 docs:
 	sphinx-build -b html docs/source docs/build/html
+
+.PHONY: tests
+tests: src/tests/test_roots
+
+src/tests/%:
+	$(MAKE) -C src/tests $(@F)
+
+src/%:
+	$(MAKE) -C src $(@F)
