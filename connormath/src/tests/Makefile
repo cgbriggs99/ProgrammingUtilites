@@ -2,7 +2,11 @@ include ../../../platform.mk
 
 CFLAGS+=-I../../include
 
-test: test.c
-test: LDLIBS+= -L ../../ -lconnormath$(LIBEXT) -lm $(LAPACK_LIB)
+all: test.o test_roots run_tests
 
-test_roots.o: test_roots.c
+test.o: test.c
+
+test_roots: test_roots.c test.o
+test_roots: CFLAGS+=-L ../../ -lconnormath -lm
+
+run_tests: run_tests.c

@@ -1,5 +1,6 @@
  
 #include "connormath.h"
+#include <math.h>
 
 int betweenxx(double bound1, double bound2, double value) {
   if(bound1 < bound2) {

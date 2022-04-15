@@ -1,25 +1,55 @@
 #ifndef __CM_TEST_H__
 #define __CM_TEST_H__
 
-typedef int (*test_func_t)(void);
+#include <stdio.h>
+#include <errno.h>
 
-// This will be defined in each file.
 typedef struct {
-  test_func_t *funcs;
-  unsigned int succs;
-  unsigned int fails;
-  unsigned int total;
-  unsigned int subsuccs;
-  unsigned int subfails;
-  unsigned int subtotal;
+  FILE *__info;
+  FILE *__stdout;
+  FILE *__stderr;
 } test_struct_t;
 
-extern test_struct_t setup_tests(const test_func_t *funcs);
+typedef struct {
+  uint16_t line_length;
+  uint16_t line;
+  uint16_t filename_len;
+  uint16_t funcname_len;
+  int32_t status;
+  int32_t errno;
+} __info_data_head_t;
 
-extern int assert_cont(int cond);
+extern int setup_tests(int argc, const char **argv);
 
-extern int assert_end(int cond);
+extern int end_tests(void);
 
-typedef test_struct_t (*init_tests_func_t)(void);
+// Redefine functions to be captured.
+#define printf(fmt, ...) fprintf(__get_teststruct(0)->__stdout, fmt, __VA_ARGS__)
+
+#define vprintf(fmt, arg) vfprintf(__get_teststruct(0)->__stdout, fmt, arg)
+
+#define puts(str) fputs(str, __get_teststruct(0)->__stdout)
+
+#define putchar(ch) fputc(ch, __get_teststruct(0)->__stdout)
+
+#define putchar_unlocked(ch) fputc_unlocked(ch, __get_teststruct(0)->__stdout)
+
+#define perror(str) fprintf(__get_teststruct(0)->__stderr, "%s: %s\n", str, strerror(errno))
+
+#define stderr (__get_teststruct(0)->__stderr)
+#define stdout (__get_teststruct(0)->__stdout)
+
+#define assert(cond) __assert_wrap(cond, __LINE__, __FILE__, __func__)
+
+#define assert_fatal(cond) __assert_wrap_fatal(cond, __LINE__, __FILE__, __func__)
+
+extern int __assert_wrap(int cond, const char *line, const char *file, const char *func);
+
+extern int __assert_wrap_fatal(int cond, const char *line, const char *file, const char *func);
+
+extern test_struct_t *__get_teststruct(int alloc);
+
+extern void __output_info(int status, int line_num, const char *file,
+			  const char *func);
 
 #endif

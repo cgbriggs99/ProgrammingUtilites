@@ -1,7 +1,7 @@
 include ../platform.mk
 
-DEPS=src/roots
-OBJECTS=src/roots/roots.o src/roots/polyroots.o
+DEPS=src/roots src/utils
+OBJECTS=src/roots/roots.o src/roots/polyroots.o src/utils/utils.o
 
 .PHONY: all
 all: libconnormath$(LIBEXT) docs tests
@@ -21,10 +21,10 @@ docs:
 	sphinx-build -b html docs/source docs/build/html
 
 .PHONY: tests
-tests: src/tests/test_roots
+tests: src/tests
 
-src/tests/%:
-	$(MAKE) -C src/tests $(@F)
+src/tests: libconnormath$(LIBEXT)
+	$(MAKE) -C src/tests 
 
 src/%:
 	echo $(@D)
