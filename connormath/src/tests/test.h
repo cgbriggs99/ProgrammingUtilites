@@ -11,10 +11,11 @@ typedef struct {
 } test_struct_t;
 
 typedef struct {
-  uint16_t line_length;
   uint16_t line;
   uint16_t filename_len;
   uint16_t funcname_len;
+  uint16_t cond;
+  uint16_t cond_len;
   int32_t status;
   int32_t errno;
 } __info_data_head_t;
@@ -43,13 +44,15 @@ extern int end_tests(void);
 
 #define assert_fatal(cond) __assert_wrap_fatal(cond, __LINE__, __FILE__, __func__)
 
-extern int __assert_wrap(int cond, const char *line, const char *file, const char *func);
+extern int __assert_wrap(int cond, int line, const char *file,
+			 const char *func, const char *condst);
 
-extern int __assert_wrap_fatal(int cond, const char *line, const char *file, const char *func);
+extern int __assert_wrap_fatal(int cond, int line, const char *file,
+			       const char *func, const char *condst);
 
 extern test_struct_t *__get_teststruct(int alloc);
 
-extern void __output_info(int status, int line_num, const char *file,
-			  const char *func);
+extern void __output_info(__info_data_head_t info, const char *file,
+			  const char *func, const char *condst);
 
 #endif

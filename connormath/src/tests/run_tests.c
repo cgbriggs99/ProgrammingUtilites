@@ -1,4 +1,21 @@
-#include "test.h" 
+#include "test.h"
+
+int get_line_at(FILE *fp, int line, int maxlen, char *out) {
+  int currline = 1;
+  fseek(fp, 0, SEEK_SET);
+  while(!feof(fp) && currline != line) {
+    int ch = fgetc(fp);
+    if(ch == '\n') {
+      currline++;
+    }
+  }
+  if(currline == line) {
+    fgets(out, maxlen, fp);
+    return (strlen(out));
+  } else {
+    return (-1);
+  }
+}
 
 int collect_dir(const char *dname, char **out, int *len_out) {
   DIR *d;
@@ -25,6 +42,75 @@ int collect_dir(const char *dname, char **out, int *len_out) {
   return (found);
 }
 
+int parse_infofile(const char *fname, int *pass, int *fail, int *warn) {
+  FILE *fp = fopen(fname, "r");
+  __info_data_head_t data;
+
+  while(!feof(fp)) {
+    // Get the data packet.
+    fread(&data, sizeof(__info_data_head_t), 1, fp);
+    if(data.cond == 0) {
+      *pass++;
+    } else {
+      switch(status) {
+      case 0:
+	*warn++;
+	break;
+      case 1:
+	*fail++;
+	break;
+      }
+    }
+    // Skip the error stuff.
+    fseek(fp, data.funcname_len + data.filename_len + data.cond_len, SEEK_CUR);
+  }
+  fclose(fp);
+  return (0);
+}
+
+int show_errors(const char *fname) {
+  FILE *fp = fopen(fname, "r");
+  __info_data_head_t data;
+  char *filebuf = calloc(BUFSIZ, sizeof(char)),
+    *funcbuf = calloc(BUFSIZ, sizeof(char)),
+    *condbuf = calloc(BUFSIZ, sizeof(char)),
+    *linebuf = calloc(BUFSIZ, sizeof(char));
+
+  while(!feof(fp)) {
+    // Read data stuff.
+    fread(&data, sizeof(__info_data_head_t), 1, fp);
+    if(data.cond != 0 || errno != 0) {
+      // Clear memory.
+      memset(filebuf, 0, BUFSIZ);
+      memset(funcbuf, 0, BUFSIZ);
+      memset(condbuf, 0, BUFSIZ);
+      memset(linebuf, 0, BUFSIZ);
+      // Get debug info.
+      fread(filebuf, sizeof(char), data.filename_len, fp);
+      fread(funcbuf, sizeof(char), data.funcname_len, fp);
+      fread(condbuf, sizeof(char), data.cond_len, fp);
+      get_line_at(filebuf, data.line, BUFSIZ, linebuf);
+      // Print debug info.
+      switch(data.status) {
+      case 0:
+	printf("Warning at %s:%d in file %s: %s\n%s\n%s = %d\n", funcbuf,
+	       data.line, filebuf, strerror(data.errno), linebuf, condbuf,
+	       data.cond);
+	break;
+      case 1:
+	printf("Error at %s:%d in file %s: %s\n%s\n%s = %d\n", funcbuf,
+	       data.line, filebuf, strerror(data.errno), linebuf, condbuf,
+	       data.cond);
+	break;
+      }
+    }
+    
+  
+  
+#define INFOFILE ".info"
+#define ERRFILE ".error"
+#define OUTFILE ".out"
+
 int main(int argc, char **argv) {
   DIR *d;
   struct dirent *dir;
@@ -32,9 +118,11 @@ int main(int argc, char **argv) {
   int len = 0;
   struct stat path_stat;
   int *passes, *fails, *totals, *passed, *warns;
+  char *info = calloc(BUFSIZ, sizeof(char)),
+    *out = calloc(BUFSIZ, sizeof(char)),
+    *err = calloc(BUFSIZ, sizeof(char));
+  char *pass_args[3];
 
-  curr_tests = calloc(1, sizeof(test_struct_t));
-  
   printf("Collecting tests.\n");
   printf("%d\n", argc);
   if(argc == 1) {
@@ -64,37 +152,24 @@ int main(int argc, char **argv) {
   warns = calloc(len, sizeof(int));
   
   for(int i = 0; i < len; i++) {
-    dlerror();
-    void *handle = dlopen(tests[i], RTLD_NOW);
-    char *err = dlerror();
-    if(err != NULL) {
-      fprintf(stderr, "Failed to open file: %s\n", err);
-      continue;
-    }
-    init_tests_func_t init_func = dlsym(handle, "init_tests");
-    if(err != NULL) {
-      fprintf(stderr, "Failed to initialize tests: %s\n", err);
-    }
-    *curr_tests = init_func();
-    
-
-    for(int j = 0; curr_tests->funcs[j] != NULL; j++) {
-      int ret = curr_tests->funcs[j]();
-      if(ret == 0) {
-	passed[j] = 1;
-	curr_tests->succs++;
-	curr_tests->total++;
-      } else {
-	passed[j] = 0;
-	curr_tests->fails++;
-	curr_tests->total++;
-      }
-    }
-    passes[i] = curr_tests->succs;
-    fails[i] = curr_tests->fails;
-    totals[i] = curr_tests->total;
-    warns[i] = curr_tests->subfails;
-    dlclose(handle);
+    // Clear the buffers.
+    memset(out, 0, BUFSIZ);
+    memset(info, 0, BUFSIZ);
+    memset(err, 0, BUFSIZ);
+    // Set the buffers to the test string.
+    strcpy(info, tests[i], strlen(tests[i]));
+    strcpy(out, tests[i], strlen(tests[i]));
+    strcpy(err, tests[i], strlen(tests[i]));
+    // Mangle name to get outputs.
+    strcat(info, INFOFILE);
+    strcat(out, OUTFILE);
+    strcat(err, ERRFILE);
+    // Set up the arguments to pass.
+    pass_args[0] = info;
+    pass_args[1] = out;
+    pass_args[2] = err;
+    // Run the test.
+    execv(test[i], pass_args);
   }
   printf("Summary:\n");
   int pass = 0, fail = 0, total = 0, warn = 0;
