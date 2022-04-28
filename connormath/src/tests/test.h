@@ -1,58 +1,31 @@
-#ifndef __CM_TEST_H__
-#define __CM_TEST_H__
 
-#include <stdio.h>
-#include <errno.h>
+#ifndef __CONNOR_TEST_H__
+#define __CONNOR_TEST_H__
 
 typedef struct {
-  FILE *__info;
-  FILE *__stdout;
-  FILE *__stderr;
+  int passes;
+  int fails;
+  int runs;
+  int warns;
 } test_struct_t;
 
-typedef struct {
-  uint16_t line;
-  uint16_t filename_len;
-  uint16_t funcname_len;
-  uint16_t cond;
-  uint16_t cond_len;
-  int32_t status;
-  int32_t errno;
-} __info_data_head_t;
+static test_func_t *__test_funcs = NULL;
+static test_struct_t *__test_struct = NULL;
 
-extern int setup_tests(int argc, const char **argv);
+// Define here.
+static test_struct_t init_tests();
 
-extern int end_tests(void);
+static setup_tests(test_func_t *const tests) {
+  __test_struct = malloc(sizeof(__test_struct));
+  __test_funcs = tests;
+  __test_struct->passes = 0;
+  __test_struct->fails = 0;
+  __test_struct->runs = 0;
+  __test_struct->warns = 0;
+  return (__test_struct);
+}
 
-// Redefine functions to be captured.
-#define printf(fmt, ...) fprintf(__get_teststruct(0)->__stdout, fmt, __VA_ARGS__)
+#define assert(cond) 
 
-#define vprintf(fmt, arg) vfprintf(__get_teststruct(0)->__stdout, fmt, arg)
-
-#define puts(str) fputs(str, __get_teststruct(0)->__stdout)
-
-#define putchar(ch) fputc(ch, __get_teststruct(0)->__stdout)
-
-#define putchar_unlocked(ch) fputc_unlocked(ch, __get_teststruct(0)->__stdout)
-
-#define perror(str) fprintf(__get_teststruct(0)->__stderr, "%s: %s\n", str, strerror(errno))
-
-#define stderr (__get_teststruct(0)->__stderr)
-#define stdout (__get_teststruct(0)->__stdout)
-
-#define assert(cond) __assert_wrap(cond, __LINE__, __FILE__, __func__)
-
-#define assert_fatal(cond) __assert_wrap_fatal(cond, __LINE__, __FILE__, __func__)
-
-extern int __assert_wrap(int cond, int line, const char *file,
-			 const char *func, const char *condst);
-
-extern int __assert_wrap_fatal(int cond, int line, const char *file,
-			       const char *func, const char *condst);
-
-extern test_struct_t *__get_teststruct(int alloc);
-
-extern void __output_info(__info_data_head_t info, const char *file,
-			  const char *func, const char *condst);
 
 #endif

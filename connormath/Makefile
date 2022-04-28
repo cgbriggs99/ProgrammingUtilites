@@ -24,7 +24,7 @@ docs:
 tests: src/tests
 
 src/tests: libconnormath$(LIBEXT)
-	$(MAKE) -C src/tests 
+	$(MAKE) -C src/tests all
 
 src/%:
 	echo $(@D)

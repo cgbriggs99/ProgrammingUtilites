@@ -1,8 +1,8 @@
 #include "connormath.h"
-#include "test.h"
 #include <math.h>
 #include <stdio.h>
 #include <errno.h>
+#include <assert.h>
 
 static double pcoefs[] = { -9694845, 0, 4508102925, 0,
 			  -347123925225, 0, 10529425731825, 0,
@@ -46,19 +46,20 @@ int test_brent_dekker(void) {
   ret3 = brent_dekker(-1, 0.5, CONV, TOL, func2, NULL);
   err3 = errno;
 
+  errno = err0;
   assert(ret0 != 0);
+  errno = err1;
   assert(ret1 != 0);
+  errno = err2;
   assert(!isnan(ret2) || err2 != EDOM);
+  errno = err3;
   assert(!absnear(ret3, 0, CONV));
   
   return (retval);
 }
 
-test_func_t funcs[] = {
-		       test_brent_dekker,
-		       NULL
-};
+int main(void) {
+  test_brent_dekker();
 
-test_struct_t init_tests() {
-  return (setup_tests(funcs));
+  return (0);
 }
