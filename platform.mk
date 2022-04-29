@@ -13,4 +13,7 @@ endif
 DEL=rm -rf
 endif
 
-LAPACK_DIR=
+LAPACK_INCLUDE=lapacke.h
+LAPACK_LIB=-llapacke -lblas -llapack
+
+CFLAGS+=-Og -g3 -ggdb

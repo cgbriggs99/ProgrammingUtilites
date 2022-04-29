@@ -1,31 +1,18 @@
+
 include ../platform.mk
 
-DEPS=src/roots src/utils
-OBJECTS=src/roots/roots.o src/roots/polyroots.o src/utils/utils.o
+%.a:
+	$(MAKE) -C $(@D) $(@F)
 
-.PHONY: all
-all: libconnormath$(LIBEXT) docs tests
+libconnormath.so: roots/roots.a utils/utils.a
+	$(LD) -shared -o $@ --whole-archive $^
 
-libconnormath$(LIBEXT): $(OBJECTS)
-	$(LD) -shared -o $@ $^
-
-
-# Clean up the environment.
 .PHONY: clean
 clean:
+#	$(MAKE) -C funcs clean
+#	$(MAKE) -C ints clean
+	$(MAKE) -C roots clean
+#	$(MAKE) -C stats clean
+	$(MAKE) -C tests clean
+	$(MAKE) -C utils clean
 	$(DEL) *.o *.a *.so *~
-
-# Build the docs.
-.PHONY: docs
-docs:
-	sphinx-build -b html docs/source docs/build/html
-
-.PHONY: tests
-tests: src/tests
-
-src/tests: libconnormath$(LIBEXT)
-	$(MAKE) -C src/tests all
-
-src/%:
-	echo $(@D)
-	$(MAKE) -C $(@D) all

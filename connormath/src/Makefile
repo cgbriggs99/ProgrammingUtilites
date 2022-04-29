@@ -1,8 +1,0 @@
-
-roots: roots/roots.o roots/polyroots.o
-	echo $^
-
-%.o:
-	echo $@
-	echo $(@D)
-	$(MAKE) -C $(@D) $(@F)
