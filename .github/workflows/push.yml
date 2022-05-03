@@ -14,6 +14,14 @@ jobs:
   steps:
   - uses: actions/checkout@v1
 
+  - name: Additional info about the build
+    shell: bash
+    run: |
+      uname -a
+      df -h
+      ulimit -a
+      
+
   - uses: conda-incubator/setup-miniconda@v2
     with:
       python-version: ${{ matrix.python-version }}
