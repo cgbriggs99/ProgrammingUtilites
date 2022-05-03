@@ -26,12 +26,11 @@ jobs:
       auto-activate-base: false
       show-channel-urls: true
 
-   - name: Install Package
+  - name: Install Package
     shell: bash -l {0}
     run: |
       python -m pip install . --no-deps
       make all
-#      python finish_up.py
       conda list
       
   - name: Run Tests
