@@ -13,6 +13,6 @@ clean:
 #	$(MAKE) -C ints clean
 	$(MAKE) -C roots clean
 #	$(MAKE) -C stats clean
-	$(MAKE) -C tests clean
+	$(MAKE) -C tests/ctests clean
 	$(MAKE) -C utils clean
 	$(DEL) *.o *.a *.so *~

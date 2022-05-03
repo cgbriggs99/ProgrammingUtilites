@@ -19,7 +19,7 @@ docs:
 
 .PHONY:tests
 tests: 
-	$(MAKE) -C connormath/tests all
+	$(MAKE) -C connormath/tests/ctests all
 
 connormath/%:
 	$(MAKE) -C connormath $(@F)

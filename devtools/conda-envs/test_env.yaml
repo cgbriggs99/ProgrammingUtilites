@@ -10,6 +10,9 @@ dependencies:
   - numpy
   - sphinx
   - setuptools
+  - liblapack
+  - liblapacke
+  - libblas
 
   # Testing
   - pytest
