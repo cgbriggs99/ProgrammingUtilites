@@ -26,7 +26,8 @@ jobs:
       auto-activate-base: false
       show-channel-urls: true
       
-  - name: Hello
+  - name: Install Package
+  
     shell: bash -l {0}
     run: |
       python -m pip install . --no-deps
