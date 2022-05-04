@@ -5,7 +5,31 @@
 #include <math.h>
 #include <complex.h>
 #include <errno.h>
-#include <lapacke.h>
+
+// Divide polynomials.
+static int divide(const double *num, int ndim, const double *den, int ddim,
+		  double *out, int *outdim) {
+  double *rem = calloc(ndim, sizeof(double));
+  double q;
+  *outdim = ndim - ddim;
+  memcpy(rem, num, ndim * sizeof(double));
+  
+  for(int i = 0; i < *outdim; i++) {
+    q = rem[ndim - i - 1] / den[ddim - 1];
+    out[*outdim - i - 1] = q;
+    for(int j = 0; j < ddim; j++) {
+      rem[ndim - i - 1 - j] -= q * den[ddim - j - 1];
+    }
+  }
+  int remdeg = 0;
+  for(int i = 0; i < ndim; i++) {
+    if(fabs(rem[0]) > 1e-6) {
+      remdeg++;
+    }
+  }
+  free(rem);
+  return (remdeg);
+}
 
 static _Complex double eval_poly(const double *coefs, int len, _Complex double pos) {
   _Complex double sum = 0, xp = 1;

@@ -5,7 +5,6 @@
 #include "../include/connormath.h"
 #include "../include/roots.h"
 #include <errno.h>
-#include <stdlib.h>
 
 static double roots_func(double x, void *arg) {
   return (PyFloat_AsDouble(PyObject_Call((PyObject *) arg,
@@ -85,11 +84,11 @@ PyObject *py_poly_roots(PyObject *self, PyObject *args) {
     return (NULL);
   }
 
-  len = PyObject_LengthHint(py_coefs, 0);
+  len = PyObject_LengthHint(py_coefs);
   if(len != -1) {
     coefs = calloc(len, sizeof(double));
   } else {
-    coefs = malloc(0 * sizeof(double));
+    coefs = malloc(0, sizeof(double));
   }
   int pos = 0;
   while(1) {
@@ -98,8 +97,8 @@ PyObject *py_poly_roots(PyObject *self, PyObject *args) {
       break;
     }
     if(pos >= len) {
-      coefs = realloc(coefs, (len + ALLOC_SKIPS) * sizeof(double));
-      len += ALLOC_SKIPS;
+      coefs = realloc(coefs, (len + ALLOC_SKIP) * sizeof(double));
+      len += ALLOC_SKIP;
     }
     coefs[pos] = PyFloat_AsDouble(item);
     pos++;
@@ -121,15 +120,15 @@ PyObject *py_poly_roots(PyObject *self, PyObject *args) {
 }
 
 static PyMethodDef RootsMethods[] = {
-  {"c_brent_dekker", py_brent_dekker, METH_VARARGS, "Takes arguments: "
+  {"brent_dekker", py_brent_dekker, METH_VARARGS, "Takes arguments: "
    "brent_dekker(func, x0, x1, conv, tolerance"},
-  {"c_newton", py_newton, METH_VARARGS, "Takes arguments: "
+  {"newton", py_newton, METH_VARARGS, "Takes arguments: "
    "newton(func, der, x0, conv)"},
-  {"c_secant", py_secant, METH_VARARGS, "Takes arguments: "
+  {"secant", py_secant, METH_VARARGS, "Takes arguments: "
    "secant(func, x0, x1, conv)"},
-  {"c_regula_falsi", py_regula_falsi, METH_VARARGS, "Takes arguments: "
+  {"regula_falsi", py_regula_falsi, METH_VARARGS, "Takes arguments: "
    "regula_falsi(func, x0, x1, conv)"},
-  {"c_poly_roots", py_poly_roots, METH_VARARGS, "Takes arguments: "
+  {"poly_roots", py_poly_roots, METH_VARARGS, "Takes arguments: "
    "poly_roots(coefs, conv), where coefs starts from the ones place,"
    " then goes to the x place, then x squared, and so on."},
   {NULL, NULL, 0, NULL}
@@ -137,7 +136,7 @@ static PyMethodDef RootsMethods[] = {
 
 static struct PyModuleDef rootsmodule = {
   PyModuleDef_HEAD_INIT,
-  "croots",
+  "roots",
   "Contains root finding algorithms.",
   -1,
   RootsMethods
