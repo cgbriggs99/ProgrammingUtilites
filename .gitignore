@@ -8,5 +8,6 @@
 a.out
 *.pyc
 *.pyo
+*.egg-info
 
 build/*
