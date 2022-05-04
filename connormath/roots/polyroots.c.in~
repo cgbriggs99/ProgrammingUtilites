@@ -5,7 +5,7 @@
 #include <math.h>
 #include <complex.h>
 #include <errno.h>
-#include <lapacke.h>
+#include <%LAPACKE_inc%>
 
 static _Complex double eval_poly(const double *coefs, int len, _Complex double pos) {
   _Complex double sum = 0, xp = 1;
