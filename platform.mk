@@ -13,4 +13,5 @@ endif
 DEL=rm -rf
 endif
 
-LAPACK_DIR=
+LAPACK_INCLUDE=/opt/intel/mkl/include/mkl.h
+LAPACK_LIB=-L /opt/intel/mkl/lib/intel64 -lmkl_core

@@ -103,7 +103,8 @@ int show_errors(const char *fname) {
 	       data.cond);
 	break;
       }
-    }
+    } else {
+      fseek(fp, data.filename_len + data.funcname_len, data.cond_len, SEEK_CUR);
     
   
   
