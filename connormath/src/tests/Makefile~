@@ -1,5 +1,0 @@
-include ../../../platform.mk
-
-CFLAGS+=-I../../include
-
-test_roots: test_roots.c ../../libconnormath.so

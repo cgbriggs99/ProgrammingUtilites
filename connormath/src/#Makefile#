@@ -1,7 +1,0 @@
-
-roots:
-
-%.o:
-	echo $@
-	echo $(@D)
-	$(MAKE) -C $(@D) $(@F)
