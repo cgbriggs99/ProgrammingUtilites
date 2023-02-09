@@ -1,0 +1,11 @@
+
+cmake_minimum_required(VERSION 3.13)
+
+project(ProgrammingUtilities)
+
+add_subdirectory(src)
+add_subdirectory(pybindings)
+
+add_subdirectory(tests)
+
+target_include_directories(float PUBLIC include)

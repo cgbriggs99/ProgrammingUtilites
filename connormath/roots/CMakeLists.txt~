@@ -1,9 +1,0 @@
-
-project(ProgrammingUtilities)
-
-target_sources(connormath PUBLIC roots.c polyroots.c)
-
-Python_add_library(rootsmodule SHARED rootsmodule.c polyroots.c roots.c)
-add_dependencies(rootsmodule connormath)
-target_link_libraries(rootsmodule PUBLIC connormath ${MATH} ${LAPACK_LIBRARIES}
-  ${BLAS_LIBRARIES} ${LAPACKE_LIBRARIES})

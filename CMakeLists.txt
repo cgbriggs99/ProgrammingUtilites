@@ -17,11 +17,19 @@ if(${MATH})
   set(MATH m)
 endif()
 
-add_library(connormath SHARED)
-target_link_libraries(connormath INTERFACE ${MATH} ${LAPACK_LIBRARIES}
+add_library(extramath SHARED)
+add_dependencies(extramath float double longdouble complex_float
+  complex_double complex_longdouble)
+#  $<TARGET_OBJECTS:float>
+#  $<TARGET_OBJECTS:double>
+#  $<TARGET_OBJECTS:longdouble>
+#  $<TARGET_OBJECTS:complex_float>
+#  $<TARGET_OBJECTS:complex_double>
+#  $<TARGET_OBJECTS:complex_longdouble>)
+
+target_link_libraries(extramath INTERFACE ${MATH} ${LAPACK_LIBRARIES}
   ${BLAS_LIBRAIRES} ${LAPACKE_LIBRARIES})
 
-install(TARGETS connormath LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
+install(TARGETS extramath LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 
-add_subdirectory(connormath)
-
+add_subdirectory(extramath)

@@ -1,0 +1,754 @@
+/*
+ * integrals_nd.c
+ *
+ *  Created on: Feb 7, 2023
+ *      Author: connor
+ */
+
+#include "../include/extramath.h"
+#include "../include/extramath_srcdefs.h"
+#include <math.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+EXTRAMATH_FUNDEF(lriemannintnd, (__FNAMESRC__(kernel_nd_) __func, int indim,
+		const __SCALARTYPE__ *__starts, const __SCALARTYPE__ *__ends,
+		unsigned int __points, const int *include_ends,  const void *__extra)) {
+	__TYPENAME__ sum = 0;
+	__SCALARTYPE__ *step = calloc(indim, sizeof(__SCALARTYPE__)),
+			*truestart = calloc(indim, sizeof(__SCALARTYPE__)),
+			*currx = calloc(indim, sizeof(__SCALARTYPE__));
+	__SCALARTYPE__ totalstep = 1;
+	int *inds = calloc(indim, sizeof(int));
+
+	// Set up the bounds.
+	for(int i = 0; i < indim; i++) {
+		// For the left riemann sum these are the same.
+		if(include_ends[i] == __INTEGRAL_NONE__ || include_ends[i] == __INTEGRAL_UPPER__) {
+			step[i] = (__ends[i] - __starts[i]) / (__points + 1);
+			truestart[i] = __starts[i] + step[i];
+		} else if(include_ends[i] == __INTEGRAL_LOWER__) {
+			step[i] = (__ends[i] - __starts[i]) / (__points);
+			truestart[i] = __starts[i];
+		} else {
+			step[i] = (__ends[i] - __starts[i]) / (__points);
+			truestart[i] = __starts[i];
+		}
+		totalstep *= step[i];
+	}
+
+	while(1) {
+		sum += __func(currx, indim, __extra) * totalstep;
+
+		// Increment and adjust.
+		int i = 0;
+		inds[0]++;
+		currx[0] += step[0];
+		while(inds[i] >= __points && i < indim - 1) {
+			inds[i] = 0;
+			currx[i] = truestart[i];
+			inds[i + 1]++;
+			currx[i + 1] += step[i];
+			i++;
+		}
+		// Check if last point was handled.
+		if(i == indim - 1 && inds[indim - 1] >= __points) {
+			break;
+		}
+	}
+
+	free(inds);
+	free(step);
+	free(truestart);
+	free(currx);
+	return sum;
+}
+
+EXTRAMATH_FUNDEF(rriemannintnd, (__FNAMESRC__(kernel_nd_) __func, int indim,
+		const __SCALARTYPE__ *__starts, const __SCALARTYPE__ *__ends,
+		unsigned int __points, const int *include_ends,  const void *__extra)) {
+	__TYPENAME__ sum = 0;
+	__SCALARTYPE__ *step = calloc(indim, sizeof(__SCALARTYPE__)),
+			*truestart = calloc(indim, sizeof(__SCALARTYPE__)),
+			*currx = calloc(indim, sizeof(__SCALARTYPE__));
+	__SCALARTYPE__ totalstep = 1;
+	int *inds = calloc(indim, sizeof(int));
+
+	// Set up the bounds.
+	for(int i = 0; i < indim; i++) {
+		// For the right riemann sum these are the same.
+		if(include_ends[i] == __INTEGRAL_NONE__ || include_ends[i] == __INTEGRAL_LOWER__) {
+			step[i] = (__ends[i] - __starts[i]) / (__points + 1);
+			truestart[i] = __starts[i] + step[i];
+		} else if(include_ends[i] == __INTEGRAL_UPPER__) {
+			step[i] = (__ends[i] - __starts[i]) / (__points);
+			truestart[i] = __starts[i] + step[i];
+		} else {
+			step[i] = (__ends[i] - __starts[i]) / (__points);
+			truestart[i] = __starts[i] + step[i];
+		}
+		totalstep *= step[i];
+	}
+
+	while(1) {
+		sum += __func(currx, indim, __extra) * totalstep;
+
+		// Increment and adjust.
+		int i = 0;
+		inds[0]++;
+		currx[0] += step[0];
+		while(inds[i] >= __points && i < indim - 1) {
+			inds[i] = 0;
+			currx[i] = truestart[i];
+			inds[i + 1]++;
+			currx[i + 1] += step[i];
+			i++;
+		}
+		// Check if last point was handled.
+		if(i == indim - 1 && inds[indim - 1] >= __points) {
+			break;
+		}
+	}
+
+	free(inds);
+	free(step);
+	free(truestart);
+	free(currx);
+	return sum;
+}
+
+EXTRAMATH_FUNDEF(mriemannintnd, (__FNAMESRC__(kernel_nd_) __func, int indim,
+		const __SCALARTYPE__ *__starts, const __SCALARTYPE__ *__ends,
+		unsigned int __points, const void *__extra)) {
+	__TYPENAME__ sum = 0;
+	__SCALARTYPE__ *step = calloc(indim, sizeof(__SCALARTYPE__)),
+			*truestart = calloc(indim, sizeof(__SCALARTYPE__)),
+			*currx = calloc(indim, sizeof(__SCALARTYPE__));
+	__SCALARTYPE__ totalstep = 1;
+	int *inds = calloc(indim, sizeof(int));
+
+	// Set up the bounds.
+	for(int i = 0; i < indim; i++) {
+		// For the right riemann sum these are the same.
+		step[i] = (__ends[i] - __starts[i]) / (__points);
+		truestart[i] = __starts[i] + step[i] / 2;
+		totalstep *= step[i];
+	}
+
+	while(1) {
+		sum += __func(currx, indim, __extra) * totalstep;
+
+		// Increment and adjust.
+		int i = 0;
+		inds[0]++;
+		currx[0] += step[0];
+		while(inds[i] >= __points && i < indim - 1) {
+			inds[i] = 0;
+			currx[i] = truestart[i];
+			inds[i + 1]++;
+			currx[i + 1] += step[i];
+			i++;
+		}
+		// Check if last point was handled.
+		if(i == indim - 1 && inds[indim - 1] >= __points) {
+			break;
+		}
+	}
+
+	free(inds);
+	free(step);
+	free(truestart);
+	free(currx);
+	return sum;
+}
+
+EXTRAMATH_FUNDEF(trapezoidintnd, (__FNAMESRC__(kernel_nd_) __func, int indim,
+		const __SCALARTYPE__ *__starts, const __SCALARTYPE__ *__ends,
+		unsigned int __points, const int *include_ends,  const void *__extra)) {
+	__TYPENAME__ sum = 0, scale = 1;
+	__SCALARTYPE__ *step = calloc(indim, sizeof(__SCALARTYPE__)),
+			*truestart = calloc(indim, sizeof(__SCALARTYPE__)),
+			*currx = calloc(indim, sizeof(__SCALARTYPE__));
+	__SCALARTYPE__ totalstep = 1;
+	int *inds = calloc(indim, sizeof(int));
+
+	// Set up the bounds.
+	for(int i = 0; i < indim; i++) {
+		// For the right riemann sum these are the same.
+		if(include_ends[i] == __INTEGRAL_NONE__) {
+			step[i] = (__ends[i] - __starts[i]) / (__points + 2);
+			truestart[i] = __starts[i] + step[i];
+		} else if(include_ends[i] == __INTEGRAL_UPPER__) {
+			step[i] = (__ends[i] - __starts[i]) / (__points + 1);
+			truestart[i] = __starts[i] + step[i];
+		} else if(include_ends[i] == __INTEGRAL_LOWER__) {
+			step[i] = (__ends[i] - __starts[i]) / (__points + 1);
+			truestart[i] = __starts[i];
+		} else {
+			step[i] = (__ends[i] - __starts[i]) / (__points);
+			truestart[i] = __starts[i];
+		}
+		totalstep *= step[i];
+		scale /= 2;
+	}
+
+	while(1) {
+		sum += __func(currx, indim, __extra) * totalstep * scale;
+
+		// Increment and adjust.
+		int i = 0;
+		inds[0]++;
+		currx[0] += step[0];
+		if(inds[0] == __points) {
+			scale /= 2;
+		} else if(inds[0] == 1) {
+			scale *= 2;
+		}
+		while(inds[i] > __points && i < indim - 1) {
+			inds[i] = 0;
+			currx[i] = truestart[i];
+			inds[i + 1]++;
+			currx[i + 1] += step[i];
+			if(inds[i + 1] == __points) {
+				scale /= 2;
+			} else if(inds[i + 1] == 1) {
+				scale *= 2;
+			}
+			i++;
+		}
+		// Check if last point was handled.
+		if(i == indim - 1 && inds[indim - 1] > __points) {
+			break;
+		}
+	}
+
+	free(inds);
+	free(step);
+	free(truestart);
+	free(currx);
+	return sum;
+}
+
+//EXTRAMATH_FUNDEF(simpsonint, (__FNAMESRC__(kernel_) __func,
+//		__SCALARTYPE__ __start, __SCALARTYPE__ __end, unsigned int __points, int include_ends,  const void *__extra)) {
+//	__TYPENAME__ sum = 0;
+//	__SCALARTYPE__ step, truestart, trueend;
+//	if(include_ends == __INTEGRAL_NONE__) {
+//		step = (__end - __start) / (__points + 2);
+//		truestart = __start + step;
+//		trueend = __end - step;
+//	} else if(include_ends == __INTEGRAL_UPPER__) {
+//		step = (__end - __start) / (__points + 1);
+//		truestart = __start + step;
+//		trueend = __end;
+//	} else if(include_ends == __INTEGRAL_LOWER__) {
+//		step = (__end - __start) / (__points + 1);
+//		truestart = __start;
+//		trueend = __end + step;
+//	} else {
+//		step = (__end - __start) / (__points);
+//		truestart = __start;
+//		trueend = __end;
+//	}
+//
+//	// Avoid recalculating so many times.
+//	for(int i = 0; i < __points; i++) {
+//		if(i == 0) {
+//			sum += __func(truestart, __extra) / (3 * step) + 4 * __func(truestart + step / 2, __extra) / (3 * step);
+//		} else if(i == __points - 1) {
+//			sum += __func(trueend, __extra) / (3 * step);
+//		} else {
+//			sum += 2 * __func(step * i + truestart, __extra) / (3 * step) +
+//					4 * __func(step * (i + 0.5) + truestart, __extra) / (3 * step);
+//		}
+//	}
+//	return sum;
+//}
+
+static inline __SCALARTYPE__ square(__SCALARTYPE__ x) {
+	return x * x;
+}
+
+EXTRAMATH_FUNDEF(gausslegendreintnd,(__FNAMESRC__(kernel_nd_) __func, int indim,
+		const __SCALARTYPE__ *__starts, const __SCALARTYPE__ *__ends,
+		unsigned int __points, const void *__extra)) {
+
+	__TYPENAME__ sum = 0;
+	__SCALARTYPE__ *scale = calloc(indim, sizeof(__SCALARTYPE__));
+
+	__SCALARTYPE__ *polycoefs = calloc(__points + 1, sizeof(__SCALARTYPE__)),
+			*roots = calloc(__points, sizeof(__SCALARTYPE__)),
+			*currx = calloc(indim, sizeof(__SCALARTYPE__)),
+			*weights = calloc(__points, sizeof(__SCALARTYPE__)),
+			weight = 1;
+
+	int *index = calloc(indim, sizeof(int));
+
+	__FNAMESRC_SCAL__(legendrecof)(__points, polycoefs);
+	__FNAMESRC_SCAL__(polyroots)(polycoefs, __points, roots);
+
+	for(int i = 0; i < __points; i++) {
+		weights[i] = 2 / ((1 - roots[i] * roots[i]) * square(__FNAMESRC_SCAL__(legendrederiv)(__points, roots[i], 1)));
+	}
+	for(int i = 0; i < indim; i++) {
+		scale[i] = __ends[i] - __starts[i];
+		// Prep the initial weight and position.
+		weight *= weights[0];
+		currx[i] = (roots[0] + 1) / 2 * scale[i] + __starts[i];
+	}
+
+	while(1) {
+		sum += weight * __func(currx, indim, __extra);
+
+		int i = 0;
+		index[0]++;
+		if(index[0] < __points) {
+			weight *= weights[index[0]] / weights[index[0] - 1];
+			currx[0] = (roots[index[0]] + 1) / 2 * scale[0] + __starts[0];
+		} else {
+			weight *= weights[0] / weights[index[0] - 1];
+			currx[0] = (roots[0] + 1) / 2 * scale[0] + __starts[0];
+		}
+		while(index[i] >= __points && i < indim - 1) {
+			index[i] = 0;
+			index[i + 1]++;
+			if(index[i + 1] < __points) {
+				weight *= weights[index[i + 1]] / weights[index[i + 1] - 1];
+				currx[i + 1] = (roots[index[i + 1]] + 1) / 2 * scale[i + 1] + __starts[i + 1];
+			} else {
+				weight *= weights[0] / weights[index[i + 1] - 1];
+				currx[i + 1] = (roots[0] + 1) / 2 * scale[i + 1] + __starts[i + 1];
+			}
+			i++;
+		}
+		// Check if last point was handled.
+		if(i == indim - 1 && index[indim - 1] >= __points) {
+			break;
+		}
+	}
+
+	free(polycoefs);
+	free(roots);
+	free(weights);
+	free(index);
+	free(currx);
+	free(scale);
+
+	return sum;
+
+}
+
+EXTRAMATH_FUNDEF(gaussjacobiintnd,(__FNAMESRC__(kernel_nd_) __func, int indim,
+		const __SCALARTYPE__ *__starts, const __SCALARTYPE__ *__ends,
+		const __SCALARTYPE__ *__alphas, const __SCALARTYPE__ *__betas,
+		unsigned int __points, const void *__extra)) {
+
+	for(int i = 0; i < indim; i++) {
+		if(__alphas[i] <= -1 || __betas[i] <= -1) {
+			return NAN;
+		}
+	}
+
+	__TYPENAME__ sum = 0;
+	__SCALARTYPE__ *scale = calloc(indim, sizeof(__SCALARTYPE__));
+
+	__SCALARTYPE__ *polycoefs = calloc(__points + 1, sizeof(__SCALARTYPE__)),
+			*roots = calloc(__points * indim, sizeof(__SCALARTYPE__)),
+			*currx = calloc(indim, sizeof(__SCALARTYPE__)),
+			*weights = calloc(__points * indim, sizeof(__SCALARTYPE__)),
+			weight = 1;
+
+	int *index = calloc(indim, sizeof(int));
+
+	for(int i = 0; i < indim; i++) {
+		__FNAMESRC_SCAL__(altjacobicof)(__points, __alphas[i], __betas[i], polycoefs);
+		__FNAMESRC_SCAL__(polyroots)(polycoefs, __points, &(roots[i * __points]));
+		for(int j = 0; j < __points; j++) {
+			roots[i * __points + j] = 1 - 2 * roots[i * __points + j];	// Bring into canonical form.
+
+			weights[i * __points + j] = -(2 * __points + __alphas[i] + __betas[i] + 2) /
+					(__points + __alphas[i] + __betas[i] + 1) *
+					__FNAMESRC_SCAL__(exp)(__FNAMESRC_SCAL__(lgamma)(__points + __alphas[i] + 1) +
+							__FNAMESRC_SCAL__(lgamma)(__points + __betas[i] + 1) -
+							__FNAMESRC_SCAL__(lgamma)(__points + __alphas[i] + __betas[i] + 1) -
+							__FNAMESRC_SCAL__(lgamma)(__points + 2)) *
+							__FNAMESRC_SCAL__(pow)(2, __alphas[i] + __betas[i])  /
+							__FNAMESRC_SCAL__(jacobi)(__points + 1, __alphas[i], __betas[i],
+									roots[i * __points + j]) /
+									__FNAMESRC_SCAL__(jacobideriv)(__points, __alphas[i], __betas[i],
+											roots[i * __points + j], 1);
+		}
+	}
+
+	for(int i = 0; i < indim; i++) {
+		scale[i] = __ends[i] - __starts[i];
+		// Prep the initial weight and position.
+		weight *= weights[i * __points];
+		currx[i] = (roots[i * __points] + 1) / 2 * scale[i] + __starts[i];
+	}
+
+	while(1) {
+		sum += weight * __func(currx, indim, __extra);
+
+		int i = 0;
+		index[0]++;
+		if(index[0] < __points) {
+			weight *= weights[i * __points + index[0]] / weights[i * __points + index[0] - 1];
+			currx[0] = (roots[i * __points + index[0]] + 1) / 2 * scale[0] + __starts[0];
+		} else {
+			weight *= weights[i * __points] / weights[i * __points + index[0] - 1];
+			currx[0] = (roots[i * __points] + 1) / 2 * scale[0] + __starts[0];
+		}
+		while(index[i] >= __points && i < indim - 1) {
+			index[i] = 0;
+			index[i + 1]++;
+			if(index[i + 1] < __points) {
+				weight *= weights[(i + 1) * __points + index[i + 1]] / weights[(i + 1) * __points + index[i + 1] - 1];
+				currx[i + 1] = (roots[(i + 1) * __points + index[i + 1]] + 1) / 2 * scale[i + 1] + __starts[i + 1];
+			} else {
+				weight *= weights[(i + 1) * __points] / weights[(i + 1) * __points + index[i + 1] - 1];
+				currx[i + 1] = (roots[(i + 1) * __points] + 1) / 2 * scale[i + 1] + __starts[i + 1];
+			}
+			i++;
+		}
+		// Check if last point was handled.
+		if(i == indim - 1 && index[indim - 1] >= __points) {
+			break;
+		}
+	}
+
+	free(polycoefs);
+	free(roots);
+	free(weights);
+	free(index);
+	free(currx);
+	free(scale);
+
+	return sum;
+
+}
+
+EXTRAMATH_FUNDEF(gausschebyshevint1dn,(__FNAMESRC__(kernel_nd_) __func, int indim,
+		const __SCALARTYPE__ *__starts, const __SCALARTYPE__ *__ends,
+		unsigned int __points, const void *__extra)) {
+
+	__TYPENAME__ sum = 0;
+	__SCALARTYPE__ *scale = calloc(indim, sizeof(__SCALARTYPE__));
+
+	__SCALARTYPE__ *currx = calloc(indim, sizeof(__SCALARTYPE__)),
+			weight = __FNAMESRC_SCAL__(pow)(M_PI / __points, indim);
+
+	int *index = calloc(indim, sizeof(int));
+
+	for(int i = 0; i < indim; i++) {
+		scale[i] = __ends[i] - __starts[i];
+		// Prep the initial weight and position.
+		currx[i] = (__FNAMESRC_SCAL__(cos)(M_PI / (2 * __points)) + 1) / 2 * scale[i] + __starts[i];
+	}
+
+	while(1) {
+		sum += weight * __func(currx, indim, __extra);
+
+		int i = 0;
+		index[0]++;
+		if(index[0] < __points) {
+			currx[0] = (__FNAMESRC_SCAL__(cos)((2 * index[0] + 1) * M_PI / (2 * __points)) + 1) / 2 * scale[0] + __starts[0];
+		} else {
+			currx[0] = (__FNAMESRC_SCAL__(cos)(M_PI / (2 * __points)) + 1) / 2 * scale[0] + __starts[0];
+		}
+		while(index[i] >= __points && i < indim - 1) {
+			index[i] = 0;
+			index[i + 1]++;
+			if(index[i + 1] < __points) {
+				currx[i + 1] = (__FNAMESRC_SCAL__(cos)((2 * index[i + 1] + 1) * M_PI / (2 * __points)) + 1) / 2 * scale[i + 1] + __starts[i + 1];
+			} else {
+				currx[i + 1] = (__FNAMESRC_SCAL__(cos)(M_PI / (2 * __points)) + 1) / 2 * scale[i + 1] + __starts[i + 1];
+			}
+			i++;
+		}
+		// Check if last point was handled.
+		if(i == indim - 1 && index[indim - 1] >= __points) {
+			break;
+		}
+	}
+
+	free(index);
+	free(currx);
+	free(scale);
+
+	return sum;
+}
+
+EXTRAMATH_FUNDEF(gausschebyshevint2nd,(__FNAMESRC__(kernel_nd_) __func, int indim,
+		const __SCALARTYPE__ *__starts, const __SCALARTYPE__ *__ends,
+		unsigned int __points, const void *__extra)) {
+
+	__TYPENAME__ sum = 0;
+	__SCALARTYPE__ *scale = calloc(indim, sizeof(__SCALARTYPE__));
+
+	__SCALARTYPE__ *currx = calloc(indim, sizeof(__SCALARTYPE__)),
+			weight = __FNAMESRC_SCAL__(pow)(M_PI / __points, indim);
+
+	int *index = calloc(indim, sizeof(int));
+
+	for(int i = 0; i < indim; i++) {
+		scale[i] = __ends[i] - __starts[i];
+		// Prep the initial weight and position.
+		currx[i] = (__FNAMESRC_SCAL__(cos)(M_PI / (__points + 1)) + 1) / 2 * scale[i] + __starts[i];
+	}
+	weight = __FNAMESRC_SCAL__(pow)(M_PI / (__points + 1) * square(__FNAMESRC_SCAL__(sin)(M_PI / (__points + 1))), indim);
+
+	while(1) {
+		sum += weight * __func(currx, indim, __extra);
+
+		int i = 0;
+		index[0]++;
+		if(index[0] < __points) {
+			currx[0] = (__FNAMESRC_SCAL__(cos)((index[0] + 1) * M_PI / (__points + 1)) + 1) / 2 * scale[0] + __starts[0];
+			weight *= square(__FNAMESRC_SCAL__(sin)((index[0] + 1) * M_PI / (__points + 1)) /
+					__FNAMESRC_SCAL__(sin)((index[0]) * M_PI / (__points + 1)));
+		} else {
+			currx[0] = (__FNAMESRC_SCAL__(cos)(M_PI / (__points + 1)) + 1) / 2 * scale[0] + __starts[0];
+			weight *= square(__FNAMESRC_SCAL__(sin)(M_PI / (__points + 1)) /
+					__FNAMESRC_SCAL__(sin)((index[0]) * M_PI / (__points + 1)));
+		}
+		while(index[i] >= __points && i < indim - 1) {
+			index[i] = 0;
+			index[i + 1]++;
+			if(index[i + 1] < __points) {
+				currx[i + 1] = (__FNAMESRC_SCAL__(cos)((index[i + 1] + 1) * M_PI / (__points + 1)) + 1) / 2 *
+						scale[i + 1] + __starts[i + 1];
+				weight *= square(__FNAMESRC_SCAL__(sin)((index[i + 1] + 1) * M_PI / (__points + 1)) /
+						__FNAMESRC_SCAL__(sin)((index[i + 1]) * M_PI / (__points + 1)));
+			} else {
+				currx[i + 1] = (__FNAMESRC_SCAL__(cos)(M_PI / (__points + 1)) + 1) / 2 * scale[i + 1] + __starts[i + 1];
+				weight *= square(__FNAMESRC_SCAL__(sin)(M_PI / (__points + 1)) /
+						__FNAMESRC_SCAL__(sin)((index[i + 1]) * M_PI / (__points + 1)));
+			}
+			i++;
+		}
+		// Check if last point was handled.
+		if(i == indim - 1 && index[indim - 1] >= __points) {
+			break;
+		}
+	}
+
+	free(index);
+	free(currx);
+	free(scale);
+
+	return sum;
+
+}
+
+EXTRAMATH_FUNDEF(gausslaguerreintnd,(__FNAMESRC__(kernel_nd_) __func, int indim,
+		const __SCALARTYPE__ *__starts,
+		unsigned int __points, const void *__extra)) {
+
+	__TYPENAME__ sum = 0;
+
+	__SCALARTYPE__ *polycoefs = calloc(__points + 1, sizeof(__SCALARTYPE__)),
+			*roots = calloc(__points, sizeof(__SCALARTYPE__)),
+			*currx = calloc(indim, sizeof(__SCALARTYPE__)),
+			*weights = calloc(__points, sizeof(__SCALARTYPE__)),
+			weight = 1;
+
+	int *index = calloc(indim, sizeof(int));
+
+	__FNAMESRC_SCAL__(laguerrecof)(__points, polycoefs);
+	__FNAMESRC_SCAL__(polyroots)(polycoefs, __points, roots);
+
+	for(int i = 0; i < __points; i++) {
+		weights[i] = roots[i] / square(__FNAMESRC_SCAL__(laguerre)(__points + 1, roots[i]) * (__points + 1));
+	}
+	for(int i = 0; i < indim; i++) {
+		// Prep the initial weight and position.
+		weight *= weights[0];
+		currx[i] = roots[0] + __starts[i];
+	}
+
+	while(1) {
+		sum += weight * __func(currx, indim, __extra);
+
+		int i = 0;
+		index[0]++;
+		if(index[0] < __points) {
+			weight *= weights[index[0]] / weights[index[0] - 1];
+			currx[0] = roots[index[0]] + __starts[0];
+		} else {
+			weight *= weights[0] / weights[index[0] - 1];
+			currx[0] = roots[0] + __starts[0];
+		}
+		while(index[i] >= __points && i < indim - 1) {
+			index[i] = 0;
+			index[i + 1]++;
+			if(index[i + 1] < __points) {
+				weight *= weights[index[i + 1]] / weights[index[i + 1] - 1];
+				currx[i + 1] = roots[index[i + 1]] + __starts[i + 1];
+			} else {
+				weight *= weights[0] / weights[index[i + 1] - 1];
+				currx[i + 1] = roots[0] + __starts[i + 1];
+			}
+			i++;
+		}
+		// Check if last point was handled.
+		if(i == indim - 1 && index[indim - 1] >= __points) {
+			break;
+		}
+	}
+
+	free(polycoefs);
+	free(roots);
+	free(weights);
+	free(index);
+	free(currx);
+
+	return sum;
+
+}
+
+EXTRAMATH_FUNDEF(gaussgenlaguerreintnd,(__FNAMESRC__(kernel_nd_) __func, int indim,
+		const __SCALARTYPE__ *__starts, const __SCALARTYPE__ *__alphas,
+		unsigned int __points, const void *__extra)) {
+	for(int i = 0; i < indim; i++) {
+		if(__alphas[i] <= -1) {
+			return NAN;
+		}
+	}
+
+	__TYPENAME__ sum = 0;
+	__SCALARTYPE__ *scale = calloc(indim, sizeof(__SCALARTYPE__));
+
+	__SCALARTYPE__ *polycoefs = calloc(__points + 1, sizeof(__SCALARTYPE__)),
+			*roots = calloc(__points * indim, sizeof(__SCALARTYPE__)),
+			*currx = calloc(indim, sizeof(__SCALARTYPE__)),
+			*weights = calloc(__points * indim, sizeof(__SCALARTYPE__)),
+			weight = 1;
+
+	int *index = calloc(indim, sizeof(int));
+
+	for(int i = 0; i < indim; i++) {
+		__FNAMESRC_SCAL__(assoclaguerrecof)(__points, __alphas[i], polycoefs);
+		__FNAMESRC_SCAL__(polyroots)(polycoefs, __points, &(roots[i * __points]));
+		for(int j = 0; j < __points; j++) {
+			weights[i * __points + j] = roots[i * __points + j] /
+					square(__FNAMESRC_SCAL__(laguerre)(__points + 1, roots[i * __points + j]) * (__points + 1)) *
+							__FNAMESRC_SCAL__(exp)(__FNAMESRC_SCAL__(lgamma)(__points + __alphas[i] + 1) -
+									__FNAMESRC_SCAL__(lgamma)(__points + 1));
+		}
+	}
+
+	for(int i = 0; i < indim; i++) {
+		// Prep the initial weight and position.
+		weight *= weights[i * __points];
+		currx[i] = roots[i * __points] + __starts[i];
+	}
+
+	while(1) {
+		sum += weight * __func(currx, indim, __extra);
+
+		int i = 0;
+		index[0]++;
+		if(index[0] < __points) {
+			weight *= weights[i * __points + index[0]] / weights[i * __points + index[0] - 1];
+			currx[0] = roots[i * __points + index[0]] + __starts[0];
+		} else {
+			weight *= weights[i * __points] / weights[i * __points + index[0] - 1];
+			currx[0] = roots[i * __points] + __starts[0];
+		}
+		while(index[i] >= __points && i < indim - 1) {
+			index[i] = 0;
+			index[i + 1]++;
+			if(index[i + 1] < __points) {
+				weight *= weights[(i + 1) * __points + index[i + 1]] / weights[(i + 1) * __points + index[i + 1] - 1];
+				currx[i + 1] = roots[(i + 1) * __points + index[i + 1]] + __starts[i + 1];
+			} else {
+				weight *= weights[(i + 1) * __points] / weights[(i + 1) * __points + index[i + 1] - 1];
+				currx[i + 1] = (roots[(i + 1) * __points] + 1) / 2 * scale[i + 1] + __starts[i + 1];
+			}
+			i++;
+		}
+		// Check if last point was handled.
+		if(i == indim - 1 && index[indim - 1] >= __points) {
+			break;
+		}
+	}
+
+	free(polycoefs);
+	free(roots);
+	free(weights);
+	free(index);
+	free(currx);
+	free(scale);
+
+	return sum;
+
+}
+
+EXTRAMATH_FUNDEF(gausshermiteintnd,(__FNAMESRC__(kernel_nd_) __func, int indim,
+		unsigned int __points, const void *__extra)) {
+
+	__TYPENAME__ sum = 0;
+
+	__SCALARTYPE__ *polycoefs = calloc(__points + 1, sizeof(__SCALARTYPE__)),
+			*roots = calloc(__points, sizeof(__SCALARTYPE__)),
+			*currx = calloc(indim, sizeof(__SCALARTYPE__)),
+			*weights = calloc(__points, sizeof(__SCALARTYPE__)),
+			weight = 1;
+
+	int *index = calloc(indim, sizeof(int));
+
+	__FNAMESRC_SCAL__(hermitecof)(__points, polycoefs);
+	__FNAMESRC_SCAL__(polyroots)(polycoefs, __points, roots);
+
+	for(int i = 0; i < __points; i++) {
+		weights[i] = __FNAMESRC_SCAL__(exp)(__FNAMESRC_SCAL__(lgamma)(__points + 1) + (__points) * M_LN2)
+						/ (M_2_SQRTPI * square(__points * hermite(__points - 1, roots[i])));
+	}
+	for(int i = 0; i < indim; i++) {
+		// Prep the initial weight and position.
+		weight *= weights[0];
+		currx[i] = roots[0];
+	}
+
+	while(1) {
+		sum += weight * __func(currx, indim, __extra);
+
+		int i = 0;
+		index[0]++;
+		if(index[0] < __points) {
+			weight *= weights[index[0]] / weights[index[0] - 1];
+			currx[0] = roots[index[0]];
+		} else {
+			weight *= weights[0] / weights[index[0] - 1];
+			currx[0] = roots[0];
+		}
+		while(index[i] >= __points && i < indim - 1) {
+			index[i] = 0;
+			index[i + 1]++;
+			if(index[i + 1] < __points) {
+				weight *= weights[index[i + 1]] / weights[index[i + 1] - 1];
+				currx[i + 1] = roots[index[i + 1]];
+			} else {
+				weight *= weights[0] / weights[index[i + 1] - 1];
+				currx[i + 1] = roots[0];
+			}
+			i++;
+		}
+		// Check if last point was handled.
+		if(i == indim - 1 && index[indim - 1] >= __points) {
+			break;
+		}
+	}
+
+	free(polycoefs);
+	free(roots);
+	free(weights);
+	free(index);
+	free(currx);
+
+	return sum;
+}
+
+

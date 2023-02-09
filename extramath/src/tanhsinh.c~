@@ -1,0 +1,38 @@
+/*
+ * tanhsinh.c
+ *
+ *  Created on: Feb 3, 2023
+ *      Author: connor
+ */
+
+#include "../extramath.h"
+#include "../extramath_srcdefs.h"
+#include <math.h>
+
+
+static inline __SCALARTYPE__ square(__SCALARTYPE__ x) {
+	return x * x;
+}
+
+EXTRAMATH_FUNDEF(tanhsinhint, (__FNAMESRC__(kernel_) __func, __SCALARTYPE__ __start, __SCALARTYPE__ __end, unsigned int __points,
+		const void *__extra)) {
+	__TYPENAME__ sum = 0;
+	int truepoints = 2 * __points + 1;
+	__SCALARTYPE__ transtep = (__SCALARTYPE__) 2 / truepoints,
+			midpoint = (__start + __end) / 2,
+			scale = __end - __start;
+
+	sum = M_PI_2 * transtep * __func(midpoint, __extra);
+
+	for(int i = 1; i < __points; i++) {
+		// The transform function is symmetric.
+		__SCALARTYPE__ x = __FNAMESRC_SCAL__(tanh)(M_PI_2 * __FNAMESRC_SCAL__(sinh)(i * transtep));
+		// the weight is the same for both points.
+		__SCALARTYPE__ weight = M_PI_2 * transtep * __FNAMESRC_SCAL__(cosh)(i * transtep) /
+				square(__FNAMESRC_SCAL__(cosh)(M_PI_2 * __FNAMESRC_SCAL__(sinh)(i * transtep)));
+
+		sum += weight * __func((x + 1) / 2 * scale + __start, __extra);
+		sum += weight * __func((1 - x) / 2 * scale + __start, __extra);
+	}
+	return sum;
+}

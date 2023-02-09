@@ -1,0 +1,325 @@
+/*
+ * eigenvals.c
+ *
+ *  Created on: Feb 6, 2023
+ *      Author: connor
+ */
+
+#include "../include/extramath.h"
+#include "../include/extramath_srcdefs.h"
+#include <math.h>
+#include <string.h>
+#include <stdlib.h>
+
+#define CLOSE 1e-10
+
+#ifdef __IS_COMPLEX__
+
+static int ordering(const void *a, const void *b) {
+	__TYPENAME__ ina = *(__TYPENAME__ *) a,
+			inb = *(__TYPENAME__ *) b;
+	if(__FNAMESRC__(real)(ina) > __FNAMESRC__(real)(inb)) {
+		return 1;
+	} else if(__FNAMESRC__(real)(ina) < __FNAMESRC__(real)(inb)) {
+		return -1;
+	} else if(__FNAMESRC__(imag)(ina) > __FNAMESRC__(imag)(inb)) {
+		return 1;
+	} else if(__FNAMESRC__(imag)(ina) < __FNAMESRC__(imag)(inb)) {
+		return -1;
+	} else {
+		return 0;
+	}
+}
+
+static int converged(__TYPENAME__ *evals1, __TYPENAME__ *evals2, int order) {
+	qsort(evals1, order, sizeof(__TYPENAME__), ordering);
+	qsort(evals2, order, sizeof(__TYPENAME__), ordering);
+
+	__TYPENAME__ norm = 0;
+	for(int i = 0; i < order; i++) {
+		norm += (evals1[i] - evals2[i]) * (evals1[i] - evals2[i]);
+	}
+	return (__FNAMESRC_PREF__(abs)(__FNAMESRC__(sqrt)(norm)) < CLOSE);
+}
+
+EXTRAMATH_ARRFUNDEF(geneigen,(unsigned char __do_left, unsigned char __do_right,
+		unsigned int __order, __TYPENAME__ *__A, __TYPENAME__ *__B,
+		__TYPENAME__ *__eigs, __TYPENAME__ *__beta,
+		__TYPENAME__ *__left, __TYPENAME__ *__right)) {
+
+	if(__order == 1) {
+		__eigs[0] = __A[0];
+		__beta[0] = __B[0];
+		if(__do_left == 'V') {
+			__left[0] = 1;
+		}
+		if(__do_right == 'V') {
+			__right[0] = 1;
+		}
+	}
+
+	__TYPENAME__ *work = calloc(__order * __order, sizeof(__TYPENAME__)),
+			*holdevals = calloc(__order, sizeof(__TYPENAME__)),
+			*temp;
+
+	if(__do_left == 'V' || __do_right == 'V') {
+		temp = calloc(__order * __order, sizeof(__TYPENAME__));
+		memcpy(temp, __A, __order * __order * sizeof(__TYPENAME__));
+	}
+
+	for(int i = 0; i < __order; i++) {
+		holdevals[i] = __A[i * __order + i];
+		__eigs[i] = 1 + holdevals[i];
+	}
+
+	while(!converged(holdevals, __eigs, __order)) {
+		// Deflate.
+		for(int i = 1; i < __order; i++) {
+			for(int j = 0; j < i; j++) {
+				if(__FNAMESRC_PREF__(abs)(__A[i * __order + j]) < CLOSE) {
+					__A[i * __order + j] = 0;
+				}
+			}
+		}
+		memcpy(__eigs, holdevals, __order * sizeof(__TYPENAME__));
+
+		// Find the shift.
+		__TYPENAME__ e1, e2, p, q, shift;
+
+		p = 2 * (__A[(__order - 1) * __order + (__order - 1)] + __A[(__order - 2) * __order + (__order - 2)]);
+		q = __A[(__order - 1) * __order + (__order - 1)] * __A[(__order - 2) * __order + (__order - 2)] -
+				__A[(__order - 2) * __order + (__order - 1)] * __A[(__order - 1) * __order + (__order - 2)];
+		e1 = __A[(__order - 1) * __order + (__order - 1)] - (-p + __FNAMESRC__(sqrt)(p * p - 4 * q)) / 2;
+		e2 = __A[(__order - 1) * __order + (__order - 1)] - (-p - __FNAMESRC__(sqrt)(p * p - 4 * q)) / 2;
+		if(__FNAMESRC_PREF__(abs)(e1) < __FNAMESRC_PREF__(abs)(e2)) {
+			shift = e1;
+		} else {
+			shift = e2;
+		}
+
+		// Shift.
+		__FNAMESRC__(matdifftimes)(__A, __B, shift, __order, __order);
+
+		// QR.
+		__FNAMESRC__(qrdecompose)(__A, work, __order, __order);
+
+		// RQ.
+		__FNAMESRC__(matmult)(work, __A, work, __order, __order, __order);
+		__FNAMESRC__(matsumtimes)(work, __B, shift, __order, __order);
+		memcpy(__A, work, __order * __order * sizeof(__TYPENAME__));
+
+		// Move eigenvalues.
+		for(int i = 0; i < __order; i++) {
+			holdevals[i] = __A[i * __order + i];
+		}
+	}
+
+	// Found eigenvalues.
+	memcpy(__eigs, holdevals, __order * sizeof(__TYPENAME__));
+
+	// Set the beta array. Try to find out what this should equal.
+	for(int i = 0; i < __order; i++) {
+		__beta[i] = 1;
+	}
+
+	// Calculate the left eigenvectors.
+	if(__do_left == 'V') {
+		int mult = 1;
+		for(int i = 0; i < __order; i += mult) {
+			// Compute the multiplicity of the eigenvalue.
+			mult = 1;
+			for(int j = i + 1; j < __order; j++) {
+				if(__eigs[i] == __eigs[j]) {
+					__TYPENAME__ swap = __eigs[i + mult];
+					__eigs[i + mult] = __eigs[j];
+					__eigs[j] = swap;
+					mult++;
+				}
+			}
+
+			memcpy(__A, temp, __order * __order * sizeof(__TYPENAME__));
+			// Compute the shifted matrix.
+			__FNAMESRC__(matdifftimes)(__A, __B, __eigs[i] / __beta[i], __order, __order);
+			__FNAMESRC__(conjtranspose)(__A, __order, __order);
+
+			// Add rows to the linear system.
+			temp = realloc(temp, __order * (__order + mult) * sizeof(__TYPENAME__));
+			holdevals = realloc(holdevals, mult * (__order + mult) * sizeof(__TYPENAME__));
+
+			// Set up coefficients.
+			for(int n = 0; n < __order; n++) {
+				for(int m = 0; m < __order; m++) {
+					temp[n * __order + m] = __A[n * __order + m];
+				}
+			}
+			for(int n = 0; n < mult; n++) {
+				for(int m = 0; m < __order; m++) {
+					if(m == n) {
+						temp[(__order + n) * __order + m] = 1;
+					} else {
+						temp[(__order + n) * __order + m] = 0;
+					}
+				}
+			}
+
+			// Set up results.
+			for(int j = 0; j < mult; j++) {
+				for(int n = 0; n < __order + mult; n++) {
+					holdevals[n * mult + j] = 0;
+				}
+				holdevals[(__order + j) * mult + j] = 1;
+			}
+
+			// Solve.
+			int res = __FNAMESRC__(linearsolve)(temp, holdevals, __order + mult, __order, mult);
+			if(res > mult) {
+				free(work);
+				free(holdevals);
+				free(temp);
+				return -1;
+			}
+
+			// The results should be orthogonal.
+			__FNAMESRC__(qrdecompose)(holdevals, temp, __order + mult, mult);
+
+			// Store the results.
+			for(int j = i; j < i + mult; j++) {
+				for(int k = 0; k < __order; k++) {
+					__left[k * __order + j] = holdevals[k * (__order + mult) + j - i];
+				}
+			}
+		}
+	}
+	// Calculate the right eigenvectors.
+	if(__do_right == 'V') {
+		int mult = 1;
+		for(int i = 0; i < __order; i += mult) {
+			// Compute the multiplicity of the eigenvalue.
+			mult = 1;
+			for(int j = i + 1; j < __order; j++) {
+				if(__eigs[i] == __eigs[j]) {
+					__TYPENAME__ swap = __eigs[i + mult];
+					__eigs[i + mult] = __eigs[j];
+					__eigs[j] = swap;
+					mult++;
+				}
+			}
+
+			memcpy(__A, temp, __order * __order * sizeof(__TYPENAME__));
+			// Compute the shifted matrix.
+			__FNAMESRC__(matdifftimes)(__A, __B, __eigs[i] / __beta[i], __order, __order);
+
+			// Add rows to the linear system.
+			temp = realloc(temp, __order * (__order + mult) * sizeof(__TYPENAME__));
+			holdevals = realloc(holdevals, mult * (__order + mult) * sizeof(__TYPENAME__));
+
+			// Set up coefficients.
+			for(int n = 0; n < __order; n++) {
+				for(int m = 0; m < __order; m++) {
+					temp[n * __order + m] = __A[n * __order + m];
+				}
+			}
+			for(int n = 0; n < mult; n++) {
+				for(int m = 0; m < __order; m++) {
+					if(m == n) {
+						temp[(__order + n) * __order + m] = 1;
+					} else {
+						temp[(__order + n) * __order + m] = 0;
+					}
+				}
+			}
+
+			// Set up results.
+			for(int j = 0; j < mult; j++) {
+				for(int n = 0; n < __order + mult; n++) {
+					holdevals[n * mult + j] = 0;
+				}
+				holdevals[(__order + j) * mult + j] = 1;
+			}
+
+			// Solve.
+			int res = __FNAMESRC__(linearsolve)(temp, holdevals, __order + mult, __order, mult);
+			if(res > mult) {
+				free(work);
+				free(holdevals);
+				free(temp);
+				return -1;
+			}
+
+			// The results should be orthogonal.
+			__FNAMESRC__(qrdecompose)(holdevals, temp, __order + mult, mult);
+
+			// Store the results.
+			for(int j = i; j < i + mult; j++) {
+				for(int k = 0; k < __order; k++) {
+					__left[k * __order + j] = holdevals[k * (__order + mult) + j - i];
+				}
+			}
+		}
+	}
+
+	free(temp);
+	free(holdevals);
+	free(work);
+
+	return 0;
+
+}
+#else
+EXTRAMATH_ARRFUNDEF(geneigen,(unsigned char __do_left, unsigned char __do_right,
+		unsigned int __order, __TYPENAME__ *__A, __TYPENAME__ *__B,
+		__TYPENAME__ *__real_eigs, __TYPENAME__ *__imag_eigs, __TYPENAME__ *__beta,
+		__TYPENAME__ *__left, __TYPENAME__ *__right)) {
+
+	__TYPENAME__ _Complex *tempa = calloc(__order * __order, sizeof(__TYPENAME__ _Complex)),
+			*tempb = calloc(__order * __order, sizeof(__TYPENAME__ _Complex)),
+			*eigvals = calloc(__order, sizeof(__TYPENAME__ _Complex)),
+			*templeft, *tempright,
+			*tempbeta = calloc(__order, sizeof(__TYPENAME__ _Complex));
+	for(int i = 0; i < __order; i++) {
+		for(int j = 0; j < __order; j++) {
+			tempa[i * __order + j] = __A[i * __order + j];
+			tempb[i * __order + j] = __B[i * __order + j];
+		}
+	}
+
+	if(__do_left == 'V') {
+		templeft = calloc(__order, sizeof(__TYPENAME__ _Complex));
+	}
+
+	if(__do_right == 'V') {
+		tempright = calloc(__order, sizeof(__TYPENAME__ _Complex));
+	}
+
+	int ret = __FNAMESRC__(cgeneigen)(__do_left, __do_right, __order, tempa, tempb, eigvals, tempbeta, templeft, tempright);
+
+	for(int i = 0; i < __order; i++) {
+		__real_eigs[i] = __FNAMESRC__(creal)(eigvals[i] * __FNAMESRC__(conj)(tempbeta[i]));
+		__imag_eigs[i] = __FNAMESRC__(cimag)(eigvals[i] * __FNAMESRC__(conj)(tempbeta[i]));
+		__beta[i] = __FNAMESRC__(cabs)(tempbeta[i]);
+	}
+
+	if(__do_left == 'V' || __do_right == 'V') {
+		for(int i = 0; i < __order; i++) {
+			for(int j = 0; j < __order; j++) {
+				// The real parts are eigenvectors.
+				if(__do_left == 'V') {
+					__left[i * __order + j] = __FNAMESRC__(creal)(templeft[i * __order + j]);
+				}
+				if(__do_right == 'V') {
+					__right[i * __order + j] = __FNAMESRC__(creal)(tempright[i * __order + j]);
+				}
+			}
+		}
+		free(templeft);
+		free(tempright);
+	}
+
+	free(tempa);
+	free(tempb);
+	free(eigvals);
+	free(tempbeta);
+	return ret;
+
+}
+#endif

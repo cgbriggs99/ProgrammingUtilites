@@ -1,0 +1,15 @@
+Metadata-Version: 2.1
+Name: connormath
+Version: 0+untagged.40.g140a717.dirty
+Summary: My math package
+Author: Connor Briggs
+Author-email: cgbriggs99@gmail.com
+License: BSD-3-Clause
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# ProgrammingUtilites
+Utilities for programs that I think are useful.
+
+
