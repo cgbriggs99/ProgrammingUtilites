@@ -8,4 +8,4 @@ add_subdirectory(pybindings)
 
 add_subdirectory(tests)
 
-target_include_directories(float PUBLIC include)
+target_include_directories(extramath PUBLIC include)
