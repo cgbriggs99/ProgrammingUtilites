@@ -1,9 +1,0 @@
-include_directories(../../include)
-
-add_executable(test_roots test_roots.c)
-target_link_libraries(test_roots connormath)
-add_executable(test_utils test_utils.c)
-target_link_libraries(test_utils connormath)
-
-add_test(NAME test_roots COMMAND valgrind ./test_roots)
-add_test(NAME test_utils COMMAND valgrind ./test_utils)

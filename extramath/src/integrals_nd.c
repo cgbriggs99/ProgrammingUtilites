@@ -429,7 +429,7 @@ EXTRAMATH_FUNDEF(gaussjacobiintnd,(__FNAMESRC__(kernel_nd_) __func, int indim,
 
 }
 
-EXTRAMATH_FUNDEF(gausschebyshevint1dn,(__FNAMESRC__(kernel_nd_) __func, int indim,
+EXTRAMATH_FUNDEF(gausschebychevint1dn,(__FNAMESRC__(kernel_nd_) __func, int indim,
 		const __SCALARTYPE__ *__starts, const __SCALARTYPE__ *__ends,
 		unsigned int __points, const void *__extra)) {
 
@@ -480,7 +480,7 @@ EXTRAMATH_FUNDEF(gausschebyshevint1dn,(__FNAMESRC__(kernel_nd_) __func, int indi
 	return sum;
 }
 
-EXTRAMATH_FUNDEF(gausschebyshevint2nd,(__FNAMESRC__(kernel_nd_) __func, int indim,
+EXTRAMATH_FUNDEF(gausschebychevint2nd,(__FNAMESRC__(kernel_nd_) __func, int indim,
 		const __SCALARTYPE__ *__starts, const __SCALARTYPE__ *__ends,
 		unsigned int __points, const void *__extra)) {
 

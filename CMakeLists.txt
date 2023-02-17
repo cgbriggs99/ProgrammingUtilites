@@ -2,6 +2,92 @@ cmake_minimum_required(VERSION 3.13)
 
 project(ProgrammingUtilities)
 
+option(USE_MKL "Find and use MKL if true." False)
+option(MATH_ROOT "The root directory for lapack, lapacke, blas, and cblas." 0)
+option(LAPACKE_DIR "The root directory for lapacke." 0)
+option(LAPACKE_INC_DIR "The directory to find lapacke.h" 0)
+option(LAPACKE_HEADER "The header file for lapacke" 0)
+option(LAPACKE_LIB_DIR "The directory to find the lapacke library.")
+option(LAPACKE_LIB "The name of the lapacke library.")
+option(LAPACK_DIR "The root directory for lapack" 0)
+option(LAPACK_INC_DIR "The directory to find lapack.h" 0)
+option(VALGRIND "Fully qualified path for valgrind, if not in the standard search path.")
+
+
+if(USE_MKL)
+  set(MKL_CLEAR mkl_free_buffers())
+  if(VALGRIND)
+    set(BLA_VENDOR Intel10_64_lp_seq)
+  else()
+    set(BLA_VENDOR Intel10_64lp)
+  endif()
+endif()
+
+if(USE_MKL)
+  if(NOT MATH_ROOT)
+    if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+      set(MATH_ROOT /opt/intel/oneapi/mkl/latest)
+    else()
+      message(SEND_ERROR "Not set up to find LAPACKE using default directories on Windows or MacOS.")
+    endif()
+  endif()
+  set(MKLROOT ${MATH_ROOT})
+  if(NOT LAPACKE_DIR)
+    set(LAPACKE_DIR ${MATH_ROOT})
+  endif()
+  if(NOT LAPACKE_INC_DIR)
+    set(LAPACKE_INC_DIR ${LAPACKE_DIR}/include)
+  endif()
+  if(NOT LAPACKE_HEADER)
+    set(LAPACKE_HEADER mkl_lapacke.h)
+  endif()
+  if(NOT LAPACK_DIR)
+    set(LAPACK_DIR ${MATH_ROOT})
+  endif()
+  if(NOT LAPACK_INC_DIR)
+    set(LAPACK_INC_DIR ${LAPACK_DIR}/include)
+  endif()
+else()
+  if(NOT MATH_ROOT)
+    if(CMAKE_SYSTEM_NAME STREQUAL Linux)
+      set(MATH_ROOT /usr)
+      if(NOT LAPACKE_DIR)
+	set(LAPACKE_DIR /usr)
+	if(NOT LAPACKE_INC_DIR)
+	  set(LAPACKE_INC_DIR /usr/include)
+	endif()
+	if(NOT LAPACKE_LIB_DIR)
+	  set(LAPACKE_LIB_DIR /usr/lib/x86_64-gnu/)
+	endif()
+      endif()
+    else()
+      message(SEND_ERROR "Not set up to find LAPACKE using default directories on Windows or MacOS.")
+    endif()
+  endif()
+  if(NOT LAPACKE_DIR)
+    set(LAPACKE_DIR MATH_ROOT)
+  endif()
+  if(NOT LAPACKE_INC_DIR)
+    set(LAPACKE_INC_DIR ${LAPACKE_DIR}/include)
+  endif()
+  if(NOT LAPACKE_HEADER)
+    set(LAPACKE_HEADER lapacke.h)
+  endif()
+  if(NOT LAPACKE_LIB_DIR)
+    set(LAPACKE_LIB_DIR ${LAPACKE_DIR}/lib)
+  endif()
+  if(NOT LAPACKE_LIB)
+    set(LAPACKE_LIB lapacke)
+  endif()
+  if(NOT LAPACK_DIR)
+    set(LAPACK_DIR ${MATH_ROOT})
+  endif()
+  if(NOT LAPACK_INC_DIR)
+    set(LAPACK_INC_DIR ${LAPACK_DIR}/include)
+  endif()
+endif()
+  
+
 include(CheckLibraryExists)
 include(FindBLAS)
 include(FindLAPACK)
@@ -9,27 +95,67 @@ include(CTest)
 
 check_library_exists(m sin "" MATH)
 
-find_library(LAPACKE_LIBRARIES lapacke)
-
-find_path(LAPACKE_INC lapacke.h)
-
 if(${MATH})
   set(MATH m)
 endif()
 
+
+
+if(BUILD_TESTING)
+  
+  add_compile_options(--coverage -Og -g3 -ggdb -lgcov -pg)
+
+else()
+
+  add_compile_options(-Ofast)
+
+endif()
+
+if(LAPACKE_INC_DIR)
+  message("-- Including " ${LAPACKE_INC_DIR})
+  include_directories(${LAPACKE_INC_DIR})
+endif()
+
+if(LAPACK_INC_DIR)
+  message("-- Including " ${LAPACK_INC_DIR})
+  include_directories(${LAPACK_INC_DIR})
+endif()
+
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 add_library(extramath SHARED)
 add_dependencies(extramath float double longdouble complex_float
   complex_double complex_longdouble)
-#  $<TARGET_OBJECTS:float>
-#  $<TARGET_OBJECTS:double>
-#  $<TARGET_OBJECTS:longdouble>
-#  $<TARGET_OBJECTS:complex_float>
-#  $<TARGET_OBJECTS:complex_double>
-#  $<TARGET_OBJECTS:complex_longdouble>)
 
-target_link_libraries(extramath INTERFACE ${MATH} ${LAPACK_LIBRARIES}
-  ${BLAS_LIBRAIRES} ${LAPACKE_LIBRARIES})
+#add_library(extramath_py SHARED)
+#add_dependencies(extramath_py extramath)
 
-install(TARGETS extramath LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
+if(BUILD_TESTING)
+  target_link_libraries(extramath PUBLIC gcov)
+#  target_link_libraries(extramath_py PUBLIC extramath gcov Python)
+endif()
+
+set_target_properties(extramath PROPERTIES POSITION_INDEPENDENT_CODE True)
+#set_target_properties(extramath_py PROPERTIES POSITION_INDEPENDENT_CODE True)
+
+if(LAPACK_LINKER_FLAGS)
+  target_link_options(extramath ${LAPACK_LINKER_FLAGS})
+#  target_link_options(extramath_py ${LAPACK_LINKER_FLAGS})
+endif()
+if(BLAS_LINKER_FLAGS)
+  target_link_options(extramath ${BLAS_LINKER_FLAGS})
+#  target_link_options(extramath_py ${BLAS_LINKER_FLAGS})
+endif()
+
+target_link_directories(extramath PUBLIC ${LAPACKE_LIB_DIR})
+#target_link_directories(extramath_py PUBLIC ${LAPACKE_LIB_DIR})
+if(LAPACKE_LIB)
+  target_link_libraries(extramath PUBLIC ${LAPACKE_LIB} ${MATH} ${LAPACK_LIBRARIES})
+ # target_link_directories(extramath_py PUBLIC ${LAPACKE_LIB_DIR})
+else()
+  target_link_libraries(extramath PUBLIC ${MATH} ${LAPACK_LIBRARIES})
+#  target_link_libraries(extramath_py PUBLIC ${MATH} ${LAPACK_LIBRARIES})
+endif()
+
+install(TARGETS extramath LIBRARY)
 
 add_subdirectory(extramath)

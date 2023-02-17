@@ -5,10 +5,10 @@
  *      Author: connor
  */
 
-#include "../include/extramath.h"
-#include "../include/extramath_srcdefs.h"
+#include "${CMAKE_SOURCE_DIR}/extramath/include/extramath.h"
+#include "${CMAKE_SOURCE_DIR}/extramath/include/extramath_srcdefs.h"
 #include <math.h>
-#include <lapacke.h>
+#include <${LAPACKE_HEADER}>
 #include <string.h>
 #include <stdlib.h>
 
@@ -109,12 +109,14 @@ static void newtonsteps(const __TYPENAME__ *coefs, unsigned int __length, __TYPE
 }
 
 EXTRAMATH_ARRFUNDEF(polyroots,(const __TYPENAME__ *__coefs, unsigned int __length, __TYPENAME__ *__roots)) {
-	__TYPENAME__ *companion = calloc((__length - 1) * (__length - 1), sizeof(__TYPENAME__)),
-			*real = calloc(__length - 1, sizeof(__TYPENAME__)),
-			*imag = calloc(__length - 1, sizeof(__TYPENAME__)),
-			*beta = calloc(__length - 1, sizeof(__TYPENAME__)),
-			*eye = calloc((__length - 1) * (__length - 1), sizeof(__TYPENAME__));
-
+  __TYPENAME__ *companion = calloc((__length - 1) * (__length - 1), sizeof(__TYPENAME__)),
+    *real = calloc(__length - 1, sizeof(__TYPENAME__)),
+    *imag = calloc(__length - 1, sizeof(__TYPENAME__)),
+    *beta = calloc(__length - 1, sizeof(__TYPENAME__)),
+    *eye = calloc((__length - 1) * (__length - 1), sizeof(__TYPENAME__)),
+    *lv = calloc((__length - 1), sizeof(__TYPENAME__)),
+    *rv = calloc((__length - 1), sizeof(__TYPENAME__));
+  
 	// Set up the companion matrix.
 	for(int i = 0; i < __length - 1; i++) {
 		for(int j = 0; j < __length - 1; j++) {
@@ -134,20 +136,20 @@ EXTRAMATH_ARRFUNDEF(polyroots,(const __TYPENAME__ *__coefs, unsigned int __lengt
 	}
 #	if __TYPEVAL__ == __TYPEVAL_DOUBLE__
 	LAPACKE_dggev(LAPACK_COL_MAJOR, 'N', 'N', __length - 1, companion, __length - 1, eye, __length - 1, real, imag,
-			beta, NULL, 0, NULL, 0);
+			beta, lv, 1, rv, 1);
 #	elif __TYPEVAL__ == __TYPEVAL_FLOAT__
 	LAPACKE_sggev(LAPACK_COL_MAJOR, 'N', 'N', __length - 1, companion, __length - 1, eye, __length - 1, real, imag,
-				beta, NULL, 0, NULL, 0);
+				beta, lv, 1, rv, 1);
 #	elif __TYPEVAL__ == __TYPEVAL_COMPLEXDOUBLE__
 	LAPACKE_zggev(LAPACK_COL_MAJOR, 'N', 'N', __length - 1, companion, __length - 1, eye, __length - 1, real,
-				beta, NULL, 0, NULL, 0);
+				beta, lv, 1, rv, 1);
 #	elif __TYPEVAL__ == __TYPEVAL_COMPLEXFLOAT__
 	LAPACKE_cggev(LAPACK_COL_MAJOR, 'N', 'N', __length - 1, companion, __length - 1, eye, __length - 1, real,
-				beta, NULL, 0, NULL, 0);
+				beta, lv, 1, rv, 1);
 #	elif defined(__IS_COMPLEX__)
-	__FNAMESRC__(geneigen)('N', 'N', __length - 1, companion, eye, real, beta, NULL, NULL);
+	__FNAMESRC__(geneigen)('N', 'N', __length - 1, companion, eye, real, beta, lv, rv);
 #	else
-	__FNAMESRC__(geneigen)('N', 'N', __length - 1, companion, eye, real, imag, beta, NULL, NULL);
+	__FNAMESRC__(geneigen)('N', 'N', __length - 1, companion, eye, real, imag, beta, lv, rv);
 #	endif
 	int ret_val = 0;
 #	ifdef __IS_COMPLEX__
@@ -173,6 +175,9 @@ EXTRAMATH_ARRFUNDEF(polyroots,(const __TYPENAME__ *__coefs, unsigned int __lengt
 	free(imag);
 	free(beta);
 	free(eye);
+	free(lv);
+	free(rv);
+	${MKL_CLEAR};
 
 	return ret_val;
 

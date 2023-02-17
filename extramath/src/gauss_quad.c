@@ -77,7 +77,7 @@ EXTRAMATH_FUNDEF(gaussjacobiint,(__FNAMESRC__(kernel_) __func,
 
 }
 
-EXTRAMATH_FUNDEF(gausschebyshevint1,(__FNAMESRC__(kernel_) __func,
+EXTRAMATH_FUNDEF(gausschebychevint1,(__FNAMESRC__(kernel_) __func,
 		__SCALARTYPE__ __start, __SCALARTYPE__ __end, unsigned int __points, const void *__extra)) {
 
 	__TYPENAME__ sum = 0;
@@ -95,7 +95,7 @@ EXTRAMATH_FUNDEF(gausschebyshevint1,(__FNAMESRC__(kernel_) __func,
 
 }
 
-EXTRAMATH_FUNDEF(gausschebyshevint2,(__FNAMESRC__(kernel_) __func,
+EXTRAMATH_FUNDEF(gausschebychevint2,(__FNAMESRC__(kernel_) __func,
 		__SCALARTYPE__ __start, __SCALARTYPE__ __end, unsigned int __points, const void *__extra)) {
 
 	__TYPENAME__ sum = 0;
@@ -114,26 +114,26 @@ EXTRAMATH_FUNDEF(gausschebyshevint2,(__FNAMESRC__(kernel_) __func,
 }
 
 EXTRAMATH_FUNDEF(gausslaguerreint,(__FNAMESRC__(kernel_) __func,
-		__SCALARTYPE__ __start, unsigned int __points, const void *__extra)) {
+				   __SCALARTYPE__ __start, unsigned int __points, const void *__extra)) {
+  
+  __TYPENAME__ sum = 0;
 
-	__TYPENAME__ sum = 0;
-
-	__SCALARTYPE__ *polycoefs = calloc(__points + 1, sizeof(__SCALARTYPE__)),
-			*roots = calloc(__points, sizeof(__SCALARTYPE__)),
-			weight;
-
-	__FNAMESRC_SCAL__(laguerrecof)(__points, polycoefs);
-	__FNAMESRC_SCAL__(polyroots)(polycoefs, __points, roots);
-
-	for(int i = 0; i < __points; i++) {
-		weight = roots[i] / square(__FNAMESRC_SCAL__(laguerre)(__points + 1, roots[i]) * (__points + 1));
-		sum += __func(roots[i] + __start, __extra) * weight;
-	}
-
-	free(polycoefs);
-	free(roots);
-
-	return sum;
+  __SCALARTYPE__ *polycoefs = calloc(__points + 1, sizeof(__SCALARTYPE__)),
+    *roots = calloc(__points, sizeof(__SCALARTYPE__)),
+    weight;
+  
+  __FNAMESRC_SCAL__(laguerrecof)(__points, polycoefs);
+  __FNAMESRC_SCAL__(polyroots)(polycoefs, __points, roots);
+  
+  for(int i = 0; i < __points; i++) {
+    weight = roots[i] / square(__FNAMESRC_SCAL__(laguerre)(__points + 1, roots[i]) * (__points + 1));
+    sum += __func(roots[i] + __start, __extra) * weight;
+  }
+  
+  free(polycoefs);
+  free(roots);
+  
+  return sum;
 
 }
 

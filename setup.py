@@ -19,10 +19,10 @@ try:
         long_description = handle.read()
 except:
     long_description = None
-
+    
 extramath = setuptools.distutils.core.Extension(
     "extramath.backend",
-    sources=["./ising/src/fastcmodule.c", "./ising/src/ising.c"],
+    sources=[""],
     libraries=["m", "pthread", "lapacke"]
     if sys.platform.lower() == "linux" else [],
 )

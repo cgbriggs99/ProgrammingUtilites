@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.13)
 
 project(ProgrammingUtilities)
 
+configure_file(polyroots.pre.c polyroots.c)
+
 add_library(float OBJECT bessels.c beta.c decompose.c
    eigenvals.c erf.c gamma.c gauss_quad.c hypergeom.c integer.c
    integrals_nd.c integrated.c matarith.c matprops.c polynomials.c
