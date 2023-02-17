@@ -35,7 +35,7 @@ EXTRAMATH_FUNDEF(gausslegendreint,(__FNAMESRC__(kernel_) __func,
 	free(polycoefs);
 	free(roots);
 
-	return sum;
+	return sum * scale / 2;
 
 }
 
@@ -73,7 +73,7 @@ EXTRAMATH_FUNDEF(gaussjacobiint,(__FNAMESRC__(kernel_) __func,
 	free(polycoefs);
 	free(roots);
 
-	return sum;
+	return sum * scale / 2;
 
 }
 
@@ -91,7 +91,7 @@ EXTRAMATH_FUNDEF(gausschebychevint1,(__FNAMESRC__(kernel_) __func,
 		sum += __func((root + 1) / 2 * scale + __start, __extra) * weight;
 	}
 
-	return sum;
+	return sum * scale / 2;
 
 }
 
@@ -109,7 +109,7 @@ EXTRAMATH_FUNDEF(gausschebychevint2,(__FNAMESRC__(kernel_) __func,
 		sum += __func((root + 1) / 2 * scale + __start, __extra) * weight;
 	}
 
-	return sum;
+	return sum * scale / 2;
 
 }
 

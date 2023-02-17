@@ -95,7 +95,7 @@ EXTRAMATH_FUNDEF(whittakerw, (__TYPENAME__ __a, __TYPENAME__ __b, __TYPENAME__ _
 			__FNAMESRC__(hyperu)(__b - __a + 0.5, 2 * __b + 1, __z);
 }
 
-EXTRAMATH_FUNDEF(hypergeo2f1, (__TYPENAME__ __a, __TYPENAME__ __b, __TYPENAME__ __c, __TYPENAME__ __z)) {
+EXTRAMATH_FUNDEF(hyper2f1, (__TYPENAME__ __a, __TYPENAME__ __b, __TYPENAME__ __c, __TYPENAME__ __z)) {
 	if(__FNAMESRC_PREF__(abs)(__z) > 1 && !__FNAMESRC__(isinteger)(__a - __b)) {
 		__TYPENAME__ sum1 = 0, sum2 = 0, coef = 1, pz = 1;
 
@@ -137,7 +137,7 @@ EXTRAMATH_FUNDEF(hypergeo2f1, (__TYPENAME__ __a, __TYPENAME__ __b, __TYPENAME__ 
 				I * __FNAMESRC_SCAL__(sin)(2 * M_PI / __LIMIT_POINTS__ + __PHASE__),
 				direction = __FNAMESRC__(epsilon)(__b) * __LIMIT_DIST__;
 		for(int i = 0; i < __LIMIT_POINTS__; i++) {
-			sum += __FNAMESRC__(hypergeo2f1)(__a, __b + direction, __c, __z);
+			sum += __FNAMESRC__(hyper2f1)(__a, __b + direction, __c, __z);
 			direction *= root;
 		}
 		return sum / __LIMIT_POINTS__;
@@ -147,7 +147,7 @@ EXTRAMATH_FUNDEF(hypergeo2f1, (__TYPENAME__ __a, __TYPENAME__ __b, __TYPENAME__ 
 
 		for(int i = 0; i < __LIMIT_POINTS__; i++) {
 			__TYPENAME__ boff = __b + step * (((__TYPENAME__) 2 * i) / (__LIMIT_POINTS__ - 1) - 1);
-			sum += __FNAMESRC__(hypergeo2f1)(__a, boff, __c, __z);
+			sum += __FNAMESRC__(hyper2f1)(__a, boff, __c, __z);
 		}
 		return sum / __LIMIT_POINTS__;
 #endif
@@ -157,7 +157,7 @@ EXTRAMATH_FUNDEF(hypergeo2f1, (__TYPENAME__ __a, __TYPENAME__ __b, __TYPENAME__ 
 
 		for(int i = 0; i < __LIMIT_POINTS__; i++) {
 			__SCALARTYPE__ oneoff = 1 + step * (((__TYPENAME__) 2 * i) / (__LIMIT_POINTS__ - 1) - 1);
-			sum += __FNAMESRC__(hypergeo2f1)(__a, __b, __c, __z * oneoff);
+			sum += __FNAMESRC__(hyper2f1)(__a, __b, __c, __z * oneoff);
 		}
 		return sum / __LIMIT_POINTS__;
 	} else if(__FNAMESRC__(isinteger)(__a) && __FNAMESRC__(real)(__a) <= 0 &&
@@ -211,9 +211,9 @@ static int condition1(unsigned int __p, unsigned int __q, const __TYPENAME__ *__
 		sum += __b[i] - __a[i];
 	}
 #ifdef __IS_COMPLEX__
-	return (__FNAMESRC__(real)(sum) > 0 && __FNAMESRC_PREF__(abs)(__z) == 1 && __q == __p - 1);
+	return (__FNAMESRC__(real)(sum) > 0 && __FNAMESRC_PREF__(abs)(__z) == 1 && __q + 1 == __p);
 #else
-	return (sum > 0 && __FNAMESRC_PREF__(abs)(__z) == 1 && __q == __p - 1);
+	return (sum > 0 && __FNAMESRC_PREF__(abs)(__z) == 1 && __q + 1 == __p);
 #endif
 }
 
@@ -249,59 +249,71 @@ static int condition2(unsigned int __p, unsigned int __q, const __TYPENAME__ *__
 	}
 }
 
-EXTRAMATH_FUNDEF(hypergeopfq,(unsigned int __p, unsigned int __q, const __TYPENAME__ *__a,
+EXTRAMATH_FUNDEF(hyperpfq,(unsigned int __p, unsigned int __q, const __TYPENAME__ *__a,
 		const __TYPENAME__ *__b, __TYPENAME__ __z)) {
-
-	if((__q >= __p) || (__q == __p - 1 && __FNAMESRC_PREF__(abs)(__z) <= 1) ||
-			condition1(__p, __q, __a, __b, __z)) {
-		__TYPENAME__ sum = 0, coef = 1, pz = 1;
-		for(int i = 0; !__FNAMESRC__(absconv)(sum, coef * pz); i++) {
-			sum += coef * pz;
-			pz *= __z;
-			for(int j = 0; j < __q; j++) {
-				if(j < __p) {
-					coef *= __a[j] + i;
-				}
-				coef /= __b[j] + i;
-			}
-			for(int j = __q; j < __p; j++) {
-				coef *= __a[j] + i;
-			}
-			coef /= i + 1;
-		}
-		return sum;
-	} else if(condition2(__p, __q, __a, __b, __z)) {
-		__TYPENAME__ sum = 0, coef = 1, pz = 1;
-
-		long mina = 1;
-		for(int i = 0; i < __p; i++) {
-			if(__FNAMESRC__(isinteger)(__a[i]) && (long) __a[i] <= 0) {
-				if(mina == 1) {
-					mina = (long) __a[i];
-				} else if((long) __a[i] > mina) {
-					mina = (long) __a[i];
-				}
-			}
-		}
-
-		for(int i = 0; i < -mina; i++) {
-			sum += coef * pz;
-			pz *= __z;
-			for(int j = 0; j < __q; j++) {
-				if(j < __p) {
-					coef *= __a[j] + i;
-				}
-				coef /= __b[j] + i;
-			}
-			for(int j = __q; j < __p; j++) {
-				coef *= __a[j] + i;
-			}
-			coef /= i + 1;
-		}
-		return sum;
-	} else {
-		return NAN;
+  if(__q == 0 && __p == 0) {
+    return __FNAMESRC__(exp)(__z);
+  } else if(__q >= __p &&  __p == 0) {
+    __TYPENAME__ sum = 0, coef = 1, pz = 1;
+    for(int i = 0; !__FNAMESRC__(absconv)(sum, coef * pz); i++) {
+      sum += coef * pz;
+      pz *= __z;
+      for(int j = 0; j < __q; j++) {
+	coef /= __b[j] + i;
+      }
+      coef /= i + 1;
+    }
+    return sum;
+  } if((__q >= __p) || (__q + 1 == __p && __FNAMESRC_PREF__(abs)(__z) <= 1) ||
+     condition1(__p, __q, __a, __b, __z)) {
+    __TYPENAME__ sum = 0, coef = 1, pz = 1;
+    for(int i = 0; !__FNAMESRC__(absconv)(sum, coef * pz); i++) {
+      sum += coef * pz;
+      pz *= __z;
+      for(int j = 0; j < __q; j++) {
+	if(j < __p) {
+	  coef *= __a[j] + i;
 	}
+	coef /= __b[j] + i;
+      }
+      for(int j = __q; j < __p; j++) {
+	coef *= __a[j] + i;
+      }
+      coef /= i + 1;
+    }
+    return sum;
+  } else if(condition2(__p, __q, __a, __b, __z)) {
+    __TYPENAME__ sum = 0, coef = 1, pz = 1;
+    
+    long mina = 1;
+    for(int i = 0; i < __p; i++) {
+      if(__FNAMESRC__(isinteger)(__a[i]) && (long) __a[i] <= 0) {
+	if(mina == 1) {
+	  mina = (long) __a[i];
+	} else if((long) __a[i] > mina) {
+	  mina = (long) __a[i];
+	}
+      }
+    }
+    
+    for(int i = 0; i < -mina; i++) {
+      sum += coef * pz;
+      pz *= __z;
+      for(int j = 0; j < __q; j++) {
+	if(j < __p) {
+	  coef *= __a[j] + i;
+	}
+	coef /= __b[j] + i;
+      }
+      for(int j = __q; j < __p; j++) {
+	coef *= __a[j] + i;
+      }
+      coef /= i + 1;
+    }
+    return sum;
+  } else {
+    return NAN;
+  }
 }
 
 

@@ -37,17 +37,33 @@ EXTRAMATH_FUNDEF(j1, (__TYPENAME__ __x)) {
 	return __FNAMESRC__(jn)(1, __x);
 }
 
-EXTRAMATH_FUNDEF(yn, (int __n, __TYPENAME__ __x)) {
-	__TYPENAME__ sum = 0, coef = 1, pz = 1;
 
-	int k = 0;
-	while(!__FNAMESRC__(absconv)(sum, coef)) {
-		sum += coef * pz;
-		coef *= 1 / (4 * (__n + 1 + k) * (k + 1));
-		pz *= __x * __x;
-		k++;
-	}
-	return __FNAMESRC__(exp)(__n * (__FNAMESRC__(log)(__x) - M_LN2) - __FNAMESRC_SCAL__(lgamma)(__n + 1)) * sum;
+#define LIMIT_POINTS 4
+#define WIDTH 0.01
+EXTRAMATH_FUNDEF(yn, (int __n, __TYPENAME__ __x)) {
+  if(__x == 0) {
+    return NAN;
+  }
+
+  // Chebychev nodes.
+  __TYPENAME__ nodes[LIMIT_POINTS] = {0.9238795325112867 * WIDTH,
+    0.38268343236508984 * WIDTH,
+    -0.3826834323650897 * WIDTH,
+    -0.9238795325112867 * WIDTH};
+  __TYPENAME__ funcs[LIMIT_POINTS];
+
+  // Calculate the interpolant.
+  __TYPENAME__ sum = 0;
+  for(int i = 0; i < LIMIT_POINTS; i++) {
+    __TYPENAME__ prod = __FNAMESRC__(ynu)(__n + nodes[i], __x);
+    for(int j = 0; j < LIMIT_POINTS; j++) {
+      if(i != j) {
+	prod *= (__n - nodes[j]) / (nodes[i] - nodes[j]);
+      }
+    }
+    sum += prod;
+  }
+  return sum;
 }
 
 EXTRAMATH_FUNDEF(y1, (__TYPENAME__ __x)) {
@@ -60,53 +76,66 @@ EXTRAMATH_FUNDEF(y0, (__TYPENAME__ __x)) {
 #endif
 
 EXTRAMATH_FUNDEF(jnu, (__TYPENAME__ __nu, __TYPENAME__ __x)) {
-	__TYPENAME__ sum = 0, coef = 1, pz = 1;
+  __TYPENAME__ sum = 0, coef = 1, pz = 1;
 
 #	ifndef __IS_COMPLEX__
-	if(__x == 0 && (__nu > 0 || __FNAMESRC__(fmod)(__nu, 1) == 0)) {
-		return 0;
-	} else if(__x == 0 && __nu < 0 && __FNAMESRC__(fmod)(__nu, 1) != 0) {
-		return INFINITY;
-	} else {
+  if(__x == 0 && (__nu > 0 || __FNAMESRC__(fmod)(__nu, 1) == 0)) {
+    return 0;
+  } else if(__x == 0 && __nu < 0 && __FNAMESRC__(fmod)(__nu, 1) != 0) {
+    return INFINITY;
+  } else {
+    // Skips the complex stuff.
 #	else
-	if(__x == 0 && (__FNAMESRC__(real)(__nu) > 0 || (__FNAMESRC__(imag)(__nu) == 0 &&
-			__FNAMESRC_SCAL__(fmod)(__FNAMESRC__(real)(__nu), 1) == 0))) {
-		return 0;
-	} else if(__x == 0 && __FNAMESRC__(real)(__nu) < 0 && (__FNAMESRC__(imag)(__nu) != 0 ||
-			__FNAMESRC_SCAL__(fmod)(__FNAMESRC__(real)(__nu), 1) != 0)) {
-		return INFINITY;
-	} else if(__x == 0 && __FNAMESRC__(real)(__nu) == 0 && __nu != 0) {
-		return NAN;
-	} else {
+    if(__x == 0 && (__FNAMESRC__(real)(__nu) > 0 || (__FNAMESRC__(imag)(__nu) == 0 &&
+						     __FNAMESRC_SCAL__(fmod)(__FNAMESRC__(real)(__nu), 1) == 0))) {
+      return 0;
+    } else if(__x == 0 && __FNAMESRC__(real)(__nu) < 0 && (__FNAMESRC__(imag)(__nu) != 0 ||
+							   __FNAMESRC_SCAL__(fmod)(__FNAMESRC__(real)(__nu), 1) != 0)) {
+      return INFINITY;
+    } else if(__x == 0 && __FNAMESRC__(real)(__nu) == 0 && __nu != 0) {
+      return NAN;
+    } else {
 #	endif
-		int k = 0;
-		while(!__FNAMESRC__(absconv)(sum, coef)) {
-			sum += coef * pz;
-			coef *= -1.0 / (4 * (__nu + 1 + k) * (k + 1));
-			pz *= __x * __x;
-			k++;
-		}
-		return __FNAMESRC__(exp)(__nu * (__FNAMESRC__(log)(__x) - M_LN2) - __FNAMESRC__(lgamma)(__nu + 1)) * sum;
-	}
+      int k = 0;
+      while(!__FNAMESRC__(absconv)(sum, coef)) {
+	sum += coef * pz;
+	coef *= -1.0 / (4 * (__nu + 1 + k) * (k + 1));
+	pz *= __x * __x;
+	k++;
+      }
+      return __FNAMESRC__(exp)(__nu * (__FNAMESRC__(log)(__x) - M_LN2) - __FNAMESRC__(lgamma)(__nu + 1)) * sum;
+    }
 }
 
 EXTRAMATH_FUNDEF(ynu, (__TYPENAME__ __nu, __TYPENAME__ __x)) {
-	__TYPENAME__ sum = 0, coef = 1, pz = 1;
-
+  __TYPENAME__ sum = 0, coef = 1, pz = 1;
+  
 #	ifndef __IS_COMPLEX__
-	if(__FNAMESRC__(fmod)(__nu, 1) != 0) {
-		return 1 /__FNAMESRC__(sin)(M_PI * __nu) * (__FNAMESRC__(cos)(M_PI * __nu) * __FNAMESRC__(jnu)(__nu, __x) -
-				__FNAMESRC__(jnu)(-__nu, __x));
-	} else {
-		return __FNAMESRC__(yn)((int) __nu, __x);
-	}
+  // Avoid calculating twice when __nu is a half-integer.
+  if(__FNAMESRC__(fmod)(__FNAMESRC_PREF__(abs)(__nu), 1) == 0.5) {
+    if(__FNAMESRC__(fmod)(2 * __nu, 4) == 1 ||
+       __FNAMESRC__(fmod)(2 * __nu, 4) == -3) {
+      return -__FNAMESRC__(jnu)(-__nu, __x);
+    } else {
+      return __FNAMESRC__(jnu)(-__nu, __x);
+    }
+  } else if(__FNAMESRC__(fmod)(__nu, 1) != 0) {
+    return (__FNAMESRC__(jnu)(__nu, __x) / __FNAMESRC__(tan)(M_PI * __nu) -
+	    __FNAMESRC__(jnu)(-__nu, __x) / __FNAMESRC__(sin)(M_PI * __nu));
+  } else {
+    return __FNAMESRC__(yn)((int) __nu, __x);
+  }
 #	else
-	if(__FNAMESRC__(imag)(__nu) != 0 || __FNAMESRC_SCAL__(fmod)(__FNAMESRC__(real)(__nu), 1) != 0) {
-		return 1 /__FNAMESRC__(sin)(M_PI * __nu) * (__FNAMESRC__(cos)(M_PI * __nu) * __FNAMESRC__(jnu)(__nu, __x) -
-				__FNAMESRC__(jnu)(-__nu, __x));
-	} else {
-		return __FNAMESRC__(yn)((int) __nu, __x);
-	}
+  // Avoid calculating twice when __nu is a half-integer.
+  if(__FNAMESRC__(imag)(__nu) == 0 &&
+     __FNAMESRC_SCAL__(fmod)(__FNAMESRC_SCAL_PREF__(abs)(__FNAMESRC__(real)(__nu)), 1) == 0.5) {
+    return -__FNAMESRC__(jnu)(-__nu, __x) * __FNAMESRC__(sin)(__nu * M_PI);
+  } else if(__FNAMESRC__(imag)(__nu) != 0 || __FNAMESRC_SCAL__(fmod)(__FNAMESRC__(real)(__nu), 1) != 0) {
+    return 1 /__FNAMESRC__(sin)(M_PI * __nu) * (__FNAMESRC__(cos)(M_PI * __nu) * __FNAMESRC__(jnu)(__nu, __x) -
+						__FNAMESRC__(jnu)(-__nu, __x));
+  } else {
+    return __FNAMESRC__(yn)((int) __nu, __x);
+  }
 #	endif
 }
 
@@ -133,7 +162,7 @@ EXTRAMATH_FUNDEF(inu, (__TYPENAME__ __nu, __TYPENAME__ __x)) {
 		int k = 0;
 		while(!__FNAMESRC__(absconv)(sum, coef)) {
 			sum += coef * pz;
-			coef *= 1 / (4 * (__nu + 1 + k) * (k + 1));
+			coef *= 1.0 / (4 * (__nu + 1 + k) * (k + 1));
 			pz *= __x * __x;
 			k++;
 		}
@@ -142,27 +171,33 @@ EXTRAMATH_FUNDEF(inu, (__TYPENAME__ __nu, __TYPENAME__ __x)) {
 }
 
 EXTRAMATH_FUNDEF(i0, (__TYPENAME__ __x)) {
-	__TYPENAME__ sum = 0, coef = 1, pz = 1;
-	int k = 0;
-	while(!__FNAMESRC__(absconv)(sum, coef)) {
-		sum += coef * pz;
-		coef *= 1 / (4 * (k + 1) * (k + 1));
-		pz *= __x * __x;
-		k++;
-	}
-	return sum;
+  if(__x == 0) {
+    return 0;
+  }
+  __TYPENAME__ sum = 0, coef = 1, pz = 1;
+  int k = 0;
+  while(!__FNAMESRC__(absconv)(sum, coef)) {
+    sum += coef * pz;
+    coef *= 1.0 / (4 * (k + 1) * (k + 1));
+    pz *= __x * __x;
+    k++;
+  }
+  return sum;
 }
 
 EXTRAMATH_FUNDEF(i1, (__TYPENAME__ __x)) {
-	__TYPENAME__ sum = 0, coef = 1, pz = 1;
-	int k = 0;
-	while(!__FNAMESRC__(absconv)(sum, coef)) {
-		sum += coef * pz;
-		coef *= 1 / (4 * (k + 2) * (k + 1));
-		pz *= __x * __x;
-		k++;
-	}
-	return __x * sum / 2;
+  if(__x == 0) {
+    return 0;
+  }
+  __TYPENAME__ sum = 0, coef = 1, pz = 1;
+  int k = 0;
+  while(!__FNAMESRC__(absconv)(sum, coef)) {
+    sum += coef * pz;
+    coef *= 1.0 / (4 * (k + 2) * (k + 1));
+    pz *= __x * __x;
+    k++;
+  }
+  return __x * sum / 2;
 }
 
 EXTRAMATH_FUNDEF(in, (int __n, __TYPENAME__ __x)) {

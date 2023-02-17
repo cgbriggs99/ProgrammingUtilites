@@ -1,5 +1,10 @@
- # Emacs backups
- *~
+# Emacs backups
+*~
+
+# Locks
+*\#*
+\#*
+
 
 # Compilation objects
 *.o
@@ -10,3 +15,4 @@ a.out
 *.pyo
 
 build/*
+build
