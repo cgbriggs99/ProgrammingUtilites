@@ -12,40 +12,14 @@
 
 #ifdef __IS_COMPLEX__
 
-// This is accelerated by Kummer's transformation up to the 1/k^8 term.
 EXTRAMATH_FUNDEF(lgamma, (__TYPENAME__ __z)) {
-	// TODO: This series is terrible. Find a faster way to compute this.
-	// Can't handle negative integers or zero.
-	if(__FNAMESRC__(imag)(__z) == 0 && __FNAMESRC__(real)(__z) <= 0 &&
-			__FNAMESRC_SCAL__(fmod)(__FNAMESRC__(real)(__z), 1) == 0) {
-		return NAN;
-	} else {
-		__TYPENAME__ sum1 = 0, sum2 = 1;
-		__TYPENAME__ zet2 = 1.6449340668482264365 / 2 * __z * __z,
-				zet3 = 1.2020569031595942854 / 3 * __z * __z * __z,
-				zet4 = 1.0823232337111381915 / 4 * __z * __z * __z * __z,
-				zet5 = 1.0369277551433699263 / 5 * __z * __z * __z * __z * __z,
-				zet6 = 1.0173430619844491397 / 6 * __z * __z * __z * __z * __z * __z,
-				zet7 = 1.0083492773819228268 / 7 * __z * __z * __z * __z * __z * __z * __z,
-				zet8 = 1.0040773561979443394 / 8 * __z * __z * __z * __z * __z * __z * __z * __z;
-		for(int i = 1; !__FNAMESRC__(absconv)(sum1, __FNAMESRC_PREF__(abs)(sum1 - sum2)); i++) {
-			sum2 = sum1;
-			sum1 += -__FNAMESRC__(log)(1 + __z / i) + __z / i
-					- __z * __z / (2 * i * i)
-					+ __z * __z * __z / (3 * i * i * i)
-					- __z * __z * __z * __z / (4 * i * i * i * i)
-					+ __z * __z * __z * __z * __z / (5 * i * i * i * i * i)
-					- __z * __z * __z * __z * __z * __z / (6 * i * i * i * i * i * i)
-					+ __z * __z * __z * __z * __z * __z * __z / (7 * i * i * i * i * i * i * i)
-					- __z * __z * __z * __z * __z * __z * __z * __z / (8 * i * i * i * i * i * i * i * i);
-		}
-		return sum1 - MASCHERONI * __z - __FNAMESRC__(log)(__z) + zet2 - zet3 + zet4 - zet5 + zet6 - zet7 + zet8;
-	}
+
 }
 
-
+// Use Lanczos approximation.
 EXTRAMATH_FUNDEF(tgamma, (__TYPENAME__ __z)) {
-	return __FNAMESRC__(exp)(__FNAMESRC__(lgamma)(__z));
+
+  
 }
 
 #endif
