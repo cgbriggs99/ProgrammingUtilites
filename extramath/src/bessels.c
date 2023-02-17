@@ -13,20 +13,22 @@
 #ifdef __IS_COMPLEX__
 
 EXTRAMATH_FUNDEF(jn, (int __n, __TYPENAME__ __x)) {
-	__TYPENAME__ sum = 0, coef = 1, pz = 1;
-
-	if(__x == 0) {
-		return 0;
-	} else {
-		int k = 0;
-		while(!__FNAMESRC__(absconv)(sum, coef)) {
-			sum += coef * pz;
-			coef *= -1.0 / (4 * (__n + 1 + k) * (k + 1));
-			pz *= __x * __x;
-			k++;
-		}
-		return __FNAMESRC__(exp)(__n * (__FNAMESRC__(log)(__x) - M_LN2) - __FNAMESRC_SCAL__(lgamma)(__n + 1)) * sum;
-	}
+  __TYPENAME__ sum = 0, coef = 1, pz = 1;
+  
+  if(__x == 0 && __n != 0) {
+    return 0;
+  } else if(__x == 0 && __n == 0) {
+    return 1;
+  } else {
+    int k = 0;
+    while(!__FNAMESRC__(absconv)(sum, coef)) {
+      sum += coef * pz;
+      coef *= -1.0 / (4 * (__n + 1 + k) * (k + 1));
+      pz *= __x * __x;
+      k++;
+    }
+    return __FNAMESRC__(exp)(__n * (__FNAMESRC__(log)(__x) - M_LN2) - __FNAMESRC_SCAL__(lgamma)(__n + 1)) * sum;
+  }
 }
 
 EXTRAMATH_FUNDEF(j0, (__TYPENAME__ __x)) {

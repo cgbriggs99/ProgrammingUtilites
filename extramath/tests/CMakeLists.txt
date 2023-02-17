@@ -52,4 +52,5 @@ macro(test_recipe target source)
   unset(SOURCE_FILE)
 endmacro()
 
+test_recipe(test_bessels test_bessels.c)
 test_recipe(test_integrals test_integrals.pre.c test_integrals.c)

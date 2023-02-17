@@ -145,3 +145,24 @@ A rather complicated function with several parameters.
                   b_1, b_2, \ldots , b_q
                   \end{matrix}\right.\right)
             
+Appel Function
+--------------
+
+This is a generalization of the hypergeometric function, defined as the following.
+
+.. math::
+
+    F_1\left(a; b_1, b_2; c; z_1, z_2\right) = \sum_{k = 0}^\infty \sum_{l = 0}^\infty \frac{(a)_{k + l} (b_1)_k (b_2)_l z_1^k z_2^l}{(c)_{k + l} k! l!}
+
+.. c:function:: double apellf1(double a, double b1, double b2, double c, double z1, double z2)
+.. c:function:: float apellf1f(float a, float b1, float b2, float c, float z1, float z2)
+.. c:function:: long double apellf1l(long double a, long double b1, long double b2, long double c, long double z1, long double z2)
+.. c:function:: double _Complex capellf1(double _Complex a, double _Complex b1, double _Complex b2, double _Complex c, double _Complex z1, double _Complex z2)
+.. c:function:: float _Complex capellf1f(float _Complex a, float _Complex b1, float _Complex b2, float _Complex c, float _Complex z1, float _Complex z2)
+.. c:function:: long double _Complex capellf1l(long double _Complex a, long double _Complex b1, long double _Complex b2, long double _Complex c, long double _Complex z1, long double _Complex z2)
+
+    :params a, b1, b2, c: See the equation above.
+    :params z1, z2: The positions to evaluate this function at.
+    :return: The Appel F1 function.
+
+    Computes :math:`F_1(a; b_1, b_2; c; z_1, z_2)`.

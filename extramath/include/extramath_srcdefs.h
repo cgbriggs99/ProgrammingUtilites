@@ -19,6 +19,8 @@
 #define EXTRAMATH_ARRFUNDEFFOR1(fname, suff, args) int __FNAMEFOR_SUFF__(fname,suff) args
 #define __CONCAT1(x, y) __CONCAT(x,y)
 
+#define MAX_ITERS 1000
+
 #define __TYPEVAL_FLOAT__ 0
 #define __TYPEVAL_DOUBLE__ 1
 #define __TYPEVAL_LONGDOUBLE__ 2
@@ -117,16 +119,16 @@
  * Gives the name of a C function. Has f prefix. Only for the scalar. That is, if the type is _Complex float,
  * then this will give the function for float. Works with fabs and cabs.
  */
-#define __FNAMESRC_SCAL_PREF__(fname) __FNAME_SCAL_PREF_SUFF__(fname,__TYPESUFF__)
-#define __FNAMESRC_SCAL_PREF_SUFF__(fname,suff) __FNAME_SCAL_PREF_SUFF1__(fname,suff)
+#define __FNAMESRC_SCAL_PREF__(fname) __FNAMESRC_SCAL_PREF_SUFF__(fname,__TYPESUFF__)
+#define __FNAMESRC_SCAL_PREF_SUFF__(fname,suff) __FNAMESRC_SCAL_PREF_SUFF1__(fname,suff)
 #define __FNAMESRC_SCAL_PREF_SUFF1__(fname,suff) f##fname##suff
 
 /*
  * Gives the name of a C wrapper function for a FORTRAN procedure. Only for the scalar type, that is if the type
  * is _Complex float, then this will give the function for float. Has an f prefix.
  */
-#define __FNAMEFOR_SCAL_PREF__(fname) __FNAME_SCAL_PREF_SUFF__(fname,__TYPESUFF__)
-#define __FNAMEFOR_SCAL_PREF_SUFF__(fname,suff) __FNAME_SCAL_PREF_SUFF1__(fname,suff)
+#define __FNAMEFOR_SCAL_PREF__(fname) __FNAMESRC_SCAL_PREF_SUFF__(fname,__TYPESUFF__)
+#define __FNAMEFOR_SCAL_PREF_SUFF__(fname,suff) __FNAMESRC_SCAL_PREF_SUFF1__(fname,suff)
 #define __FNAMEFOR_SCAL_PREF_SUFF1__(fname,suff) f##fname##suff##_fortran
 
 /*
@@ -221,16 +223,16 @@
  * Gives the name of a C function. Has f prefix. Only for the scalar. That is, if the type is _Complex float,
  * then this will give the function for float. Works with fabs and cabs.
  */
-#define __FNAMESRC_SCAL_PREF__(fname) __FNAME_SCAL_PREF_SUFF__(fname,__TYPESUFF__)
-#define __FNAMESRC_SCAL_PREF_SUFF__(fname,suff) __FNAME_SCAL_PREF_SUFF1__(fname,suff)
+#define __FNAMESRC_SCAL_PREF__(fname) __FNAMESRC_SCAL_PREF_SUFF__(fname,__TYPESUFF__)
+#define __FNAMESRC_SCAL_PREF_SUFF__(fname,suff) __FNAMESRC_SCAL_PREF_SUFF1__(fname,suff)
 #define __FNAMESRC_SCAL_PREF_SUFF1__(fname,suff) f##fname##suff
 
 /*
  * Gives the name of a C wrapper function for a FORTRAN procedure. Only for the scalar type, that is if the type
  * is _Complex float, then this will give the function for float. Has an f prefix.
  */
-#define __FNAMEFOR_SCAL_PREF__(fname) __FNAME_SCAL_PREF_SUFF__(fname,__TYPESUFF__)
-#define __FNAMEFOR_SCAL_PREF_SUFF__(fname,suff) __FNAME_SCAL_PREF_SUFF1__(fname,suff)
+#define __FNAMEFOR_SCAL_PREF__(fname) __FNAMEFOR_SCAL_PREF_SUFF__(fname,__TYPESUFF__)
+#define __FNAMEFOR_SCAL_PREF_SUFF__(fname,suff) __FNAMEFOR_SCAL_PREF_SUFF1__(fname,suff)
 #define __FNAMEFOR_SCAL_PREF_SUFF1__(fname,suff) f##fname##suff##_fortran
 
 /*
