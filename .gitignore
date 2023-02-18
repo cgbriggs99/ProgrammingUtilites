@@ -16,3 +16,5 @@ a.out
 
 build/*
 build
+build_docs/*
+build_docs
