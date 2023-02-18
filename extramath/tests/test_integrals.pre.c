@@ -37,31 +37,35 @@ int test_integrals(void) {
   double expected1 = 0, expected2 = 1, expected3 = 0,
     expected4 = 1 / M_2_SQRTPI;
 
-  ret = lriemannint(finite_integrand, -1, 1, POINTS, __INTEGRAL_BOTH__, NULL);
+  /*
+   * Riemann integration sucks hard. Need a lot of points to get even close.
+   */
+
+  ret = lriemannint(finite_integrand, -1, 1, 100 * POINTS, __INTEGRAL_BOTH__, NULL);
   if(fabs(ret - expected1) > GOOD_ENOUGH) {
     fprintf(stderr, "Failed lriemann, computed %lf.\n", ret);
     fails++;
   }
 
-  ret = rriemannint(finite_integrand, -1, 1, POINTS, __INTEGRAL_BOTH__, NULL);
+  ret = rriemannint(finite_integrand, -1, 1, 100 * POINTS, __INTEGRAL_BOTH__, NULL);
   if(fabs(ret - expected1) > GOOD_ENOUGH) {
     fprintf(stderr, "Failed rriemann, computed %lf.\n", ret);
     fails++;
   }
 
-  ret = mriemannint(finite_integrand, -1, 1, POINTS, NULL);
+  ret = mriemannint(finite_integrand, -1, 1, 100 * POINTS, NULL);
   if(fabs(ret - expected1) > GOOD_ENOUGH) {
     fprintf(stderr, "Failed mriemann, computed %lf.\n", ret);
     fails++;
   }
 
-  ret = trapezoidint(finite_integrand, -1, 1, POINTS, __INTEGRAL_BOTH__, NULL);
+  ret = trapezoidint(finite_integrand, -1, 1, 10 * POINTS, __INTEGRAL_BOTH__, NULL);
   if(fabs(ret - expected1) > GOOD_ENOUGH) {
     fprintf(stderr, "Failed trapezoid, computed %lf.\n", ret);
     fails++;
   }
 
-  ret = simpsonint(finite_integrand, -1, 1, POINTS, __INTEGRAL_BOTH__, NULL);
+  ret = simpsonint(finite_integrand, -1, 1, 10 * POINTS, __INTEGRAL_BOTH__, NULL);
   if(fabs(ret - expected1) > GOOD_ENOUGH) {
     fprintf(stderr, "Failed simpson, computed %lf.\n", ret);
     fails++;

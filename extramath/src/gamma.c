@@ -12,13 +12,34 @@
 
 #ifdef __IS_COMPLEX__
 
+// Find a better way.
 EXTRAMATH_FUNDEF(lgamma, (__TYPENAME__ __z)) {
-
+  return __FNAMESRC__(log)(__FNAMESRC__(tgamma)(__z));
 }
 
 // Use Lanczos approximation.
 EXTRAMATH_FUNDEF(tgamma, (__TYPENAME__ __z)) {
-
+  if(__FNAMESRC__(real)(__z) < 0.5) {
+    return M_PI / (__FNAMESRC__(sin)(M_PI * __z) * __FNAMESRC__(tgamma)(1 - __z));
+  } else {
+    __SCALARTYPE__ coefs[] = {0.9999999999999999298,
+    1975.3739023578852322,
+    -4397.3823927922428918,
+    3462.6328459862717019,
+    -1156.9851431631167820,
+    154.53815050252775060,
+    -6.2536716123689161798,
+    0.034642762454736807441,
+    -7.4776171974442977377e-7,
+    6.3041253821852264261e-8,
+    -2.7405717035683877489e-8,
+    4.0486948817567609101e-9};
+    __TYPENAME__ sum = coefs[0];
+    for(int i = 1; i < 12; i++) {
+      sum += coefs[i] / (__z + i - 1);
+    }
+    return __FNAMESRC__(sqrt)(2 * M_PI) * __FNAMESRC__(pow)(__z + 8 - 0.5, __z - 0.5) * __FNAMESRC__(exp)(-__z - 8 + 0.5) * sum;
+  }
   
 }
 
