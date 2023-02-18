@@ -9,6 +9,7 @@
 #include "../include/extramath.h"
 #include "../include/extramath_srcdefs.h"
 #include <math.h>
+#include <stdio.h>
 
 #ifdef __IS_COMPLEX__
 
@@ -23,7 +24,7 @@ EXTRAMATH_FUNDEF(jn, (int __n, __TYPENAME__ __x)) {
     int k = 0;
     while(!__FNAMESRC__(absconv)(sum, coef)) {
       sum += coef * pz;
-      coef *= -1.0 / (4 * (__n + 1 + k) * (k + 1));
+      coef *= -1.0 / (4.0 * (__n + 1.0 + k) * (k + 1.0));
       pz *= __x * __x;
       k++;
     }
@@ -32,7 +33,20 @@ EXTRAMATH_FUNDEF(jn, (int __n, __TYPENAME__ __x)) {
 }
 
 EXTRAMATH_FUNDEF(j0, (__TYPENAME__ __x)) {
-	return __FNAMESRC__(jn)(0, __x);
+  if(__x == 0) {
+    return 1;
+  } else {
+    __TYPENAME__ sum = 0, coef = 1, pz = 1;
+    int k = 0;
+    while(!__FNAMESRC__(absconv)(sum, coef)) {
+      sum += coef * pz;
+      coef *= 1.0 / -(4 * (k + 1) * (k + 1));
+      pz *= __x * __x;
+      k++;
+    }
+    return sum;
+  }
+    
 }
 
 EXTRAMATH_FUNDEF(j1, (__TYPENAME__ __x)) {
