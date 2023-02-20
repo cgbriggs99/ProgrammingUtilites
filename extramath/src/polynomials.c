@@ -28,6 +28,11 @@ EXTRAMATH_FUNDEF(hermite, (int __n, __TYPENAME__ __x)) {
   if(__n < 0) {
     return NAN;
   }
+  if(__x == 0 && __n % 2 == 1) {
+    return 0;
+  } else if(__x == 0) {
+    return 1;
+  }
   __TYPENAME__ sum = 0, px = __FNAMESRC__(pow)(2 * __x, __n), coef = 1;
   
   for(int i = 0; i <= __n / 2; i++) {
@@ -40,12 +45,20 @@ EXTRAMATH_FUNDEF(hermite, (int __n, __TYPENAME__ __x)) {
 }
 
 EXTRAMATH_FUNDEF(hermitederiv, (int __n, __TYPENAME__ __x, int __order)) {
-  __TYPENAME__ sum = 0, px = __FNAMESRC__(pow)(2 * __x, __n - __order), coef = 1;
+  __TYPENAME__ sum = 0, px = __FNAMESRC__(pow)(2 * __x, __n - __order), coef = __FNAMESRC__(pow)(2, __order);
   if(__n < 0 || __order < 0) {
     return NAN;
   }
+  if(__order > __n) {
+    return 0;
+  }
   for(int i = 0; i < __order; i++) {
     coef *= __n - i;
+  }
+  if(__x == 0 && (__n - __order) % 2 == 1) {
+    return 0;
+  } else if(__x == 0) {
+    return ((((__n - __order) / 2) % 2)? -1: 1) * coef * __FNAMESRC__(exp)(__FNAMESRC__(lgamma)(__n + 1) - __FNAMESRC__(lgamma)((__n - __order) / 2 + 1) - __FNAMESRC__(lgamma)(__order + 1));
   }
   
   for(int i = 0; i <= __n / 2; i++) {
@@ -54,25 +67,25 @@ EXTRAMATH_FUNDEF(hermitederiv, (int __n, __TYPENAME__ __x, int __order)) {
     }
     sum += coef * px;
     px /= -__x * __x * 4;
-    coef *= (__n - 2 * i) * (__n - 2 * i - 1) * (__n - 2 * i - __order + 1) * (__n - 2 * i - __order);
-    coef /= (i + 1) * (__n - 2 * i) * (__n - 2 * i - 1);
+    coef *= (__n - 2 * i - __order) * (__n - 2 * i - __order - 1);
+    coef /= (i + 1);
   }
   return sum;
 }
 
 #ifndef __IS_COMPLEX__
 EXTRAMATH_ARRFUNDEF(hermitecof, (int __n, __TYPENAME__ *__out)) {
-  __TYPENAME__ coef = 1;
+  __TYPENAME__ coef = __FNAMESRC__(pow)(2, __n);
   if(__n < 0) {
     return 0;
   }
   for(int i = 0; i <= __n / 2; i++) {
-    coef *= (__n - 2 * i) * (__n - 2 * i - 1);
-    coef /= -4 * (i + 1);
     __out[__n - 2 * i] = coef;
     if(__n - 2 * i - 1 >= 0) {
       __out[__n - 2 * i - 1] = 0;
     }
+    coef *= (__n - 2 * i) * (__n - 2 * i - 1);
+    coef /= -4 * (i + 1);
   }
   return __n + 1;
 }
@@ -95,22 +108,25 @@ EXTRAMATH_FUNDEF(laguerre, (int __n, __TYPENAME__ __x)) {
 }
 
 EXTRAMATH_FUNDEF(laguerrederiv, (int __n, __TYPENAME__ __x, int __order)) {
-	__TYPENAME__ sum = 0, px = 1, coef = 1;
-	if(__n < 0 || __order < 0) {
-	  return NAN;
-	}
-
-	for(int i = 1; i <= __order; i++) {
-		coef *= i;
-	}
-
-	for(int i = __order; i <= __n; i++) {
-		sum += coef * px;
-		px *= __x;
-		coef /= (i + 1) * (i - __order + 1);
-		coef *= (-__n + i);
-	}
-	return sum;
+  __TYPENAME__ sum = 0, px = 1, coef = 1;
+  if(__n < 0 || __order < 0) {
+    return NAN;
+  }
+  if(__order > __n) {
+    return 0;
+  }
+  
+  for(int i = 1; i <= __order; i++) {
+    coef *= (-__n + i - 1);
+  }
+  
+  for(int i = __order; i <= __n; i++) {
+    sum += coef * px;
+    px *= __x;
+    coef /= (i + 1) * (i - __order + 1);
+    coef *= (-__n + i);
+  }
+  return sum;
 }
 
 #ifndef __IS_COMPLEX__
@@ -134,7 +150,7 @@ EXTRAMATH_FUNDEF(assoclaguerre, (int __n, __TYPENAME__ __alpha, __TYPENAME__ __x
     return NAN;
   }
   __TYPENAME__ sum = 0, px = 1, coef = __FNAMESRC__(exp)(__FNAMESRC__(lgamma)(__alpha + __n + 1) -
-							 __FNAMESRC_SCAL__(lgamma)(__n + 1) - __FNAMESRC__(lgamma)(__alpha + 1));
+	__FNAMESRC_SCAL__(lgamma)(__n + 1) - __FNAMESRC__(lgamma)(__alpha + 1));
   
   for(int i = 0; i <= __n; i++) {
     sum += coef * px;
@@ -151,9 +167,13 @@ EXTRAMATH_FUNDEF(assoclaguerrederiv, (int __n, __TYPENAME__ __alpha, __TYPENAME_
   if(__n < 0 || __order < 0) {
     return NAN;
   }
+  if(__order > __n) {
+    return 0;
+  }
   
   for(int i = 1; i <= __order; i++) {
-    coef *= i;
+    coef *= (-__n + i - 1);
+    coef /= (__alpha + i);
   }
   
   for(int i = __order; i <= __n; i++) {
@@ -174,17 +194,21 @@ EXTRAMATH_ARRFUNDEF(assoclaguerrecof, (int __n, __TYPENAME__ __alpha, __TYPENAME
   
   for(int i = 0; i <= __n; i++) {
     __out[i] = coef;
-    coef /= -(i + 1) * (__alpha + i + 1);
+    coef /= (i + 1) * (__alpha + i + 1);
     coef *= (-__n + i);
   }
   return __n + 1;
 }
 
 EXTRAMATH_FUNDEF(legendre, (int __n, __TYPENAME__ __x)) {
-  __TYPENAME__ sum = 0, px = __FNAMESRC__(pow)(__x, __n), coef = __n * __FNAMESRC__(fbinom)(2 * __n, __n);
+  __TYPENAME__ sum = 0, px = __FNAMESRC__(pow)(__x / 2, __n), coef = __FNAMESRC__(fbinom)(2 * __n, __n);
 
   if(__n < 0) {
     return NAN;
+  }
+  if(__x == 0) {
+    return __FNAMESRC__(sqrt)(M_PI) / (__FNAMESRC__(tgamma)((1.0 - __n) / 2) *
+				       __FNAMESRC__(tgamma)((__n + 2.0) / 2));
   }
   for(int i = 0; i <= __n / 2; i++) {
     sum += coef * px;
@@ -196,13 +220,23 @@ EXTRAMATH_FUNDEF(legendre, (int __n, __TYPENAME__ __x)) {
 }
 
 EXTRAMATH_FUNDEF(legendrederiv, (int __n, __TYPENAME__ __x, int __order)) {
-  __TYPENAME__ sum = 0, px = __FNAMESRC__(pow)(__x, __n - __order), coef = __n * __FNAMESRC__(fbinom)(2 * __n, __n);
+  __TYPENAME__ sum = 0, px = __FNAMESRC__(pow)(__x, __n - __order), coef = __FNAMESRC__(fbinom)(2 * __n, __n) * __FNAMESRC__(pow)(2, -__n);
 
   if(__n < 0 || __order < 0) {
     return NAN;
   }
+  if(__order > __n) {
+    return 0;
+  }
   for(int i = 0; i < __order; i++) {
     coef *= __n - i;
+  }
+  if(__x == 0 && (__n - __order) % 2 == 1) {
+    return 0;
+  } else if(__x == 0) {
+    return ((((__n - __order) / 2) % 2)? -1: 1) * __FNAMESRC__(pow)(2, -__n) *
+      __FNAMESRC__(exp)(__FNAMESRC__(lgamma)(__n + __order + 1) -
+			__FNAMESRC__(lgamma)((__n + __order) / 2 + 1));
   }
   
   for(int i = 0; i <= __n / 2; i++) {
@@ -211,7 +245,7 @@ EXTRAMATH_FUNDEF(legendrederiv, (int __n, __TYPENAME__ __x, int __order)) {
       break;
     }
     px /= -__x * __x;
-    coef *= (__n - i) * (__n - 2 * i) * (__n - 2 * i - 1) * (__n - __order - 2 * i) * (__n - __order - 2 * i + 1);
+    coef *= (__n - i) * (__n - 2 * i) * (__n - 2 * i - 1) * (__n - __order - 2 * i) * (__n - __order - 2 * i - 1);
     coef /= (i + 1) * (2 * __n - 2 * i) * (2 * __n - 2 * i - 1) * (__n - 2 * i) * (__n - 2 * i - 1);
   }
   return sum;
@@ -219,7 +253,7 @@ EXTRAMATH_FUNDEF(legendrederiv, (int __n, __TYPENAME__ __x, int __order)) {
 
 #ifndef __IS_COMPLEX__
 EXTRAMATH_ARRFUNDEF(legendrecof, (int __n, __TYPENAME__ *__out)) {
-  __TYPENAME__ coef = __n * __FNAMESRC__(fbinom)(2 * __n, __n);
+  __TYPENAME__ coef = __FNAMESRC__(fbinom)(2 * __n, __n) * __FNAMESRC__(pow)(2, -__n);
 
   if(__n < 0) {
     return 0;
@@ -238,9 +272,12 @@ EXTRAMATH_ARRFUNDEF(legendrecof, (int __n, __TYPENAME__ *__out)) {
 #endif
 
 EXTRAMATH_FUNDEF(assoclegendre, (int __n, int __m, __TYPENAME__ __x)) {
+  if(__x == 1) {
+    return 0;
+  }
 #	ifndef __IS_COMPLEX__
   // This would be a square root of a negative.
-  if(__m % 2 == 1 && (__x >= 1 || __x < -1)) {
+  if(__m % 2 == 1 && (__x > 1 || __x < -1)) {
     return NAN;
   }
 #	endif
@@ -315,7 +352,7 @@ EXTRAMATH_FUNDEF(realspherharm,(int __l, int __m, __TYPENAME__ __theta, __TYPENA
   }
 }
 
-EXTRAMATH_FUNDEF(chebyshevt, (int __n, __TYPENAME__ __x)) {
+EXTRAMATH_FUNDEF(chebychevt, (int __n, __TYPENAME__ __x)) {
   if(__n < 0) {
     return NAN;
   }
@@ -337,7 +374,7 @@ EXTRAMATH_FUNDEF(chebyshevt, (int __n, __TYPENAME__ __x)) {
   return sum;
 }
 
-EXTRAMATH_FUNDEF(chebyshevtderiv, (int __n, __TYPENAME__ __x, int __order)) {
+EXTRAMATH_FUNDEF(chebychevtderiv, (int __n, __TYPENAME__ __x, int __order)) {
   if(__n < 0 || __order < 0) {
     return NAN;
   }
@@ -347,35 +384,45 @@ EXTRAMATH_FUNDEF(chebyshevtderiv, (int __n, __TYPENAME__ __x, int __order)) {
   } else if(__n == 0) {
     return 1;
   } else if(__n == 1 && __order == 0) {
-		return __x;
+    return __x;
   } else if(__n == 1 && __order == 1) {
     return 1;
   } else if(__n == 1) {
     return 0;
   }
+
+  if(__x == 0 && (__n - __order) % 2 == 1) {
+    return 0;
+  } else if(__x == 0) {
+    return __n * __FNAMESRC__(pow)(2, __n - 1) * __FNAMESRC__(sqrt)(M_PI) *
+      __FNAMESRC__(exp)(__FNAMESRC__(lgamma)(__order) +
+			__FNAMESRC__(lgamma)((__order + __n) / 2) -
+			__FNAMESRC__(lgamma)((1 - __n + __order) / 2.0) -
+			__FNAMESRC__(lgamma)(__n + __order + 1) -
+			__FNAMESRC__(lgamma)(__order));
+  }
   __TYPENAME__ sum, coef = -__n / 2.0,
     px = __FNAMESRC__(pow)(2 * __x, __n - 2 - __order);
-  
   sum = __FNAMESRC__(pow)(2, __n - 1) * __FNAMESRC__(pow)(__x, __n - __order);
   for(int i = 0; i < __order; i++) {
     sum *= __n - i;
-    coef *= i + 1;
+    coef *= 2 * (__n - i - 2);
   }
   
   for(int i = 1; i <= __n / 2; i++) {
     sum += coef * px;
-    if(coef == 0) {
+    if(coef == 0 || __n - 2 * i < __order) {
       break;
     }
-    px /= __x * __x;
-    coef *= -(__n - 2 * i) * (__n - 2 * i - 1) * (__n - __order - 2 * i) * (__n - __order - 2 * i + 1);
-    coef /= (i + 1) * (__n - i - 1) * (__n - 2 * i) * (__n - 2 * i - 1) * 4;
+    px /= 4 * __x * __x;
+    coef *= -(__n - __order - 2 * i) * (__n - __order - 2 * i - 1);
+    coef /= (i + 1) * (__n - i - 1);
   }
   return sum;
 }
 
 #ifndef __IS_COMPLEX__
-EXTRAMATH_ARRFUNDEF(chebyshevtcof, (int __n, __TYPENAME__ *__out)) {
+EXTRAMATH_ARRFUNDEF(chebychevtcof, (int __n, __TYPENAME__ *__out)) {
   if(__n < 0) {
     return 0;
   }
@@ -391,6 +438,7 @@ EXTRAMATH_ARRFUNDEF(chebyshevtcof, (int __n, __TYPENAME__ *__out)) {
   __TYPENAME__ coef = -__n / 2.0 * __FNAMESRC__(pow)(2, __n - 2);
   __out[0] = 0;
   __out[__n] = __FNAMESRC__(pow)(2, __n - 1);
+  __out[__n - 1] = 0;
   
   for(int i = 1; i <= __n / 2; i++) {
     __out[__n - 2 * i] = coef;
@@ -404,13 +452,20 @@ EXTRAMATH_ARRFUNDEF(chebyshevtcof, (int __n, __TYPENAME__ *__out)) {
 }
 #endif
 
-EXTRAMATH_FUNDEF(chebyshevu, (int __n, __TYPENAME__ __x)) {
+EXTRAMATH_FUNDEF(chebychevu, (int __n, __TYPENAME__ __x)) {
   if(__n < 0) {
     return NAN;
   }
   // These two cases will break the algorithm.
   if(__n == 0) {
     return 1;
+  }
+  if(__x == 0 && __n % 2 == 1) {
+    return 0;
+  } else if(__x == 0 && __n % 4 == 0) {
+    return 1;
+  } else if(__x == 0 && __n % 4 == 2) {
+    return -1;
   }
   __TYPENAME__ sum = 0, coef = 1,
     px = __FNAMESRC__(pow)(2 * __x, __n);
@@ -424,15 +479,26 @@ EXTRAMATH_FUNDEF(chebyshevu, (int __n, __TYPENAME__ __x)) {
   return sum;
 }
 
-EXTRAMATH_FUNDEF(chebyshevuderiv, (int __n, __TYPENAME__ __x, int __order)) {
+EXTRAMATH_FUNDEF(chebychevuderiv, (int __n, __TYPENAME__ __x, int __order)) {
   if(__n < 0 || __order < 0) {
     return NAN;
+  }
+  if(__order > __n) {
+    return 0;
   }
   // These two cases will break the algorithm.
   if(__n == 0 && __order == 0) {
     return 1;
   } else if(__n == 0) {
     return 0;
+  }
+  if(__x == 0 && (__n + __order) % 2 == 0) {
+    return __FNAMESRC__(pow)(2, __n) * __FNAMESRC__(sqrt)(M_PI) *
+      __FNAMESRC__(exp)(__FNAMESRC__(lgamma)(__order + 1) +
+			__FNAMESRC__(lgamma)((__order + __n) / 2.0 + 1) -
+			__FNAMESRC__(lgamma)((1 - __n -__order) / 2) -
+			__FNAMESRC__(lgamma)(__n - __order + 1) -
+			__FNAMESRC__(lgamma)(__order + 1));
   }
   
   __TYPENAME__ sum = 0, coef = __FNAMESRC__(pow)(2, __n),
@@ -444,15 +510,15 @@ EXTRAMATH_FUNDEF(chebyshevuderiv, (int __n, __TYPENAME__ __x, int __order)) {
   
   for(int i = 0; i <= __n / 2; i++) {
     sum += coef * px;
-    px /= __x * __x;
-    coef *= -(__n - 2 * i) * (__n - 2 * i - 1) * (__n - 2 * i) * (__n - 2 * i + 1);
-    coef /= (i + 1) * (__n - i) * (__n - 2 * i - __order + 1) * (__n - 2 * i - __order) * 4;
+    px /= 4 * __x * __x;
+    coef *= -(__n - 2 * i) * (__n - 2 * i - 1) * (__n - 2 * i - __order) * (__n - 2 * i - __order - 1);
+    coef /= (i + 1) * (__n - i) * (__n - 2 * i - 1) * (__n - 2 * i);
   }
   return sum;
 }
 
 #ifndef __IS_COMPLEX__
-EXTRAMATH_ARRFUNDEF(chebyshevucof, (int __n, __TYPENAME__ *__out)) {
+EXTRAMATH_ARRFUNDEF(chebychevucof, (int __n, __TYPENAME__ *__out)) {
   if(__n < 0) {
     return 0;
   }
@@ -465,9 +531,9 @@ EXTRAMATH_ARRFUNDEF(chebyshevucof, (int __n, __TYPENAME__ *__out)) {
     __out[1] = 2;
     return 2;
   }
-  __TYPENAME__ coef = 1;
+  __TYPENAME__ coef = __FNAMESRC__(pow)(2, __n);
   
-  for(int i = 1; i <= __n / 2; i++) {
+  for(int i = 0; i <= __n / 2; i++) {
     __out[__n - 2 * i] = coef;
     if(__n - 2 * i - 1 >= 0) {
       __out[__n - 2 * i - 1] = 0;
@@ -483,14 +549,17 @@ EXTRAMATH_FUNDEF(jacobi,(int __n, __TYPENAME__ __a, __TYPENAME__ __b, __TYPENAME
   if(__n < 0) {
     return NAN;
   }
-  __TYPENAME__ sum = 0, coef = 1 / __FNAMESRC_SCAL__(tgamma)(__n + 1), px = 1;
+  __TYPENAME__ sum = 0,
+    coef = __FNAMESRC__(exp)(__FNAMESRC__(lgamma)(__a + 1 + __n) -
+			     __FNAMESRC__(lgamma)(__a + 1) - 
+			     __FNAMESRC__(lgamma)(__n + 1)), px = 1;
   
   for(int i = 0; i <= __n; i++) {
     sum += coef * px;
     px *= (1 - __x) / 2;
-    coef *= -(__a + __b + __n + 1 + i) * (__n + i) * (__a + 1 + __n);
-    coef /= (i + 1) * (__a + i) * (__a + i + 1) * (__a + __n);
-	}
+    coef *= (__a + __b + __n + 1 + i) * (-__n + i);
+    coef /= (i + 1) * (__a + i + 1);
+  }
   return sum;
 }
 
@@ -498,17 +567,23 @@ EXTRAMATH_FUNDEF(jacobideriv,(int __n, __TYPENAME__ __a, __TYPENAME__ __b, __TYP
   if(__n < 0 || __order < 0) {
     return 0;
   }
-  __TYPENAME__ sum = 0, coef = 1 / __FNAMESRC_SCAL__(tgamma)(__n + 1), px = 1;
+  if(__order > __n) {
+    return 0;
+  }
+  __TYPENAME__ sum = 0,
+    coef = __FNAMESRC__(exp)(__FNAMESRC__(lgamma)(__a + 1 + __n) -
+			     __FNAMESRC__(lgamma)(__a + 1) - 
+			     __FNAMESRC__(lgamma)(__n + 1)), px = 1;
   
   for(int i = 1; i <= __order; i++) {
-    coef *= -i / 2.0;
+    coef *= -1.0 / 2.0 * (__a + __b + __n + i) * (-__n + i - 1) / (__a + i);
   }
   
   for(int i = __order; i <= __n; i++) {
     sum += coef * px;
     px *= (1 - __x) / 2;
-    coef *= -(__a + __b + __n + 1 + i) * (__n + i) * (__a + 1 + __n);
-    coef /= (__a + i) * (__a + i + 1) * (__a + __n) * (i - __order + 1);
+    coef *= (__a + __b + __n + 1 + i) * (-__n + i);
+    coef /= (i + 1 - __order) * (__a + i + 1);
   }
   return sum;
 }
@@ -517,12 +592,14 @@ EXTRAMATH_ARRFUNDEF(altjacobicof,(int __n, __TYPENAME__ __a, __TYPENAME__ __b, _
   if(__n < 0) {
     return 0;
   }
-  __TYPENAME__ coef = 1 / __FNAMESRC_SCAL__(tgamma)(__n + 1);
+  __TYPENAME__ coef = __FNAMESRC__(exp)(__FNAMESRC__(lgamma)(__a + 1 + __n) -
+			     __FNAMESRC__(lgamma)(__a + 1) - 
+			     __FNAMESRC__(lgamma)(__n + 1));
   
   for(int i = 0; i <= __n; i++) {
     __coefs[i] = coef;
-    coef *= -(__a + __b + __n + 1 + i) * (__n + i) * (__a + 1 + __n);
-    coef /= (i + 1) * (__a + i) * (__a + i + 1) * (__a + __n);
+    coef *= (__a + __b + __n + 1 + i) * (-__n + i);
+    coef /= (i + 1) * (__a + i + 1);
   }
   return __n + 1;
 }

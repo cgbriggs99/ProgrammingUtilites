@@ -30,12 +30,12 @@ double hermite_integrand(double x, const void *extra) {
   return 1;
 }
 
-#define POINTS 20
+#define POINTS 10
 int test_integrals(void) {
   int fails = 0;
   double ret;
   double expected1 = 0, expected2 = 1, expected3 = 0,
-    expected4 = 1 / M_2_SQRTPI;
+    expected4 = sqrt(M_PI);
 
   /*
    * Riemann integration sucks hard. Need a lot of points to get even close.
@@ -109,7 +109,7 @@ int test_integrals(void) {
 
   ret = gausshermiteint(hermite_integrand, POINTS, NULL);
   if(fabs(ret - expected4) > GOOD_ENOUGH) {
-    fprintf(stderr, "Failed hermite, computed %lf.\n", ret);
+    fprintf(stderr, "Failed hermite, computed %lf, expected %lf.\n", ret, expected4);
     fails++;
   }
 

@@ -54,3 +54,4 @@ endmacro()
 
 test_recipe(test_bessels test_bessels.c)
 test_recipe(test_integrals test_integrals.pre.c test_integrals.c)
+test_recipe(test_poly test_poly.c)

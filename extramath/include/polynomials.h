@@ -55,13 +55,13 @@ EXTRAMATH_DECL(realspherharm, (int __l, int __m, __TYPE_NAME__ __theta, __TYPE_N
 /*
  * Chebyshev polynomials.
  */
-EXTRAMATH_DECL(chebyshevt, (int __nu, __TYPE_NAME__ __x));
-EXTRAMATH_DECL(chebyshevu, (int __nu, __TYPE_NAME__ __x));
-EXTRAMATH_DECL(chebyshevtderiv, (int __nu, __TYPE_NAME__ __x, int order));
-EXTRAMATH_DECL(chebyshevuderiv, (int __nu, __TYPE_NAME__ __x, int order));
+EXTRAMATH_DECL(chebychevt, (int __nu, __TYPE_NAME__ __x));
+EXTRAMATH_DECL(chebychevu, (int __nu, __TYPE_NAME__ __x));
+EXTRAMATH_DECL(chebychevtderiv, (int __nu, __TYPE_NAME__ __x, int order));
+EXTRAMATH_DECL(chebychevuderiv, (int __nu, __TYPE_NAME__ __x, int order));
 #ifndef __IS_COMPLEX_HEADER__
-EXTRAMATH_ARRDECL(chebyshevtcof, (int __n, __TYPE_NAME__ *__out));
-EXTRAMATH_ARRDECL(chebyshevucof, (int __n, __TYPE_NAME__ *__out));
+EXTRAMATH_ARRDECL(chebychevtcof, (int __n, __TYPE_NAME__ *__out));
+EXTRAMATH_ARRDECL(chebychevucof, (int __n, __TYPE_NAME__ *__out));
 #endif
 
 EXTRAMATH_DECL(jacobi, (int __n, __TYPE_NAME__ __a, __TYPE_NAME__ __b, __TYPE_NAME__ __x));

@@ -9,6 +9,7 @@
 #include "../include/extramath.h"
 #include "../include/extramath_srcdefs.h"
 #include <math.h>
+#include <stdio.h>
 
 static inline __SCALARTYPE__ square(__SCALARTYPE__ x) {
 	return x * x;
@@ -58,7 +59,7 @@ EXTRAMATH_FUNDEF(gaussjacobiint,(__FNAMESRC__(kernel_) __func,
 	__FNAMESRC_SCAL__(polyroots)(polycoefs, __points, roots);
 
 	for(int i = 0; i < __points; i++) {
-		roots[i] = 1 - 2 * roots[i];	// Bring into canonical form.
+	  	roots[i] = 1 - 2 * roots[i];	// Bring into canonical form.
 		weight = -(2 * __points + __alpha + __beta + 2) / (__points + __alpha + __beta + 1) *
 				__FNAMESRC_SCAL__(exp)(__FNAMESRC_SCAL__(lgamma)(__points + __alpha + 1) +
 						__FNAMESRC_SCAL__(lgamma)(__points + __beta + 1) -
@@ -67,6 +68,7 @@ EXTRAMATH_FUNDEF(gaussjacobiint,(__FNAMESRC__(kernel_) __func,
 						__FNAMESRC_SCAL__(pow)(2, __alpha + __beta)  /
 						__FNAMESRC_SCAL__(jacobi)(__points + 1, __alpha, __beta, roots[i]) /
 						__FNAMESRC_SCAL__(jacobideriv)(__points, __alpha, __beta, roots[i], 1);
+		fprintf(stderr, "Root at %lf, weight %lf.\n", roots[i], weight);
 		sum += __func((roots[i] + 1) / 2 * scale + __start, __extra) * weight;
 	}
 
@@ -179,8 +181,8 @@ EXTRAMATH_FUNDEF(gausshermiteint,(__FNAMESRC__(kernel_) __func,
 	__FNAMESRC_SCAL__(polyroots)(polycoefs, __points, roots);
 
 	for(int i = 0; i < __points; i++) {
-		weight = __FNAMESRC_SCAL__(exp)(__FNAMESRC_SCAL__(lgamma)(__points + 1) + (__points) * M_LN2)
-				/ (M_2_SQRTPI * square(__points * hermite(__points - 1, roots[i])));
+	  weight = __FNAMESRC_SCAL__(exp)(__FNAMESRC_SCAL__(lgamma)(__points + 1) + M_LN2 * (__points))
+	    / (M_2_SQRTPI * square(__points * hermite(__points - 1, roots[i])));
 		sum += __func(roots[i], __extra) * weight;
 	}
 

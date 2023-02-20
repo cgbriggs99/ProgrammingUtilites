@@ -12,6 +12,7 @@ option(LAPACKE_LIB "The name of the lapacke library.")
 option(LAPACK_DIR "The root directory for lapack" 0)
 option(LAPACK_INC_DIR "The directory to find lapack.h" 0)
 option(VALGRIND "Fully qualified path for valgrind, if not in the standard search path.")
+option(NO_NEWTON "Whether to use Newton's method to get better polynomial roots." 0)
 
 
 if(USE_MKL)
@@ -97,6 +98,10 @@ check_library_exists(m sin "" MATH)
 
 if(${MATH})
   set(MATH m)
+endif()
+
+if(NO_NEWTON)
+  add_compile_definitions(NO_NEWTON=1)
 endif()
 
 
