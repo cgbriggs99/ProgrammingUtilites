@@ -105,11 +105,10 @@ EXTRAMATH_FUNDEF(polygamma, (__TYPENAME__ __z)) {
 		return INFINITY;
 	}
 #	endif
-	__TYPENAME__ sum = 0, coef = 1 / __z;
+	__TYPENAME__ sum = 0;
 
-	for(int i = 0; !__FNAMESRC__(absconv)(sum, coef); i++) {
-		coef = 1.0 / (i + 1) / (i + __z + 1);
-		sum += coef;
+	for(int i = 1; !__FNAMESRC__(absconv)(sum, 1 / (i * (i + __z))); i++) {
+	    sum += 1 / (i * (i + __z));
 	}
 
 	return (-1.0 / __z + __z * sum - MASCHERONI);
@@ -129,15 +128,13 @@ EXTRAMATH_FUNDEF(polygamman, (int __n, __TYPENAME__ __z)) {
 	} else if(__n == 0) {
 		return __FNAMESRC__(polygamma)(__z);
 	} else if(__n > 0) {
-		coef = 1 / __FNAMESRC__(pow)(__z, __n + 1);
-		for(int i = 0; __FNAMESRC__(fabs)(coef) > __FNAMESRC__(epsilon)(sum); i++) {
-			sum += coef;
-			coef = 1 / __FNAMESRC__(pow)(i + 1 + __z, __n + 1);
+	  for(int i = 0; __FNAMESRC__(absconv)(sum, 1 / __FNAMESRC__(pow)(__z + i, __n + 1)); i++) {
+			sum += 1 / __FNAMESRC__(pow)(i + 1 + __z, __n + 1);
 		}
 		return (((__n % 2)? 1: -1) * __FNAMESRC__(tgamma)(__n + 1) * sum);
 	} else {
 		coef = 1 / __FNAMESRC__(tgamma)(1 - __n);
-		for(int i = 0; !__FNAMESRC__(absconv)(sum, coef * pz); i++) {
+		for(int i = 1; !__FNAMESRC__(absconv)(sum, coef * pz); i++) {
 			sum += coef * pz * __FNAMESRC__(riemannzeta)(i + 1);
 			coef *= (i + 1) / (i - __n + 1);
 			pz *= -__z;
@@ -158,10 +155,8 @@ EXTRAMATH_FUNDEF(polygamman, (int __n, __TYPENAME__ __z)) {
 	} else if(__n == 0) {
 		return __FNAMESRC__(polygamma)(__z);
 	} else if(__n > 0) {
-		coef = 1 / __FNAMESRC__(pow)(__z, __n + 1);
-		for(int i = 0; !__FNAMESRC__(absconv)(sum, coef); i++) {
-			sum += coef;
-			coef = 1 / __FNAMESRC__(pow)(i + 1 + __z, __n + 1);
+		for(int i = 0; __FNAMESRC__(absconv)(sum, 1 / __FNAMESRC__(pow)(__z + i, __n + 1)); i++) {
+			sum += 1 / __FNAMESRC__(pow)(i + 1 + __z, __n + 1);
 		}
 		return (((__n % 2)? 1: -1) * __FNAMESRC__(tgamma)(__n + 1) * sum);
 	} else {
@@ -192,12 +187,10 @@ EXTRAMATH_FUNDEF(polygammanu, (__TYPENAME__  __nu, __TYPENAME__ __z)) {
 	} else if(__nu == 0) {
 		return __FNAMESRC__(polygamma)(__z);
 	} else if(__nu > 0 && __FNAMESRC__(fmod)(__nu, 1) == 0) {
-		coef = 1 / __FNAMESRC__(pow)(__z, __nu + 1);
-		for(int i = 0; __FNAMESRC__(fabs)(coef) > __FNAMESRC__(epsilon)(sum); i++) {
-			sum += coef;
-			coef = 1 / __FNAMESRC__(pow)(i + 1 + __z, __nu + 1);
+	        for(int i = 0; __FNAMESRC__(absconv)(sum, 1 / __FNAMESRC__(pow)(__z + i, __nu + 1)); i++) {
+			sum += 1 / __FNAMESRC__(pow)(i + 1 + __z, __nu + 1);
 		}
-		return (((__FNAMESRC__(fmod)(__nu, 2) == 1)? 1: -1) * __FNAMESRC__(tgamma)(__nu + 1) * sum);
+		return ((((int) __nu % 2)? 1: -1) * __FNAMESRC__(tgamma)(__nu + 1) * sum);
 	} else {
 		coef = 1 / __FNAMESRC__(tgamma)(1 - __nu);
 		for(int i = 0; !__FNAMESRC__(absconv)(sum, coef * pz); i++) {
@@ -222,12 +215,10 @@ EXTRAMATH_FUNDEF(polygammanu, (__TYPENAME__  __nu, __TYPENAME__ __z)) {
 		return __FNAMESRC__(polygamma)(__z);
 	} else if(__FNAMESRC__(real)(__nu) > 0 && __FNAMESRC__(imag)(__nu) == 0 &&
 			__FNAMESRC_SCAL__(fmod)(__FNAMESRC__(real)(__nu), 1) == 0) {
-		coef = 1 / __FNAMESRC__(pow)(__z, __nu + 1);
-		for(int i = 0; !__FNAMESRC__(absconv)(sum, coef); i++) {
-			sum += coef;
-			coef = 1 / __FNAMESRC__(pow)(i + 1 + __z, __nu + 1);
-		}
-		return (((__FNAMESRC_SCAL__(fmod)(__FNAMESRC__(real)(__nu), 2) == 1)? 1: -1) * __FNAMESRC__(tgamma)(__nu + 1) * sum);
+	  for(int i = 0; __FNAMESRC__(absconv)(sum, 1 / __FNAMESRC__(pow)(__z + i, __nu + 1)); i++) {
+	    sum += 1 / __FNAMESRC__(pow)(i + 1 + __z, __nu + 1);
+	  }
+	  return ((((int) __nu % 2)? 1: -1) * __FNAMESRC__(tgamma)(__nu + 1) * sum);
 	} else {
 		coef = 1 / __FNAMESRC__(tgamma)(1 - __nu);
 		for(int i = 0; !__FNAMESRC__(absconv)(sum, coef * pz); i++) {

@@ -9,7 +9,6 @@
 #include "../include/extramath.h"
 #include "../include/extramath_srcdefs.h"
 #include <math.h>
-#include <stdio.h>
 
 static inline __SCALARTYPE__ square(__SCALARTYPE__ x) {
 	return x * x;
@@ -68,7 +67,6 @@ EXTRAMATH_FUNDEF(gaussjacobiint,(__FNAMESRC__(kernel_) __func,
 						__FNAMESRC_SCAL__(pow)(2, __alpha + __beta)  /
 						__FNAMESRC_SCAL__(jacobi)(__points + 1, __alpha, __beta, roots[i]) /
 						__FNAMESRC_SCAL__(jacobideriv)(__points, __alpha, __beta, roots[i], 1);
-		fprintf(stderr, "Root at %lf, weight %lf.\n", roots[i], weight);
 		sum += __func((roots[i] + 1) / 2 * scale + __start, __extra) * weight;
 	}
 

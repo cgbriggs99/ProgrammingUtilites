@@ -30,3 +30,7 @@ EXTRAMATH_DECL(meijerg, (unsigned int __p, unsigned int __q, unsigned int __m, u
 EXTRAMATH_DECL(appellf1, (__TYPE_NAME__ __a, __TYPE_NAME__ __b1, __TYPE_NAME__ __b2, __TYPE_NAME__ __c,
 		__TYPE_NAME__ __z1, __TYPE_NAME__ __z2));
 
+EXTRAMATH_DECL(hyper1f1reg, (__TYPE_NAME__ __a, __TYPE_NAME__ __b, __TYPE_NAME__ __z));
+EXTRAMATH_DECL(hyper2f1reg, (__TYPE_NAME__ __a, __TYPE_NAME__ __b, __TYPE_NAME__ __c, __TYPE_NAME__ __z));
+EXTRAMATH_DECL(hyperpfqreg, (unsigned int __p, unsigned int __q, const __TYPE_NAME__ *__a,
+		const __TYPE_NAME__ *__b, __TYPE_NAME__ __z));

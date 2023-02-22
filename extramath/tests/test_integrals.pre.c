@@ -2,6 +2,7 @@
 #include <${LAPACKE_HEADER}>
 #include <math.h>
 #include <stdio.h>
+#include "${CMAKE_SOURCE_DIR}/extramath/tests/test.h"
 
 #define GOOD_ENOUGH 0.01
 double finite_integrand(double x, const void *extra) {
@@ -27,6 +28,10 @@ double gen_laguerre_integrand(double x, const void *extra) {
 }
 
 double hermite_integrand(double x, const void *extra) {
+  return 1;
+}
+
+double hermite_nd_integrand(const double *x, int dim, const void *extra) {
   return 1;
 }
 
@@ -118,6 +123,9 @@ int test_integrals(void) {
     fprintf(stderr, "Failed tanhsinh, computed %lf.\n", ret);
     fails++;
   }
+
+  ASSERT_WARN(NEAR(gausshermiteintnd(hermite_nd_integrand, 3, POINTS, NULL),
+		   expected4 * expected4 * expected4), fails);
   
   return fails;
 }
