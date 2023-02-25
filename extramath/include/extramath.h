@@ -13,6 +13,11 @@
 #include <math.h>
 #include <stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+  
+
 /*
  * If we want to precompte values and interpolate, here are the macros for that. The EXTRAMATH_DECL_NOPRE
  * will allow for a function to be defined without a precomputed version. If precomputed functions are turned off,
@@ -188,4 +193,8 @@
 #define MASCHERONI 0.57721566490153286060651209008240243
 #define APERY 1.2020569031595942853997381615114499907649862923404988817922715553
 
+#ifdef __cplusplus
+}
+#endif
+  
 #endif /* EXTRAMATH_H_ */
