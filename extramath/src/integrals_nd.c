@@ -707,31 +707,31 @@ EXTRAMATH_FUNDEF(gausshermiteintnd,(__FNAMESRC__(kernel_nd_) __func, int indim,
 						/ (M_2_SQRTPI * square(__points * hermite(__points - 1, roots[i])));
 	}
 	for(int i = 0; i < indim; i++) {
-		// Prep the initial weight and position.
-		weight *= weights[0];
-		currx[i] = roots[0];
+	  index[i] = 0;
+	  // Prep the initial weight and position.
+	  currx[i] = roots[0];
 	}
 
 	while(1) {
+	  weight = 1;
+	  for(int i = 0; i < indim; i++) {
+	    weight *= weights[index[i]];
+	  }
 		sum += weight * __func(currx, indim, __extra);
 
 		int i = 0;
 		index[0]++;
 		if(index[0] < __points) {
-			weight *= weights[index[0]] / weights[index[0] - 1];
 			currx[0] = roots[index[0]];
 		} else {
-			weight *= weights[0] / weights[index[0] - 1];
 			currx[0] = roots[0];
 		}
 		while(index[i] >= __points && i < indim - 1) {
 			index[i] = 0;
 			index[i + 1]++;
 			if(index[i + 1] < __points) {
-				weight *= weights[index[i + 1]] / weights[index[i + 1] - 1];
 				currx[i + 1] = roots[index[i + 1]];
-			} else {
-				weight *= weights[0] / weights[index[i + 1] - 1];
+			} else {;
 				currx[i + 1] = roots[0];
 			}
 			i++;
