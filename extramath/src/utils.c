@@ -1,0 +1,90 @@
+/*
+ * utils.c
+ *
+ *  Created on: Oct 13, 2021
+ *      Author: connor
+ */
+
+
+#include "../include/extramath.h"
+#include "../include/extramath_srcdefs.h"
+#include <math.h>
+#include <float.h>
+
+__SCALARTYPE__ __FNAMESRC__(epsilon)(__TYPENAME__ __x) {
+	// Convert to bytes, then add or subtract one from the binary representation.
+  if(__FNAMESRC_PREF__(abs)(__x) == 0) {
+    return __FNAMESRC__(epsilon)(1);
+  }
+  union {
+    __SCALARTYPE__ real;
+    unsigned char bytes[sizeof(__SCALARTYPE__)];
+  } convert;
+  convert.real = __FNAMESRC_PREF__(abs)(__x);
+  
+#	if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+  if(convert.bytes[0] & 1) {
+    convert.bytes[0]--;
+    return __FNAMESRC_PREF__(abs)(__x) - convert.real;
+  } else {
+    convert.bytes[0]++;
+    return convert.real - __FNAMESRC_PREF__(abs)(__x);
+  }
+#   else
+  if(convert.bytes[sizeof(__SCALARTYPE__) - 1] & 1) {
+    convert.bytes[sizeof(__SCALARTYPE__) - 1]--;
+    return __FNAMESRC_PREF__(abs)(__x) - convert.real;
+  } else {
+    convert.bytes[sizeof(__SCALARTYPE__) - 1]++;
+    return convert.real - __FNAMESRC_PREF__(abs)(__x);
+  }
+#	endif
+}
+
+int __FNAMESRC__(absconv)(__TYPENAME__ __center, __TYPENAME__ __diff) {
+#ifdef __IS_COMPLEX__
+	return __FNAMESRC_SCAL__(absconv)(__FNAMESRC__(real)(__center), __FNAMESRC__(real)(__diff)) &&
+			__FNAMESRC_SCAL__(absconv)(__FNAMESRC__(imag)(__center), __FNAMESRC__(imag)(__diff));
+#else
+	if(__FNAMESRC_PREF__(abs)(__center) == 0 && __FNAMESRC_PREF__(abs)(__diff) == 0) {
+		return 1;
+	}
+	if(!isfinite(__center)) {
+		return 1;
+	}
+	if(__FNAMESRC_PREF__(abs)(__diff) == 0) {
+	  return 1;
+	}
+	if(__FNAMESRC__(epsilon)(__center) == 0) {
+	  return __FNAMESRC_PREF__(abs)(__diff) <= __FNAMESRC__(epsilon)(1);
+	}
+	return (__FNAMESRC_PREF__(abs)(__diff) <= __FNAMESRC__(epsilon)(__center));
+#endif
+}
+
+int __FNAMESRC__(isinteger)(__TYPENAME__ __z) {
+#ifdef __IS_COMPLEX__
+	return (__FNAMESRC__(imag)(__z) == 0 && __FNAMESRC_SCAL__(fmod)(__FNAMESRC__(real)(__z), 1) == 0);
+#else
+	return (__FNAMESRC__(fmod)(__z, 1) == 0);
+#endif
+}
+
+int __FNAMESRC__(isnatural)(__TYPENAME__ __z) {
+#ifdef __IS_COMPLEX__
+	return (__FNAMESRC__(imag)(__z) == 0 && __FNAMESRC__(real)(__z) > 0 &&
+			__FNAMESRC_SCAL__(fmod)(__FNAMESRC__(real)(__z), 1) == 0);
+#else
+	return (__z > 0 && __FNAMESRC__(fmod)(__z, 1) == 0);
+#endif
+}
+
+#if !defined(__IS_COMPLEX__)
+EXTRAMATH_FUNDEF(real, (__TYPENAME__ __z)) {
+	return __z;
+}
+EXTRAMATH_FUNDEF(imag, (__TYPENAME__ __z)) {
+	return 0;
+}
+#endif
+

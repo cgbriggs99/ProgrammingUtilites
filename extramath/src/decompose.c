@@ -1,0 +1,85 @@
+/*
+ * decompose.c
+ *
+ *  Created on: Feb 6, 2023
+ *      Author: connor
+ */
+
+
+#include "../include/extramath.h"
+#include "../include/extramath_srcdefs.h"
+#include <math.h>
+
+EXTRAMATH_ARRFUNDEF(qrdecompose,(__TYPENAME__ *inout,  __TYPENAME__ *r_out, int rows, int cols)) {
+	__TYPENAME__ norm;
+
+	// fill the output with zeros.
+	for(int i = 0; i < cols; i++) {
+		for(int j = 0; j < cols; j++) {
+			r_out[i * cols + j] = 0;
+		}
+	}
+	// Work on the first row.
+	norm = 0;
+	for(int i = 0; i < rows; i++) {
+		norm += inout[i * cols] * inout[i * cols];
+	}
+	norm = __FNAMESRC__(sqrt)(norm);
+	r_out[0] = norm;
+	for(int i = 0; i < rows; i++) {
+		inout[i * cols] /= norm;
+	}
+
+	// Do the rest.
+	for(int j = 1; j < cols; j++) {
+		for(int i = 0; i < j; i++) {
+			// find the inner product.
+			norm = 0;
+			for(int k = 0; k < rows; k++) {
+				norm += inout[k * cols + j] * inout[k * cols + i];
+
+			}
+			// Remove.
+			for(int k = 0; k < rows; k++) {
+				inout[k * cols + j] -= norm * inout[k * cols + i];
+			}
+			r_out[i * rows + j] = norm;
+		}
+		// Fill in the diagonal term.
+		norm = 0;
+		for(int k = 0; k < rows; k++) {
+			norm += inout[k * cols + j] * inout[k * cols + j];
+		}
+		norm = __FNAMESRC__(sqrt)(norm);
+		r_out[j * rows + j] = norm;
+	}
+	return 0;
+}
+
+EXTRAMATH_ARRFUNDEF(ludecompose,(__TYPENAME__ *l_inout, __TYPENAME__ *u_out, int dim)) {
+	for(int i = 0; i < dim; i++) {
+		for(int j = 0; j < dim; j++) {
+			u_out[i * dim + j] = (i == j)? 1: 0;
+		}
+	}
+
+	// Like Gaussian elimination on its side.
+	int curr_col = 0;
+	for(int i = 0; i < dim; i++) {
+		if(l_inout[i * dim + curr_col] == 0) {
+			continue;
+		}
+
+		// Eliminate.
+		for(int j = curr_col + 1; j < dim; j++) {
+			__TYPENAME__ scale = l_inout[i * dim + j] / l_inout[i * dim + curr_col];
+			// Perform the operation on the L and its inverse on the U.
+			for(int k = 0; k < dim; k++) {
+				l_inout[k * dim + j] -= l_inout[k * dim + curr_col] * scale;
+				u_out[curr_col * dim + k] += scale * u_out[j * dim + k];
+			}
+		}
+	}
+	return 0;
+}
+

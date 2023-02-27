@@ -1,0 +1,492 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Hypergeometric Functions &#8212; ProgrammingUtilities alpha documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Bessel Functions" href="bessels.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="bessels.html" title="Bessel Functions"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">ProgrammingUtilities alpha documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Extra Math Utilities</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Hypergeometric Functions</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="hypergeometric-functions">
+<h1>Hypergeometric Functions<a class="headerlink" href="#hypergeometric-functions" title="Permalink to this heading">¶</a></h1>
+<p>These are hypergeometric and related functions.</p>
+<section id="id1">
+<h2>Hypergeometric Functions<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<p>These may be considered analytic continuations of the sum</p>
+<div class="math notranslate nohighlight">
+\[_pF_q(a_1, a_2, \ldots, a_p; b_1, b_2, \ldots , b_q; z) = \sum_{k = 0}^\infty \frac{\prod_{i = 1}^p (a_i)_k}{\prod_{i = 1}^q (b_i)_q} z^k\]</div>
+<p>In the case of <span class="math notranslate nohighlight">\(U(a, b, z)\)</span>, it can be considered one of the solutions to the following differential equation, where the other is <span class="math notranslate nohighlight">\(_1F_1(a; b; z)\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[zy'' + (b - z)y' - ay = 0\]</div>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.hyper1f1">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hyper1f1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.hyper1f1" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.hyper1f1f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hyper1f1f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.hyper1f1f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.hyper1f1l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hyper1f1l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.hyper1f1l" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.chyper1f1">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">chyper1f1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.chyper1f1" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.chyper1f1f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">chyper1f1f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.chyper1f1f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.chyper1f1l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">chyper1f1l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.chyper1f1l" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> – The first parameter to the hypergeometric series.</p></li>
+<li><p><strong>b</strong> – The second parameter to the hypergeometric series.</p></li>
+<li><p><strong>z</strong> – The value to compute at.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the given hypergeometric series.</p>
+</dd>
+</dl>
+<p>Computes <span class="math notranslate nohighlight">\(_1F_1(a; b; z)\)</span>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.hyperu">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hyperu</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.hyperu" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.hyperuf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hyperuf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.hyperuf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.hyperul">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hyperul</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.hyperul" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.chyperu">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">chyperu</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.chyperu" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.chyperuf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">chyperuf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.chyperuf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.chyperul">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">chyperul</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.chyperul" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> – The fisrt parameter to the hypergeometric series.</p></li>
+<li><p><strong>b</strong> – The second parameter to the hypergeometric series.</p></li>
+<li><p><strong>z</strong> – The value to compute at.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the given hypergeometric series.</p>
+</dd>
+</dl>
+<p>Computes <span class="math notranslate nohighlight">\(U(a, b, z)\)</span>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.hyper2f1">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hyper2f1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">c</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.hyper2f1" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.hyper2f1f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hyper2f1f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">c</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.hyper2f1f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.hyper2f1l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hyper2f1l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">c</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.hyper2f1l" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.chyper2f1">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">chyper2f1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">c</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.chyper2f1" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.chyper2f1f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">chyper2f1f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">c</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.chyper2f1f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.chyper2f1l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">chyper2f1l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">c</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.chyper2f1l" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> – The first numerator argument.</p></li>
+<li><p><strong>b</strong> – The second numerator argument.</p></li>
+<li><p><strong>c</strong> – The denominator argument.</p></li>
+<li><p><strong>z</strong> – The position to evaluate the function at.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the hypergeometric function.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(_2F_1(a, b; c; z)\)</span>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.hyperpfq">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hyperpfq</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">p</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">q</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.hyperpfq" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.hyperpfqf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hyperpfqf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">p</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">q</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.hyperpfqf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.hyperpfql">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hyperpfql</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">p</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">q</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.hyperpfql" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.chyperpfq">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">chyperpfq</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">p</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">q</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.chyperpfq" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.chyperpfqf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">chyperpfqf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">p</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">q</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.chyperpfqf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.chyperpfql">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">chyperpfql</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">p</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">q</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.chyperpfql" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> – The number of numerator arguments.</p></li>
+<li><p><strong>q</strong> – The number of denominator arguments.</p></li>
+<li><p><strong>a</strong> – The numerator arguments.</p></li>
+<li><p><strong>b</strong> – The denominator arguments.</p></li>
+<li><p><strong>z</strong> – The value to compute at.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the general hypergeometric function.</p>
+</dd>
+</dl>
+<p>Computes <span class="math notranslate nohighlight">\(_pF_q\left(a_1, a_2, \ldots , a_p; b_1, b_2, \ldots b_q; z\right)\)</span>.</p>
+</dd></dl>
+
+</section>
+<section id="whittaker-functions">
+<h2>Whittaker Functions<a class="headerlink" href="#whittaker-functions" title="Permalink to this heading">¶</a></h2>
+<p>These are the solutions to the differential equation,</p>
+<div class="math notranslate nohighlight">
+\[y'' - \frac{\left(z^2 - 4az + 4b^2 - 1\right)}{4z^2} y = 0\]</div>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.whittakerm">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">whittakerm</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.whittakerm" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.whittakermf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">whittakermf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.whittakermf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.whittakerml">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">whittakerml</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.whittakerml" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cwhittakerm">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cwhittakerm</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cwhittakerm" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cwhittakermf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cwhittakermf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cwhittakermf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cwhittakerml">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cwhittakerml</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cwhittakerml" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> – The first parameter to the Whittaker function.</p></li>
+<li><p><strong>b</strong> – The second parameter to the Whittaker function.</p></li>
+<li><p><strong>z</strong> – The position to compute at.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the Whittaker M function.</p>
+</dd>
+</dl>
+<p>Computes <span class="math notranslate nohighlight">\(M_{a,b}(z)\)</span>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.whittakerw">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">whittakerw</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.whittakerw" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.whittakerwf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">whittakerwf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.whittakerwf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.whittakerwl">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">whittakerwl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.whittakerwl" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cwhittakerw">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cwhittakerw</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cwhittakerw" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cwhittakerwf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cwhittakerwf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cwhittakerwf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cwhittakerwl">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cwhittakerwl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cwhittakerwl" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> – The first parameter to the Whittaker function.</p></li>
+<li><p><strong>b</strong> – The second parameter to the Whittaker function.</p></li>
+<li><p><strong>z</strong> – The position to compute at.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the Whittaker W function.</p>
+</dd>
+</dl>
+<p>Computes <span class="math notranslate nohighlight">\(W_{a,b}(z)\)</span>.</p>
+</dd></dl>
+
+</section>
+<section id="meijer-function">
+<h2>Meijer Function<a class="headerlink" href="#meijer-function" title="Permalink to this heading">¶</a></h2>
+<p>A rather complicated function with several parameters.</p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.meijerg">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">meijerg</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">p</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">q</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">m</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.meijerg" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.meijergf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">meijergf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">p</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">q</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">m</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.meijergf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.meijergl">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">meijergl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">p</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">q</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">m</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.meijergl" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cmeijerg">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmeijerg</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">p</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">q</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">m</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cmeijerg" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cmeijergf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmeijergf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">p</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">q</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">m</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cmeijergf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cmeijergl">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cmeijergl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">p</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">q</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">m</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">b</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cmeijergl" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> – Length of the a’s.</p></li>
+<li><p><strong>q</strong> – Length of the b’s.</p></li>
+<li><p><strong>m</strong> – Index for splitting the b’s.</p></li>
+<li><p><strong>n</strong> – Index for splitting the a’s.</p></li>
+<li><p><strong>a</strong> – First set of values.</p></li>
+<li><p><strong>b</strong> – Second set of values.</p></li>
+<li><p><strong>z</strong> – The value to compute the function at.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Meijer G function.</p>
+</dd>
+</dl>
+<p>Computes the following:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}G_{p, q}^{m, n}\left(z \left|\begin{matrix}
+          a_1, a_2, \ldots , a_p\\
+          b_1, b_2, \ldots , b_q
+          \end{matrix}\right.\right)\end{split}\]</div>
+</dd></dl>
+
+</section>
+<section id="appel-function">
+<h2>Appel Function<a class="headerlink" href="#appel-function" title="Permalink to this heading">¶</a></h2>
+<p>This is a generalization of the hypergeometric function, defined as the following.</p>
+<div class="math notranslate nohighlight">
+\[F_1\left(a; b_1, b_2; c; z_1, z_2\right) = \sum_{k = 0}^\infty \sum_{l = 0}^\infty \frac{(a)_{k + l} (b_1)_k (b_2)_l z_1^k z_2^l}{(c)_{k + l} k! l!}\]</div>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.apellf1">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">apellf1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">b1</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">b2</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">c</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">z1</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">z2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.apellf1" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.apellf1f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">apellf1f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">b1</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">b2</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">c</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">z1</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">z2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.apellf1f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.apellf1l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">apellf1l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">b1</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">b2</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">c</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">z1</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">z2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.apellf1l" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.capellf1">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">capellf1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">b1</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">b2</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">c</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z1</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.capellf1" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.capellf1f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">capellf1f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">b1</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">b2</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">c</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z1</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.capellf1f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.capellf1l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">capellf1l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">b1</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">b2</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">c</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z1</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">z2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.capellf1l" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Params a, b1, b2, c<span class="colon">:</span></dt>
+<dd class="field-odd"><p>See the equation above.</p>
+</dd>
+<dt class="field-even">Params z1, z2<span class="colon">:</span></dt>
+<dd class="field-even"><p>The positions to evaluate this function at.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Appel F1 function.</p>
+</dd>
+</dl>
+<p>Computes <span class="math notranslate nohighlight">\(F_1(a; b_1, b_2; c; z_1, z_2)\)</span>.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Hypergeometric Functions</a><ul>
+<li><a class="reference internal" href="#id1">Hypergeometric Functions</a></li>
+<li><a class="reference internal" href="#whittaker-functions">Whittaker Functions</a></li>
+<li><a class="reference internal" href="#meijer-function">Meijer Function</a></li>
+<li><a class="reference internal" href="#appel-function">Appel Function</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="bessels.html"
+                          title="previous chapter">Bessel Functions</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/extramath/hypergeom.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="bessels.html" title="Bessel Functions"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">ProgrammingUtilities alpha documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Extra Math Utilities</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Hypergeometric Functions</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2023, Connor Briggs.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,137 @@
+/*
+ * riemann_int.c
+ *
+ *  Created on: Feb 3, 2023
+ *      Author: connor
+ */
+
+#include "../include/extramath.h"
+#include "../include/extramath_srcdefs.h"
+#include <math.h>
+
+
+EXTRAMATH_FUNDEF(lriemannint, (__FNAMESRC__(kernel_) __func,
+			       __SCALARTYPE__ __start, __SCALARTYPE__ __end, unsigned int __points, int include_ends,  const void *__extra)) {
+  __TYPENAME__ sum = 0;
+  __SCALARTYPE__ step, truestart, trueend;
+  // For the left riemann sum these are the same.
+  if(include_ends == __INTEGRAL_NONE__ || include_ends == __INTEGRAL_UPPER__) {
+    step = (__end - __start) / (__points + 1);
+    truestart = __start + step;
+    trueend = __end;
+  } else if(include_ends == __INTEGRAL_LOWER__) {
+    step = (__end - __start) / (__points);
+    truestart = __start;
+    trueend = __end;
+  } else {
+    step = (__end - __start) / (__points);
+    truestart = __start;
+    trueend = __end;
+  }
+  
+  for(int i = 0; i < __points; i++) {
+    sum += __func(step * i + truestart, __extra) * step;
+  }
+  return sum;
+}
+
+EXTRAMATH_FUNDEF(rriemannint, (__FNAMESRC__(kernel_) __func,
+			       __SCALARTYPE__ __start, __SCALARTYPE__ __end, unsigned int __points, int include_ends,  const void *__extra)) {
+  __TYPENAME__ sum = 0;
+  __SCALARTYPE__ step, truestart, trueend;
+  // For the right riemann sum these are the same.
+  if(include_ends == __INTEGRAL_NONE__ || include_ends == __INTEGRAL_LOWER__) {
+    step = (__end - __start) / (__points + 1);
+    truestart = __start;
+    trueend = __end - step;
+  } else if(include_ends == __INTEGRAL_UPPER__) {
+    step = (__end - __start) / (__points);
+    truestart = __start;
+    trueend = __end;
+  } else {
+    step = (__end - __start) / (__points);
+    truestart = __start;
+    trueend = __end;
+  }
+  
+  for(int i = 1; i <= __points; i++) {
+    sum += __func(step * i + truestart, __extra) * step;
+  }
+  return sum;
+}
+
+EXTRAMATH_FUNDEF(mriemannint, (__FNAMESRC__(kernel_) __func,
+			       __SCALARTYPE__ __start, __SCALARTYPE__ __end, unsigned int __points, const void *__extra)) {
+  __TYPENAME__ sum = 0;
+  __SCALARTYPE__ step = (__end - __start) / __points;
+  for(int i = 0; i < __points; i++) {
+    sum += __func(step * (i + 0.5) + __start, __extra) * step;
+  }
+  return sum;
+}
+
+EXTRAMATH_FUNDEF(trapezoidint, (__FNAMESRC__(kernel_) __func,
+				__SCALARTYPE__ __start, __SCALARTYPE__ __end, unsigned int __points, int include_ends,  const void *__extra)) {
+  __TYPENAME__ sum = 0;
+  __SCALARTYPE__ step, truestart, trueend;
+  if(include_ends == __INTEGRAL_NONE__) {
+    step = (__end - __start) / (__points + 2);
+    truestart = __start + step;
+    trueend = __end - step;
+  } else if(include_ends == __INTEGRAL_UPPER__) {
+    step = (__end - __start) / (__points + 1);
+    truestart = __start + step;
+    trueend = __end;
+  } else if(include_ends == __INTEGRAL_LOWER__) {
+    step = (__end - __start) / (__points + 1);
+    truestart = __start;
+    trueend = __end + step;
+  } else {
+    step = (__end - __start) / (__points);
+    truestart = __start;
+    trueend = __end;
+  }
+  
+  // Avoid recalculating so many times.
+  sum = __func(truestart, __extra) / (2 * step) + __func(trueend, __extra) / (2 * step);
+  for(int i = 1; i <= __points - 1; i++) {
+    sum += __func(step * i + truestart, __extra) * step;
+  }
+  return sum;
+}
+
+EXTRAMATH_FUNDEF(simpsonint, (__FNAMESRC__(kernel_) __func,
+			      __SCALARTYPE__ __start, __SCALARTYPE__ __end, unsigned int __points, int include_ends,  const void *__extra)) {
+  __TYPENAME__ sum = 0;
+  __SCALARTYPE__ step, truestart, trueend;
+  if(include_ends == __INTEGRAL_NONE__) {
+    step = (__end - __start) / (__points + 2);
+    truestart = __start + step;
+    trueend = __end - step;
+  } else if(include_ends == __INTEGRAL_UPPER__) {
+    step = (__end - __start) / (__points + 1);
+    truestart = __start + step;
+    trueend = __end;
+  } else if(include_ends == __INTEGRAL_LOWER__) {
+    step = (__end - __start) / (__points + 1);
+    truestart = __start;
+    trueend = __end + step;
+  } else {
+    step = (__end - __start) / (__points);
+    truestart = __start;
+    trueend = __end;
+  }
+  
+  // Avoid recalculating so many times.
+  for(int i = 0; i <= __points; i++) {
+    if(i == 0) {
+      sum += __func(truestart, __extra) / 3 * step + 4 * __func(truestart + step / 2, __extra) / 3 * step;
+    } else if(i == __points) {
+      sum += __func(trueend, __extra) / 3 * step;
+    } else {
+      sum += 2 * __func(step * i + truestart, __extra) / 3 * step +
+	4 * __func(step * (i + 0.5) + truestart, __extra) / 3 * step;
+    }
+  }
+  return sum;
+}

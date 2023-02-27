@@ -1,0 +1,1607 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Bessel Functions &#8212; ProgrammingUtilities alpha documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Hypergeometric Functions" href="hypergeom.html" />
+    <link rel="prev" title="Extra Math Utilities" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="hypergeom.html" title="Hypergeometric Functions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Extra Math Utilities"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">ProgrammingUtilities alpha documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Extra Math Utilities</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Bessel Functions</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="bessel-functions">
+<h1>Bessel Functions<a class="headerlink" href="#bessel-functions" title="Permalink to this heading">¶</a></h1>
+<p>These are Bessel and related functions.</p>
+<section id="id1">
+<h2>Bessel Functions<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<p>These are the solutions to the Bessel differential equation,</p>
+<div class="math notranslate nohighlight">
+\[y'' z^2 + y' z + \left(z^2 - \nu^2\right)y = 0\]</div>
+<section id="complex-only">
+<h3>Complex Only<a class="headerlink" href="#complex-only" title="Permalink to this heading">¶</a></h3>
+<p>These functions have real counterparts defined in the C standard, but their complex versions were left out.</p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cj0">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cj0</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cj0" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cj0f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cj0f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cj0f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cj0l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cj0l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cj0l" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Argument of the Bessel function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the Bessel function of the first kind.</p>
+</dd>
+</dl>
+<p>Finds the value of <span class="math notranslate nohighlight">\(J_0(x)\)</span>. Calls <code class="code docutils literal notranslate"><span class="pre">cjn(0,</span> <span class="pre">x)</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cj1">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cj1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cj1" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cj1f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cj1f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cj1f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cj1l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cj1l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cj1l" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Argument of the Bessel function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the Bessel function of the first kind.</p>
+</dd>
+</dl>
+<p>Finds the value of <span class="math notranslate nohighlight">\(J_1(x)\)</span>. Calls <code class="code docutils literal notranslate"><span class="pre">cjn(1,</span> <span class="pre">x)</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cjn">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cjn</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cjn" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cjnf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cjnf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cjnf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cjnl">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cjnl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cjnl" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> – The parameter of the Bessel function.</p></li>
+<li><p><strong>x</strong> – The argument of the Bessel function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the Bessel function of the first kind.</p>
+</dd>
+</dl>
+<p>Finds the value of <span class="math notranslate nohighlight">\(J_n(x)\)</span>. If <code class="code docutils literal notranslate"><span class="pre">x</span></code> is zero, then the value returned is zero. Otherwise, the following formula is used.</p>
+<div class="math notranslate nohighlight">
+\[\frac{x^n}{2^n n!} \sum_{k = 0}^\infty \frac{(-1)^k z^{2k}}{4^k (n + 1)_k k!}\]</div>
+<p>This was chosen over the standard definition due to the <span class="math notranslate nohighlight">\(4^k\)</span> in the denominator, which should improve convergence.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cy0">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cy0</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cy0" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cy0f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cy0f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cy0f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cy0l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cy0l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cy0l" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Argument of the Bessel function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the Bessel function of the second kind.</p>
+</dd>
+</dl>
+<p>Finds the value of <span class="math notranslate nohighlight">\(Y_0(x)\)</span>. Calls <code class="code docutils literal notranslate"><span class="pre">cyn(0,</span> <span class="pre">x)</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cy1">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cy1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cy1" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cy1f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cy1f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cy1f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cy1l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cy1l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cy1l" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Argument of the Bessel function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the Bessel function of the second kind.</p>
+</dd>
+</dl>
+<p>Finds the value of <span class="math notranslate nohighlight">\(Y_1(x)\)</span>. Calls <code class="code docutils literal notranslate"><span class="pre">cyn(1,</span> <span class="pre">x)</span></code>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cyn">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cyn</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cyn" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cynf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cynf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cynf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cynl">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cynl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cynl" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> – The parameter of the Bessel function.</p></li>
+<li><p><strong>x</strong> – The argument of the Bessel function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the Bessel function of the second kind.</p>
+</dd>
+</dl>
+<p>Finds the value of <span class="math notranslate nohighlight">\(Y_n(x)\)</span>. If <code class="code docutils literal notranslate"><span class="pre">x</span></code> is zero, then the value returned is <code class="code docutils literal notranslate"><span class="pre">NAN</span></code> to represent complex infinity. This is computed using a limit definition, since there does not seem to be a very good way to represent this function as a sum.</p>
+</dd></dl>
+
+</section>
+<section id="real-and-complex">
+<h3>Real and Complex<a class="headerlink" href="#real-and-complex" title="Permalink to this heading">¶</a></h3>
+<p>These are definitions of functions for real and complex arguments.</p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.jnu">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">jnu</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.jnu" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.jnuf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">jnuf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.jnuf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.jnul">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">jnul</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.jnul" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cjnu">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cjnu</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cjnu" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cjnuf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cjnuf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cjnuf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cjnul">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cjnul</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cjnul" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> – The parameter of the Bessel function.</p></li>
+<li><p><strong>x</strong> – The argument of the Bessel function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the Bessel function of the first kind.</p>
+</dd>
+</dl>
+<p>Finds the value of <span class="math notranslate nohighlight">\(J_\nu(x)\)</span>. This is computed using the following sum.</p>
+<div class="math notranslate nohighlight">
+\[\frac{x^\nu}{2^\nu \Gamma(\nu + 1)} \sum_{k = 0}^\infty \frac{(-1)^k z^{2k}}{4^k (\nu + 1)_k k!}\]</div>
+<p>This was chosen over the standard definition due to the <span class="math notranslate nohighlight">\(4^k\)</span> in the denominator, which should improve convergence. In some cases, this sum is skipped. These are</p>
+<div class="math notranslate nohighlight">
+\[J_\nu(0) = 0; \Re(\nu) &gt; 0 \vee \nu \in \mathbb{Z}\]</div>
+<div class="math notranslate nohighlight">
+\[J_\nu(0) = \infty; \Re(\nu) &lt; 0 \wedge \nu \not\in \mathbb{Z}\]</div>
+<div class="math notranslate nohighlight">
+\[J_\nu(0) = \mathrm{NaN}; \Re(\nu) = 0 \wedge \nu \ne 0\]</div>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ynu">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ynu</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.ynu" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ynuf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ynuf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.ynuf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ynul">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ynul</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.ynul" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cynu">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cynu</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cynu" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cynuf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cynuf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cynuf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cynul">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cynul</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cynul" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> – The parameter of the Bessel function.</p></li>
+<li><p><strong>x</strong> – The argument of the Bessel function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the Bessel function of the second kind.</p>
+</dd>
+</dl>
+<p>Finds the value of <span class="math notranslate nohighlight">\(Y_\nu(x)\)</span>. If <span class="math notranslate nohighlight">\(\nu\)</span> is an integer, then this uses the definition of <code class="code docutils literal notranslate"><span class="pre">yn</span></code> for the appropriate type. Otherwise, it uses the following formula.</p>
+<div class="math notranslate nohighlight">
+\[Y_\nu(z) = \csc(\pi\nu) \left(\cos(\pi\nu) J_\nu(z) - J_{-\nu}(z)\right)\]</div>
+</dd></dl>
+
+</section>
+</section>
+<section id="modified-bessel-functions">
+<h2>Modified Bessel Functions<a class="headerlink" href="#modified-bessel-functions" title="Permalink to this heading">¶</a></h2>
+<p>These are the solutions to the modified Bessel differential equation,</p>
+<div class="math notranslate nohighlight">
+\[y'' z^2 + y' z - \left(z^2 + \nu^2\right)y = 0\]</div>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.i0">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">i0</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.i0" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.i0f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">i0f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.i0f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.i0l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">i0l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.i0l" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ci0">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ci0</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.ci0" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ci0f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ci0f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.ci0f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ci0l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ci0l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.ci0l" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – The argument to the Bessel function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the modified Bessel function of the first kind.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(I_0(x)\)</span>. Uses the following sum.</p>
+<div class="math notranslate nohighlight">
+\[I_0(x) = \sum_{k = 0}^\infty \frac{z^{2k}}{4^k (k!)^2}\]</div>
+<p>This skips the sum when <span class="math notranslate nohighlight">\(x = 0\)</span>, since the value is simply 0.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.i1">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">i1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.i1" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.i1f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">i1f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.i1f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.i1l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">i1l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.i1l" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ci1">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ci1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.ci1" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ci1f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ci1f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.ci1f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ci1l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ci1l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.ci1l" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – The argument to the Bessel function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the modified Bessel function of the first kind.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(I_1(x)\)</span>. Uses the following sum.</p>
+<div class="math notranslate nohighlight">
+\[I_n(x) = \frac{z}{2} \sum_{k = 0}^\infty \frac{z^{2k}}{4^k (k + 1)! k!}\]</div>
+<p>This skips the sum when <span class="math notranslate nohighlight">\(x = 0\)</span>, since the value is simply 0.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.in">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">in</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.in" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.inf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">inf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.inf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.inl">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">inl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.inl" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cin">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cin</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cin" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cinf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cinf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cinf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cinl">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cinl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cinl" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> – The parameter of the Bessel function.</p></li>
+<li><p><strong>x</strong> – The argument of the Bessel function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the modified Bessel function of the first kind.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(I_n(x)\)</span>. Uses the following sum.</p>
+<div class="math notranslate nohighlight">
+\[I_n(x) = \frac{z^n}{2^{n} n!} \sum_{k = 0}^\infty \frac{z^{2k}}{4^k (n + 1)_k k!}\]</div>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.inu">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">inu</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.inu" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.inuf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">inuf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.inuf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.inul">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">inul</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.inul" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cinu">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cinu</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cinu" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cinuf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cinuf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cinuf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cinul">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cinul</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cinul" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> – The parameter of the Bessel function.</p></li>
+<li><p><strong>x</strong> – The argument of the Bessel function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the modified Bessel function of the first kind.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(I_\nu(x)\)</span>. Uses the following sum.</p>
+<div class="math notranslate nohighlight">
+\[I_\nu(x) = \frac{z^\nu}{2^{\nu} \Gamma(\nu + 1)} \sum_{k = 0}^\infty \frac{z^{2k}}{4^k (\nu + 1)_k k!}\]</div>
+<p>The function returns some special values without computing the sum. These are</p>
+<div class="math notranslate nohighlight">
+\[I_\nu(0) = 0; \Re(\nu) &gt; 0 \vee \nu \in \mathbb{Z}\]</div>
+<div class="math notranslate nohighlight">
+\[I_\nu(0) = \infty; \Re(\nu) &lt; 0 \wedge \nu \not\in \mathbb{Z}\]</div>
+<div class="math notranslate nohighlight">
+\[I_\nu(0) = \mathrm{NaN}; \Re(\nu) = 0 \wedge \nu \ne 0\]</div>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.k0">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">k0</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.k0" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.k0f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">k0f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.k0f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.k0l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">k0l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.k0l" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ck0">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ck0</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.ck0" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ck0f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ck0f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.ck0f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ck0l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ck0l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.ck0l" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – The argument to the Bessel function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the modified Bessel function of the second kind.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(K_0(x)\)</span>. Calls <code class="code docutils literal notranslate"><span class="pre">kn</span></code> for the appropriate arguments.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.k1">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">k1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.k1" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.k1f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">k1f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.k1f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.k1l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">k1l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.k1l" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ck1">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ck1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.ck1" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ck1f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ck1f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.ck1f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ck1l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ck1l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.ck1l" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – The argument to the Bessel function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the modified Bessel function of the second kind.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(K_1(x)\)</span>. Calls <code class="code docutils literal notranslate"><span class="pre">kn</span></code> for the appropriate arguments.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.kn">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kn</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.kn" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.knf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">knf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.knf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.knl">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">knl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.knl" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ckn">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ckn</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.ckn" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cknf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cknf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cknf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cknl">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cknl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cknl" title="Permalink to this definition">¶</a><br /></dt>
+<dd><blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">param n<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The parameter of the Bessel function.</p>
+</dd>
+<dt class="field-even">param x<span class="colon">:</span></dt>
+<dd class="field-even"><p>The argument of the Bessel function.</p>
+</dd>
+<dt class="field-odd">return<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The value of the modified Bessel function of the second kind.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(K_n(x)\)</span>. Uses the following definition.</p>
+<div class="math notranslate nohighlight">
+\[K_n(x) = -\frac{\pi}{2} i^n Y_n(ix) + (-1)^n \left(i\ln(ix) - \ln(x)\right) I_n(x)\]</div>
+</div></blockquote>
+<p>For the real functions, if this ends up being an imaginary number, <code class="code docutils literal notranslate"><span class="pre">NAN</span></code> is returned instead.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.knu">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">knu</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.knu" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.knuf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">knuf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.knuf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.knul">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">knul</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.knul" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cknu">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cknu</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cknu" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cknuf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cknuf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cknuf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cknul">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cknul</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cknul" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> – The parameter of the Bessel function.</p></li>
+<li><p><strong>x</strong> – The argument of the Bessel function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the modified Bessel function of the second kind.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(K_\nu(x)\)</span>. Uses the following definition for non-integer <span class="math notranslate nohighlight">\(\nu\)</span>. For integer <span class="math notranslate nohighlight">\(\nu\)</span>, the appropriate <a class="reference internal" href="#c.kn" title="kn"><code class="xref c c-func docutils literal notranslate"><span class="pre">kn()</span></code></a> is called.</p>
+<div class="math notranslate nohighlight">
+\[K_\nu(x) = \frac{\pi}{2}\csc(\pi\nu)\left(I_{-\nu}(x) - I_{\nu}(x)\right)\]</div>
+</dd></dl>
+
+</section>
+<section id="airy-functions">
+<h2>Airy Functions<a class="headerlink" href="#airy-functions" title="Permalink to this heading">¶</a></h2>
+<p>These are the solutions to the Airy differential equation, and their derivatives.</p>
+<div class="math notranslate nohighlight">
+\[y'' - zy = 0\]</div>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ai">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ai</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.ai" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.aif">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">aif</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.aif" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.ail">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ail</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.ail" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cai">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cai</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cai" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.caif">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">caif</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.caif" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cail">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cail</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cail" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – The argument to the Airy function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the Airy function of the first kind.</p>
+</dd>
+</dl>
+<p>Returns the value of <span class="math notranslate nohighlight">\(\mathrm{Ai}(x)\)</span>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.bi">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bi</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.bi" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.bif">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bif</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.bif" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.bil">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bil</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.bil" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cbi">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cbi</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cbi" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cbif">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cbif</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cbif" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cbil">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cbil</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cbil" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – The argument to the Airy function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the Airy function of the second kind.</p>
+</dd>
+</dl>
+<p>Returns the value of <span class="math notranslate nohighlight">\(\mathrm{Bi}(x)\)</span>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.aip">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">aip</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.aip" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.aipf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">aipf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.aipf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.aipl">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">aipl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.aipl" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.caip">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">caip</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.caip" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.caipf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">caipf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.caipf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.caipl">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">caipl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.caipl" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – The argument to the Airy function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the first derivative of the Airy function of the first kind.</p>
+</dd>
+</dl>
+<p>Returns the value of <span class="math notranslate nohighlight">\(\mathrm{Ai}'(x)\)</span>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.bip">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bip</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.bip" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.bipf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bipf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.bipf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.bipl">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bipl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.bipl" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cbip">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cbip</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cbip" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cbipf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cbipf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cbipf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cbipl">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cbipl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cbipl" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – The argument to the Airy function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the first derivative of the Airy function of the second kind.</p>
+</dd>
+</dl>
+<p>Returns the value of <span class="math notranslate nohighlight">\(\mathrm{Bi}'(x)\)</span>.</p>
+</dd></dl>
+
+</section>
+<section id="struve-functions">
+<h2>Struve Functions<a class="headerlink" href="#struve-functions" title="Permalink to this heading">¶</a></h2>
+<p>These are the solutions to the Struve differential equation.</p>
+<div class="math notranslate nohighlight">
+\[y'' z^2 + y' z + \left(z^2 - \nu^2\right)y = \frac{4}{\sqrt{\pi} \Gamma\left(\nu + \frac{1}{2}\right)} \left(\frac{z}{2}\right)^{\nu + 1}\]</div>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struveh0">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struveh0</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struveh0" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struveh0f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struveh0f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struveh0f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struveh0l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struveh0l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struveh0l" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruveh0">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruveh0</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruveh0" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruveh0f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruveh0f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruveh0f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruveh0l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruveh0l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruveh0l" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – The argument to the Struve H function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the Struve H function.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(H_0(x)\)</span>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struveh1">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struveh1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struveh1" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struveh1f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struveh1f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struveh1f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struveh1l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struveh1l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struveh1l" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruveh1">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruveh1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruveh1" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruveh1f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruveh1f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruveh1f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruveh1l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruveh1l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruveh1l" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – The argument to the Struve H function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the Struve H function.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(H_1(x)\)</span>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struvehn">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struvehn</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struvehn" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struvehnf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struvehnf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struvehnf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struvehnl">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struvehnl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struvehnl" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruvehn">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruvehn</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruvehn" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruvehnf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruvehnf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruvehnf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruvehnl">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruvehnl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruvehnl" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> – The parameter of the Struve H function.</p></li>
+<li><p><strong>x</strong> – The argument to the Struve H function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the Struve H function.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(H_n(x)\)</span>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struvehnu">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struvehnu</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struvehnu" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struvehnuf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struvehnuf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struvehnuf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struvehnul">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struvehnul</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struvehnul" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruvehnu">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruvehnu</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruvehnu" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruvehnuf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruvehnuf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruvehnuf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruvehnul">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruvehnul</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruvehnul" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> – The parameter of the Struve H function.</p></li>
+<li><p><strong>x</strong> – The argument to the Struve H function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the Struve H function.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(H_\nu(x)\)</span>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struvel0">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struvel0</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struvel0" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struvel0f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struvel0f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struvel0f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struvel0l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struvel0l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struvel0l" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruvel0">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruvel0</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruvel0" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruvel0f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruvel0f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruvel0f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruvel0l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruvel0l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruvel0l" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – The argument to the Struve L function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the Struve L function.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(L_0(x)\)</span>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struvel1">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struvel1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struvel1" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struvel1f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struvel1f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struvel1f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struvel1l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struvel1l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struvel1l" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruvel1">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruvel1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruvel1" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruvel1f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruvel1f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruvel1f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruvel1l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruvel1l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruvel1l" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – The argument to the Struve L function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the Struve L function.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(L_1(x)\)</span>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struveln">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struveln</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struveln" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struvelnf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struvelnf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struvelnf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struvelnl">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struvelnl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struvelnl" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruveln">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruveln</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruveln" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruvelnf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruvelnf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruvelnf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruvelnl">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruvelnl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruvelnl" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> – The parameter of the Struve L function.</p></li>
+<li><p><strong>x</strong> – The argument to the Struve L function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the Struve L function.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(L_n(x)\)</span>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struvelnu">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struvelnu</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struvelnu" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struvelnuf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struvelnuf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struvelnuf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.struvelnul">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struvelnul</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.struvelnul" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruvelnu">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruvelnu</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruvelnu" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruvelnuf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruvelnuf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruvelnuf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cstruvelnul">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cstruvelnul</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cstruvelnul" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> – The parameter of the Struve L function.</p></li>
+<li><p><strong>x</strong> – The argument to the Struve L function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the Struve L function.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(L_\nu(x)\)</span>.</p>
+</dd></dl>
+
+</section>
+<section id="spherical-bessel-functions">
+<h2>Spherical Bessel Functions<a class="headerlink" href="#spherical-bessel-functions" title="Permalink to this heading">¶</a></h2>
+<p>These are the solutions to the spherical Bessel differential equation.</p>
+<div class="math notranslate nohighlight">
+\[y'' z^2 + 2y' z + \left(z^2 - \nu(\nu + 1)\right)y = 0\]</div>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spj0">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spj0</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spj0" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spj0f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spj0f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spj0f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spj0l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spj0l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spj0l" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspj0">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspj0</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspj0" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspj0f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspj0f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspj0f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspj0l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspj0l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspj0l" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – The argument to the Bessel function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the spherical Bessel function of the first kind.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(j_0(x)\)</span>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spj1">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spj1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spj1" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spj1f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spj1f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spj1f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spj1l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spj1l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spj1l" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspj1">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspj1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspj1" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspj1f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspj1f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspj1f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspj1l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspj1l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspj1l" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – The argument to the Bessel function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the spherical Bessel function of the first kind.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(j_1(x)\)</span>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spjn">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spjn</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spjn" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spjnf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spjnf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spjnf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spjnl">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spjnl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spjnl" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspjn">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspjn</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspjn" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspjnf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspjnf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspjnf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspjnl">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspjnl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspjnl" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> – The parameter to the Bessel function.</p></li>
+<li><p><strong>x</strong> – The argument to the Bessel function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the spherical Bessel function of the first kind.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(j_n(x)\)</span>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spjnu">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spjnu</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spjnu" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spjnuf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spjnuf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spjnuf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spjnul">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spjnul</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spjnul" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspjnu">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspjnu</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspjnu" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspjnuf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspjnuf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspjnuf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspjnul">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspjnul</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspjnul" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> – The parameter to the Bessel function.</p></li>
+<li><p><strong>x</strong> – The argument to the Bessel function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the spherical Bessel function of the first kind.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(j_\nu(x)\)</span>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spy0">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spy0</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spy0" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spy0f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spy0f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spy0f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spy0l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spy0l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spy0l" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspy0">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspy0</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspy0" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspy0f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspy0f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspy0f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspy0l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspy0l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspy0l" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – The argument to the Bessel function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the spherical Bessel function of the second kind.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(y_0(x)\)</span>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spy1">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spy1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spy1" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spy1f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spy1f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spy1f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spy1l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spy1l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spy1l" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspy1">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspy1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspy1" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspy1f">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspy1f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspy1f" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspy1l">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspy1l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspy1l" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – The argument to the Bessel function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the spherical Bessel function of the second kind.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(y_1(x)\)</span>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spyn">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spyn</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spyn" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spynf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spynf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spynf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spynl">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spynl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spynl" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspyn">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspyn</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspyn" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspynf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspynf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspynf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspynl">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspynl</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">n</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspynl" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> – The parameter to the Bessel function.</p></li>
+<li><p><strong>x</strong> – The argument to the Bessel function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the spherical Bessel function of the second kind.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(y_n(x)\)</span>.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spynu">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spynu</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spynu" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spynuf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spynuf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spynuf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.spynul">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spynul</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.spynul" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspynu">
+<span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspynu</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspynu" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspynuf">
+<span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspynuf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspynuf" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.cspynul">
+<span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cspynul</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">nu</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="kt"><span class="pre">_Complex</span></span><span class="w"> </span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.cspynul" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> – The parameter to the Bessel function.</p></li>
+<li><p><strong>x</strong> – The argument to the Bessel function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the spherical Bessel function of the second kind.</p>
+</dd>
+</dl>
+<p>Calculates <span class="math notranslate nohighlight">\(y_\nu(x)\)</span>.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Bessel Functions</a><ul>
+<li><a class="reference internal" href="#id1">Bessel Functions</a><ul>
+<li><a class="reference internal" href="#complex-only">Complex Only</a></li>
+<li><a class="reference internal" href="#real-and-complex">Real and Complex</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#modified-bessel-functions">Modified Bessel Functions</a></li>
+<li><a class="reference internal" href="#airy-functions">Airy Functions</a></li>
+<li><a class="reference internal" href="#struve-functions">Struve Functions</a></li>
+<li><a class="reference internal" href="#spherical-bessel-functions">Spherical Bessel Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="index.html"
+                          title="previous chapter">Extra Math Utilities</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="hypergeom.html"
+                          title="next chapter">Hypergeometric Functions</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/extramath/bessels.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="hypergeom.html" title="Hypergeometric Functions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Extra Math Utilities"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">ProgrammingUtilities alpha documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Extra Math Utilities</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Bessel Functions</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2023, Connor Briggs.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
+    </div>
+  </body>
+</html>

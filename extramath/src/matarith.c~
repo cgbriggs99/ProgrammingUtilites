@@ -1,0 +1,142 @@
+/*
+ * matarith.c
+ *
+ *  Created on: Feb 6, 2023
+ *      Author: connor
+ */
+
+#include "../extramath.h"
+#include "../extramath_srcdefs.h"
+#include <math.h>
+#include <string.h>
+#include <stdlib.h>
+
+EXTRAMATH_ARRFUNDEF(matmult,(const __TYPENAME__ *left, const __TYPENAME__ *right, __TYPENAME__ *out,
+		int lrows, int lc_rr, int rcols)) {
+	if(out != left && out != right) {
+		__TYPENAME__ sum = 0;
+
+		for(int i = 0; i < lrows; i++) {
+			for(int j = 0; j < rcols; j++) {
+				sum = 0;
+				for(int k = 0; k < lc_rr; k++) {
+					sum += left[i * lc_rr + k] * right[k * rcols + j];
+				}
+				out[i * rcols + j] = sum;
+			}
+		}
+		return 0;
+	} else {	// in place?
+		__TYPENAME__ *newout = calloc(lrows * rcols, sizeof(__TYPENAME__));
+		__TYPENAME__ sum = 0;
+
+		for(int i = 0; i < lrows; i++) {
+			for(int j = 0; j < rcols; j++) {
+				sum = 0;
+				for(int k = 0; k < lc_rr; k++) {
+					sum += left[i * lc_rr + k] * right[k * rcols + j];
+				}
+				newout[i * rcols + j] = sum;
+			}
+		}
+
+		memcpy(out, newout, lrows * rcols * sizeof(__TYPENAME__));
+		free(newout);
+		return 0;
+	}
+}
+
+
+EXTRAMATH_ARRFUNDEF(matsum,(__TYPENAME__ *left_inout, const __TYPENAME__ *right, int rows, int cols)) {
+	for(int i = 0; i < rows;  i++) {
+		for(int j = 0; j < cols; j++) {
+			left_inout[i * cols + j] += right[i * cols + j];
+		}
+	}
+	return 0;
+}
+
+EXTRAMATH_ARRFUNDEF(matdiff,(__TYPENAME__ *left_inout, const __TYPENAME__ *right, int rows, int cols)) {
+	for(int i = 0; i < rows;  i++) {
+		for(int j = 0; j < cols; j++) {
+			left_inout[i * cols + j] -= right[i * cols + j];
+		}
+	}
+	return 0;
+}
+
+EXTRAMATH_ARRFUNDEF(matdifftimes,(__TYPENAME__ *left_inout, const __TYPENAME__ *right, __TYPENAME__ scal, int rows, int cols)) {
+	for(int i = 0; i < rows;  i++) {
+		for(int j = 0; j < cols; j++) {
+			left_inout[i * cols + j] -= scal * right[i * cols + j];
+		}
+	}
+	return 0;
+}
+
+EXTRAMATH_ARRFUNDEF(matsumtimes,(__TYPENAME__ *left_inout, const __TYPENAME__ *right, __TYPENAME__ scal, int rows, int cols)) {
+	for(int i = 0; i < rows;  i++) {
+		for(int j = 0; j < cols; j++) {
+			left_inout[i * cols + j] += scal * right[i * cols + j];
+		}
+	}
+	return 0;
+}
+
+
+EXTRAMATH_ARRFUNDEF(scalmult,(__TYPENAME__ *inout, __TYPENAME__ __scal, int rows, int cols)) {
+	for(int i = 0; i < rows; i++) {
+		for(int j = 0; j < cols; j++) {
+			inout[i * cols + j] *= __scal;
+		}
+	}
+	return 0;
+}
+
+EXTRAMATH_FUNDEF(dotprod,(const __TYPENAME__ *left, const __TYPENAME__ *right, int size)) {
+	__TYPENAME__ sum = 0;
+	for(int i = 0; i < size; i++) {
+		sum += left[i] * right[i];
+	}
+	return sum;
+}
+
+EXTRAMATH_FUNDEF(norm,(const __TYPENAME__ *arr, int size)) {
+	__TYPENAME__ sum = 0;
+	for(int i = 0; i < size; i++) {
+#ifdef __IS_COMPLEX__
+		sum += arr[i] * __FNAMESRC_SCAL__(conj)(arr[i]);
+#else
+		sum += arr[i] * arr[i];
+#endif
+	}
+	return __FNAMESRC__(sqrt)(sum);
+}
+
+EXTRAMATH_ARRFUNDEF(transpose, (__TYPENAME__ *inout, int rows, int cols)) {
+	__TYPENAME__ *hold = calloc(rows * cols, sizeof(__TYPENAME__));
+	for(int i = 0; i < rows; i++) {
+		for(int j = 0; j < cols; j++) {
+			hold[j * rows + i] = inout[i * cols + j];
+		}
+	}
+	memcpy(inout, hold, rows * cols * sizeof(__TYPENAME__));
+	free(hold);
+	return 0;
+}
+
+EXTRAMATH_ARRFUNDEF(conjtranspose, (__TYPENAME__ *inout, int rows, int cols)) {
+	__TYPENAME__ *hold = calloc(rows * cols, sizeof(__TYPENAME__));
+	for(int i = 0; i < rows; i++) {
+		for(int j = 0; j < cols; j++) {
+#ifdef __IS_SCALAR__
+			hold[j * rows + i] = __FNAMESRC_SCAL__(conj)(inout[i * cols + j]);
+#else
+			hold[j * rows + i] = inout[i * cols + j];
+#endif
+		}
+	}
+	memcpy(inout, hold, rows * cols * sizeof(__TYPENAME__));
+	free(hold);
+	return 0;
+}
