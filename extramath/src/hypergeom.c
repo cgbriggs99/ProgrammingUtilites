@@ -13,7 +13,7 @@
 EXTRAMATH_FUNDEF(hyper1f1, (__TYPENAME__ __a, __TYPENAME__ __b, __TYPENAME__ __z)) {
 	__TYPENAME__ sum = 0, coef = 1, pz = 1;
 
-	for(int i = 0; !__FNAMESRC__(absconv)(sum, coef * pz); i++) {
+	for(int i = 0; i < 5 || !__FNAMESRC__(absconv)(sum, coef * pz); i++) {
 		sum += coef * pz;
 		coef *= __a + i;
 		coef /= (__b + i) * (i + 1);
